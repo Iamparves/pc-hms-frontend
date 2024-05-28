@@ -136,6 +136,7 @@ const SignupForm = () => {
           <Button
             className="bg-blue hover:bg-blue/90 w-full py-[22px] text-[15px]"
             type="submit"
+            disabled={signupMutation.isPending}
           >
             Signup
           </Button>
