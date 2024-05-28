@@ -16,6 +16,7 @@
     "@tanstack/react-query-devtools": "^5.40.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "input-otp": "^1.2.4",
     "lucide-react": "^0.379.0",
     "next-themes": "^0.3.0",
     "react": "^18.2.0",

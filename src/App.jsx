@@ -4,6 +4,7 @@ import { Toaster } from "./components/ui/sonner";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import VerifyAccount from "./pages/VerifyAccount";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
             <Route path="" index element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/verify" element={<VerifyAccount />} />
           </Route>
         </Routes>
       </BrowserRouter>
