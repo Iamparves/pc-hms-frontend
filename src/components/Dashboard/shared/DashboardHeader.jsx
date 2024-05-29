@@ -11,7 +11,7 @@ const DashboardHeader = ({ title, desc }) => {
   return (
     <div className="flex h-16 items-center gap-2 border-b border-[#eee]/70 bg-white px-3 sm:h-20 sm:gap-3 sm:px-5 xl:px-10">
       <button
-        className="flex aspect-square w-9 items-center justify-center rounded-md border border-primary/10 bg-[#FEF2E2] text-primary sm:w-10 lg:hidden"
+        className="flex aspect-square w-9 items-center justify-center rounded-md border border-primary/10 bg-[#e2f0fe] text-primary sm:w-10 lg:hidden"
         onClick={toggleSidebar}
       >
         <span className="text-2xl">

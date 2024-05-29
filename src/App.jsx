@@ -1,5 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import HospitalOverview from "./components/Dashboard/Admin/HospitalOverview";
+import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppointments";
+import HospitalDoctos from "./components/Dashboard/Hospital/HospitalDoctos";
+import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
 import Layout from "./components/shared/Layout";
 import { Toaster } from "./components/ui/sonner";
 import Dashboard from "./pages/Dashboard";
@@ -37,8 +39,8 @@ const App = () => {
           >
             <Route path="" element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<HospitalOverview />} />
-            <Route path="hospitals" element={<h1>Hospitals</h1>} />
-            <Route path="admins" element={<h1>Admins</h1>} />
+            <Route path="doctors" element={<HospitalDoctos />}></Route>
+            <Route path="appointments" element={<HospitalAppointments />} />
             <Route path="profile" element={<h1>Profile</h1>} />
           </Route>
 
