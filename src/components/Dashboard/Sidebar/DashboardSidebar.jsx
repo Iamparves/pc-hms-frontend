@@ -1,49 +1,16 @@
 import Loader from "@/components/shared/Loader";
+import useMenuItems from "@/hooks/useMenuItems";
 import { useStore } from "@/store";
 import { useEffect } from "react";
 import { FiUser } from "react-icons/fi";
-import { MdDashboard } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
 import LogoutButton from "./LogoutButton";
 import MenuLink from "./MenuLink";
 
-const menuItems = {
-  admin: [
-    {
-      title: "Overview",
-      path: "overview",
-      icon: <MdDashboard />,
-    },
-    {
-      title: "Hospitals",
-      path: "hospitals",
-      icon: <MdDashboard />,
-    },
-    {
-      title: "Admins",
-      path: "admins",
-      icon: <MdDashboard />,
-    },
-  ],
-  hospital: [
-    {
-      title: "Overview",
-      path: "overview",
-      icon: <MdDashboard />,
-    },
-  ],
-  patient: [
-    {
-      title: "Overview",
-      path: "overview",
-      icon: <MdDashboard />,
-    },
-  ],
-};
-
 const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
   const user = useStore((state) => state.user);
+  const menuItems = useMenuItems();
 
   const closeSidebar = () => setSidebarOpen(false);
 
@@ -67,7 +34,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }) => {
         <div className="sidebarContent h-[calc(100vh-64px)] overflow-y-auto pb-5 sm:h-[calc(100vh-80px)] sm:pb-10">
           {user && (
             <>
-              <p className="px-8 py-4 text-xs font-medium uppercase text-primary">
+              <p className="px-8 py-4 text-xs font-medium uppercase text-blue">
                 Menu
               </p>
               <nav className="flex flex-col gap-1 sm:gap-1.5">
