@@ -63,7 +63,6 @@ export const verifyAccount = async (otpData) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(otpData),
-      // credentials: "include",
     });
 
     const data = await response.json();

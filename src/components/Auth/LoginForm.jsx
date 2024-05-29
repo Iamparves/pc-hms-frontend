@@ -2,6 +2,7 @@ import { login } from "@/db/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
@@ -17,6 +18,8 @@ const formSchema = z.object({
 });
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,8 +37,9 @@ const LoginForm = () => {
         });
 
         form.reset();
+        return navigate(`/dashboard/${data.user.role}`);
       } else {
-        toast("Login failed", { type: "error", description: data.message });
+        toast("Login failed", { type: "error" });
       }
     },
     onError: (error) => {
@@ -72,7 +76,7 @@ const LoginForm = () => {
           />
 
           <Button
-            className="bg-blue hover:bg-blue/90 w-full py-[22px] text-[15px]"
+            className="w-full bg-blue py-[22px] text-[15px] hover:bg-blue/90"
             type="submit"
             disabled={loginMutation.isPending}
           >
