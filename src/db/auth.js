@@ -55,6 +55,24 @@ export const login = async (user) => {
   }
 };
 
+export const logout = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
 export const verifyAccount = async (otpData) => {
   try {
     const response = await fetch(`${BASE_URL}/users/verify-otp`, {

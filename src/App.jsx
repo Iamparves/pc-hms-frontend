@@ -1,8 +1,7 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/shared/Layout";
 import { Toaster } from "./components/ui/sonner";
 import Dashboard from "./pages/Dashboard";
-import DashboardByRole from "./pages/DashboardByRole";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -21,9 +20,25 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/verify-otp" element={<VerifyAccount />} />
           </Route>
-
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route path=":role" element={<DashboardByRole />} />
+          <Route
+            path="/dashboard/admin"
+            element={<Dashboard allowedRoles={["admin"]} />}
+          >
+            <Route path="" element={<Navigate to="overview" replace />} />
+            <Route path="overview" element={<h1>Overview</h1>} />
+            <Route path="hospitals" element={<h1>Hospitals</h1>} />
+            <Route path="admins" element={<h1>Admins</h1>} />
+            <Route path="profile" element={<h1>Profile</h1>} />
+          </Route>
+          <Route
+            path="/dashboard/hospital"
+            element={<Dashboard allowedRoles={["hospital"]} />}
+          >
+            <Route path="" element={<Navigate to="overview" replace />} />
+            <Route path="overview" element={<h1>Overview</h1>} />
+            <Route path="hospitals" element={<h1>Hospitals</h1>} />
+            <Route path="admins" element={<h1>Admins</h1>} />
+            <Route path="profile" element={<h1>Profile</h1>} />
           </Route>
 
           <Route path="*" element={<NotFound />} />

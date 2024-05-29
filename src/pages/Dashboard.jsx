@@ -1,14 +1,19 @@
 import DashboardSidebar from "@/components/Dashboard/Sidebar/DashboardSidebar";
+import useAuth from "@/hooks/useAuth";
 import { useState } from "react";
-import { Navigate, Outlet, useParams } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const Dashboard = () => {
+const Dashboard = ({ allowedRoles }) => {
+  const { isLoading, user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { role } = useParams();
 
-  if (!role) {
+  if (!user && !isLoading) return <Navigate to="/login" />;
+
+  if (!isLoading && (!user || !allowedRoles.includes(user.role))) {
     return <Navigate to="/" />;
   }
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <main className="grid h-screen grid-cols-1 bg-lightBG lg:grid-cols-[280px_1fr]">
