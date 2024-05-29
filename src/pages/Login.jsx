@@ -8,7 +8,9 @@ const Login = () => {
 
   if (isLoading) return <FullpageLoader message="Loading..." />;
 
-  if (user) <Navigate to={`/dashboard/${user.role}`} />;
+  if (user) {
+    return <Navigate to={`/dashboard/${user.role}`} />;
+  }
 
   return (
     <section>

@@ -10,20 +10,22 @@ const useAuth = () => {
   const setFirstVisit = useStore((state) => state.setFirstVisit);
 
   useEffect(() => {
-    if (user || !isFirstVisit) return setIsLoading(false);
-
-    (async () => {
-      const result = await getLoggedInUser();
-
-      if (result.status === "success") {
-        setUser(result.data.user);
-      } else {
-        setUser(null);
-      }
-
-      setFirstVisit(false);
+    if (user || !isFirstVisit) {
       setIsLoading(false);
-    })();
+    } else {
+      (async () => {
+        const result = await getLoggedInUser();
+
+        if (result.status === "success") {
+          setUser(result.data.user);
+        } else {
+          setUser(null);
+        }
+
+        setFirstVisit(false);
+        setIsLoading(false);
+      })();
+    }
   }, []);
 
   return { isLoading, user };

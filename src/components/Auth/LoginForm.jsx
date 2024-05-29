@@ -43,7 +43,7 @@ const LoginForm = () => {
 
         return navigate(`/dashboard/${data.data?.user?.role}`);
       } else {
-        toast("Login failed", { type: "error" });
+        toast("Login failed", { type: "error", description: data.message });
       }
     },
     onError: (error) => {
