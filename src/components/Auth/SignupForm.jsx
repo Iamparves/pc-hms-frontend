@@ -9,6 +9,7 @@ import { signup } from "@/db/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
@@ -34,6 +35,8 @@ const formSchema = z.object({
 });
 
 const SignupForm = () => {
+  const navigate = useNavigate();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,6 +59,8 @@ const SignupForm = () => {
         });
 
         form.reset();
+
+        return navigate(`/verify-otp?phone=${data.mobileNo}`);
       } else {
         toast("Signup failed", { type: "error", description: data.message });
       }
@@ -134,7 +139,7 @@ const SignupForm = () => {
           />
 
           <Button
-            className="bg-blue hover:bg-blue/90 w-full py-[22px] text-[15px]"
+            className="w-full bg-blue py-[22px] text-[15px] hover:bg-blue/90"
             type="submit"
             disabled={signupMutation.isPending}
           >

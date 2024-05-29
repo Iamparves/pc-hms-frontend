@@ -1,9 +1,22 @@
 import SignupForm from "@/components/Auth/SignupForm";
+import FullpageLoader from "@/components/shared/FullpageLoader";
 import useAuth from "@/hooks/useAuth";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Signup = () => {
   const { isLoading, user } = useAuth();
+
+  if (isLoading) return <FullpageLoader message="Loading..." />;
+
+  if (user) {
+    if (user.role === "admin") {
+      return <Navigate to="/admin/dashboard" />;
+    } else if (user.role === "hospital") {
+      return <Navigate to="/hospital/dashboard" />;
+    } else if (user.role === "patient") {
+      return <Navigate to="/patient/dashboard" />;
+    }
+  }
 
   return (
     <section>

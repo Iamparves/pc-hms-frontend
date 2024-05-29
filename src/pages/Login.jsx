@@ -1,11 +1,12 @@
 import LoginForm from "@/components/Auth/LoginForm";
+import FullpageLoader from "@/components/shared/FullpageLoader";
 import useAuth from "@/hooks/useAuth";
 import { Link, Navigate } from "react-router-dom";
 
 const Login = () => {
   const { isLoading, user } = useAuth();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <FullpageLoader message="Loading..." />;
 
   if (user) {
     if (user.role === "admin") {
