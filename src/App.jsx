@@ -20,11 +20,13 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/verify-otp" element={<VerifyAccount />} />
-            <Route path="/dashboard" element={<Dashboard />}>
-              <Route path=":role" element={<DashboardByRole />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
           </Route>
+
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route path=":role" element={<DashboardByRole />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
