@@ -5,6 +5,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { Skeleton } from "@/components/ui/skeleton";
 import { verifyAccount } from "@/db/auth";
 import useAuth from "@/hooks/useAuth";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
@@ -22,7 +23,7 @@ const VerifyAccount = () => {
     return <Navigate to="/" />;
   }
 
-  const { user } = useAuth();
+  const { user, isLoading: isUserFetching } = useAuth();
 
   if (user?.isVerified) {
     return <Navigate to="/" />;
@@ -59,6 +60,23 @@ const VerifyAccount = () => {
 
     return navigate("/login");
   };
+
+  if (isUserFetching) {
+    return (
+      <section className="flex min-h-[calc(100dvh-80px)] w-screen items-center justify-center bg-white">
+        <div className="relative flex w-full max-w-[445px] flex-col space-y-3">
+          <Skeleton className="h-[140px] w-full rounded-xl" />
+          <div className="space-y-2">
+            <Skeleton className="h-8 w-full" />
+            <Skeleton className="h-8 w-full" />
+          </div>
+          <p className="absolute left-1/2 top-14 -translate-x-1/2 text-gray-400">
+            Loading...
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="flex min-h-[calc(100dvh-80px)] items-center justify-center px-5 py-10">

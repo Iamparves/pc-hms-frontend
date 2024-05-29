@@ -1,4 +1,5 @@
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = "http://localhost:5000/api/v1";
+// const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const getLoggedInUser = async () => {
   try {
@@ -7,7 +8,7 @@ export const getLoggedInUser = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      // credentials: "include",
+      credentials: "include",
     });
 
     const data = await response.json();
@@ -44,7 +45,7 @@ export const login = async (user) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
-      // credentials: "include",
+      credentials: "include",
     });
 
     const data = await response.json();
