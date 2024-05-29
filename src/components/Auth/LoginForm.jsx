@@ -1,4 +1,5 @@
 import { login } from "@/db/auth";
+import { useStore } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -19,6 +20,7 @@ const formSchema = z.object({
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const setUser = useStore((state) => state.setUser);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -37,7 +39,9 @@ const LoginForm = () => {
         });
 
         form.reset();
-        return navigate(`/dashboard/${data.user.role}`);
+        setUser(data.data?.user);
+
+        return navigate(`/dashboard/${data.data?.user?.role}`);
       } else {
         toast("Login failed", { type: "error" });
       }

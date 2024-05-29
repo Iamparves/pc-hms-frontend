@@ -15,8 +15,6 @@ const useAuth = () => {
     (async () => {
       const result = await getLoggedInUser();
 
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-
       if (result.status === "success") {
         setUser(result.data.user);
       } else {
