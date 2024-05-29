@@ -1,7 +1,22 @@
 import LoginForm from "@/components/Auth/LoginForm";
-import { Link } from "react-router-dom";
+import useAuth from "@/hooks/useAuth";
+import { Link, Navigate } from "react-router-dom";
 
 const Login = () => {
+  const { isLoading, user } = useAuth();
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (user) {
+    if (user.role === "admin") {
+      return <Navigate to="/admin/dashboard" />;
+    } else if (user.role === "hospital") {
+      return <Navigate to="/hospital/dashboard" />;
+    } else if (user.role === "patient") {
+      return <Navigate to="/patient/dashboard" />;
+    }
+  }
+
   return (
     <section>
       <div className="container flex min-h-[calc(100dvh-80px)] flex-col items-center justify-center px-5 py-10 sm:py-14">

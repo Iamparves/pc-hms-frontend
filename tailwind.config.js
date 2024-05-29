@@ -50,6 +50,7 @@ module.exports = {
         },
         lightBG: "#F3F4F6",
         blue: "#34A5E4",
+        brand: "#0455A4",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -1,24 +1,15 @@
-import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/shared/Layout";
 import { Toaster } from "./components/ui/sonner";
-import useAuth from "./hooks/useAuth";
+import Dashboard from "./pages/Dashboard";
+import DashboardByRole from "./pages/DashboardByRole";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
 import VerifyAccount from "./pages/VerifyAccount";
-import { useStore } from "./store";
 
 const App = () => {
-  const { isLoading } = useAuth();
-  const setFirstVisit = useStore((state) => state.setFirstVisit);
-
-  useEffect(() => {
-    if (!isLoading) {
-      setFirstVisit(false);
-    }
-  }, [isLoading]);
-
   return (
     <>
       <Toaster />
@@ -29,6 +20,10 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/verify" element={<VerifyAccount />} />
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route path=":role" element={<DashboardByRole />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>

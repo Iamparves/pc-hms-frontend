@@ -1,13 +1,16 @@
+import useAuth from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 import { Link, NavLink } from "react-router-dom";
 import { buttonVariants } from "../ui/button";
 
 const Navbar = () => {
+  const { user } = useAuth();
+
   return (
     <header className="bg-white py-5">
       <div className="container flex items-center justify-between">
-        <Link to="/" className="text-blue text-xl font-semibold">
-          <span className="bg-blue px-2 py-0.5 text-white">Posh</span> Coder
+        <Link to="/">
+          <img className="h-9" src="/logo.png" alt="Patientoo" />
         </Link>
         <nav>
           <ul className="flex items-center gap-5">
@@ -22,11 +25,11 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/login"
+                to={user ? `/dashboard/${user.role}` : "/login"}
                 activeclassname="active"
                 className="[&.active]:text-blue"
               >
-                Login
+                {user ? "Dashboard" : "Login"}
               </NavLink>
             </li>
             <li>

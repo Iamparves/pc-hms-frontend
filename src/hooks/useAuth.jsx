@@ -7,6 +7,7 @@ const useAuth = () => {
   const setUser = useStore((state) => state.setUser);
   const user = useStore((state) => state.user);
   const isFirstVisit = useStore((state) => state.isFirstVisit);
+  const setFirstVisit = useStore((state) => state.setFirstVisit);
 
   useEffect(() => {
     if (user || !isFirstVisit) return setIsLoading(false);
@@ -22,6 +23,7 @@ const useAuth = () => {
         setUser(null);
       }
 
+      setFirstVisit(false);
       setIsLoading(false);
     })();
   }, []);
