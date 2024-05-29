@@ -1,24 +1,67 @@
+import ResendOTP from "@/components/Auth/ResendOTP";
 import { Button } from "@/components/ui/button";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { verifyAccount } from "@/db/auth";
 import useAuth from "@/hooks/useAuth";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { useState } from "react";
-import { redirect } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const VerifyAccount = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [otpValue, setOtpValue] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  if (!searchParams.has("phone") || searchParams.get("phone") === "") {
+    return <Navigate to="/" />;
+  }
+
   const { user } = useAuth();
 
   if (user?.isVerified) {
-    return redirect("/");
+    return <Navigate to="/" />;
   }
 
+  const handleVerification = async () => {
+    if (otpValue.length !== 6) {
+      return toast.error("Please enter a valid OTP.", {
+        type: "error",
+        description: "The OTP must be a 6-digit number.",
+      });
+    }
+
+    setIsLoading(true);
+    const data = {
+      mobileNo: searchParams.get("phone"),
+      otp: Number(otpValue),
+    };
+
+    const result = await verifyAccount(data);
+    setIsLoading(false);
+
+    if (result.error || result.status === "fail") {
+      return toast.error("Failed to verify account.", {
+        type: "error",
+        description: result.error || result.message,
+      });
+    }
+
+    toast("Account verified successfully.", {
+      type: "success",
+      description: "You can now login to your account.",
+    });
+
+    return navigate("/login");
+  };
+
   return (
-    <section className="flex min-h-[calc(100dvh-80px)] items-center justify-center px-5">
+    <section className="flex min-h-[calc(100dvh-80px)] items-center justify-center px-5 py-10">
       <div className="max-w-md rounded-lg border bg-white p-5 text-center">
         <h3 className="mb-1 text-xl font-semibold">Account Verification</h3>
         <p className="mb-6 text-sm text-gray-500">
@@ -54,7 +97,19 @@ const VerifyAccount = () => {
             </>
           )}
         </div>
-        <Button>Verify OTP</Button>
+        <div className="mx-auto flex max-w-[284px] flex-col gap-2">
+          <Button
+            onClick={handleVerification}
+            className="bg-blue py-[22px] hover:bg-blue/90"
+            disabled={isLoading}
+          >
+            Verify OTP
+          </Button>
+          <ResendOTP
+            isLoading={isLoading}
+            mobileNo={searchParams.get("phone")}
+          />
+        </div>
       </div>
     </section>
   );

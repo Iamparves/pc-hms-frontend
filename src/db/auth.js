@@ -55,14 +55,14 @@ export const login = async (user) => {
   }
 };
 
-export const verifyAccount = async (data) => {
+export const verifyAccount = async (otpData) => {
   try {
-    const response = await fetch(`${BASE_URL}/users/verify`, {
-      method: "POST",
+    const response = await fetch(`${BASE_URL}/users/verify-otp`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(otpData),
       // credentials: "include",
     });
 
