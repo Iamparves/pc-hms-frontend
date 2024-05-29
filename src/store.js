@@ -4,6 +4,8 @@ export const useStore = create((set) => {
   return {
     loggedIn: false,
     user: null,
+    isFirstVisit: true,
+    setFirstVisit: (value) => set({ isFirstVisit: value }),
     specialities: [],
     setUser: (user) => {
       if (user) {

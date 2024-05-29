@@ -6,9 +6,10 @@ const useAuth = () => {
   const [isLoading, setIsLoading] = useState(true);
   const setUser = useStore((state) => state.setUser);
   const user = useStore((state) => state.user);
+  const isFirstVisit = useStore((state) => state.isFirstVisit);
 
   useEffect(() => {
-    if (user) return setIsLoading(false);
+    if (user || !isFirstVisit) return setIsLoading(false);
 
     (async () => {
       const result = await getLoggedInUser();
