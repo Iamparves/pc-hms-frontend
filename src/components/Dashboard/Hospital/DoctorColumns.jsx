@@ -9,12 +9,14 @@ export const columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="px-0 py-0 hover:bg-transparent hover:text-white"
         >
           Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
+    enableHiding: false,
   },
   {
     accessorKey: "qualifications",
