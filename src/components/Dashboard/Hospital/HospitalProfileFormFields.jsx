@@ -147,7 +147,7 @@ const HospitalProfileFormFields = ({ userData, photo }) => {
           <div className="pt-2 text-center">
             <Button
               disabled={updateMutation.isPending}
-              className="px-6 py-[25px]"
+              className="bg-blue px-6 py-[25px] hover:bg-blue/90"
               type="submit"
             >
               Save changes

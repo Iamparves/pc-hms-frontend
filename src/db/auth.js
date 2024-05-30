@@ -90,3 +90,23 @@ export const verifyAccount = async (otpData) => {
     return { error: error.message };
   }
 };
+
+export const updatePassword = async (passwordData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/update-password`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(passwordData),
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return { error: error.message };
+  }
+};
