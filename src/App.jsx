@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppointments";
 import HospitalDoctos from "./components/Dashboard/Hospital/HospitalDoctos";
 import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
+import FormModal from "./components/Dashboard/shared/FormModal";
 import Layout from "./components/shared/Layout";
 import { Toaster } from "./components/ui/sonner";
 import Dashboard from "./pages/Dashboard";
@@ -39,7 +40,16 @@ const App = () => {
           >
             <Route path="" element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<HospitalOverview />} />
-            <Route path="doctors" element={<HospitalDoctos />}></Route>
+            <Route path="doctors" element={<HospitalDoctos />}>
+              <Route
+                path="add"
+                element={
+                  <FormModal title={"Add new doctor"}>
+                    <h3>This is new hospital add doctor form</h3>
+                  </FormModal>
+                }
+              ></Route>
+            </Route>
             <Route path="appointments" element={<HospitalAppointments />} />
             <Route path="profile" element={<h1>Profile</h1>} />
           </Route>

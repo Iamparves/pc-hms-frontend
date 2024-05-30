@@ -32,9 +32,3 @@ export const columns = [
     cell: (props) => props.getValue()?.join(", "),
   },
 ];
-
-const DoctorColumns = () => {
-  return <div>DoctorColumns</div>;
-};
-
-export default DoctorColumns;
