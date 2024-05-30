@@ -1,15 +1,14 @@
 import ImageUpload from "@/components/shared/ImageUpload";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { useStore } from "@/store";
 import { useEffect, useState } from "react";
+import HospitalProfileFormFields from "./HospitalProfileFormFields";
 
 const HospitalProfileForm = () => {
   const [photo, setPhoto] = useState("");
@@ -45,13 +44,11 @@ const HospitalProfileForm = () => {
               wrapper: "w-48 h-52 mx-auto",
             }}
           />
+          <HospitalProfileFormFields userData={user} photo={photo} />
         </CardContent>
       ) : (
         <h3>Loading...</h3>
       )}
-      <CardFooter>
-        <Button>Save changes</Button>
-      </CardFooter>
     </Card>
   );
 };
