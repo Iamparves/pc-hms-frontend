@@ -9,6 +9,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -23,11 +24,11 @@ import { DashTablePagination } from "./DashTablePagination";
 const DashDataTable = ({
   columns,
   data,
-  globalFilter,
-  setGlobalFilter,
   pageSize,
   noPagination,
+  filterPlaceholder,
 }) => {
+  const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState([]);
 
   const table = useReactTable({
@@ -51,15 +52,22 @@ const DashDataTable = ({
   });
 
   return (
-    <div className="bg-white">
-      <div className="rounded-md border">
+    <div className="overflow-hidden rounded-md border bg-white">
+      <div className="w-80 p-3">
+        <Input
+          value={globalFilter}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          placeholder={filterPlaceholder || "Search..."}
+        />
+      </div>
+      <div className="border-b">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow className="bg-blue hover:bg-blue" key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead className="py-1.5 text-white" key={header.id}>
                       {header?.isPlaceholder
                         ? null
                         : flexRender(
@@ -78,6 +86,7 @@ const DashDataTable = ({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="even:bg-[#F8FAFC]"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
