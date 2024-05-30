@@ -17,10 +17,7 @@ const FormModal = ({ children, title }) => {
   return (
     <div>
       <Dialog onOpenChange={handleClose} defaultOpen>
-        <DialogContent
-          data-customeMessage="Hello"
-          className="w-full max-w-[780px] gap-0 p-0"
-        >
+        <DialogContent className="w-full max-w-[780px] gap-0 p-0">
           <DialogHeader
             className={
               "flex w-full flex-row items-center justify-between gap-5 space-y-0 border-b px-5 py-4"

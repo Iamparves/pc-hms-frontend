@@ -1,7 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import AddDoctor from "./components/Dashboard/Doctor/AddDoctor";
 import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppointments";
 import HospitalDoctos from "./components/Dashboard/Hospital/HospitalDoctos";
 import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
+import HospitalProfile from "./components/Dashboard/Hospital/HospitalProfile";
 import FormModal from "./components/Dashboard/shared/FormModal";
 import Layout from "./components/shared/Layout";
 import { Toaster } from "./components/ui/sonner";
@@ -45,13 +47,13 @@ const App = () => {
                 path="add"
                 element={
                   <FormModal title={"Add new doctor"}>
-                    <h3>This is new hospital add doctor form</h3>
+                    <AddDoctor />
                   </FormModal>
                 }
               ></Route>
             </Route>
             <Route path="appointments" element={<HospitalAppointments />} />
-            <Route path="profile" element={<h1>Profile</h1>} />
+            <Route path="profile" element={<HospitalProfile />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />
