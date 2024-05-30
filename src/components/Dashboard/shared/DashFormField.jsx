@@ -38,7 +38,7 @@ const DashFormField = ({
               <Textarea
                 {...field}
                 placeholder={placeholder}
-                className="px-[15px] py-[22px] text-[15px] placeholder:text-gray-400"
+                className="px-[15px] py-[10px] text-[15px] placeholder:text-gray-400"
                 disabled={disabled}
               />
             )}
