@@ -31,14 +31,14 @@ const DashFormField = ({
                 placeholder={placeholder}
                 type={inputType || "text"}
                 {...field}
-                className="px-[15px] py-[22px] text-[15px] placeholder:text-gray-400"
+                className="px-[15px] py-[22px] text-[15px] transition-colors placeholder:text-gray-400 focus:border-blue/60"
                 disabled={disabled}
               />
             ) : (
               <Textarea
                 {...field}
                 placeholder={placeholder}
-                className="px-[15px] py-[10px] text-[15px] placeholder:text-gray-400"
+                className="px-[15px] py-[10px] text-[15px] transition-colors placeholder:text-gray-400 focus:border-blue/60"
                 disabled={disabled}
               />
             )}

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 import DashFormField from "../shared/DashFormField";
+import DoctorSpecialities from "./DoctorSpecialities";
 
 const doctorSchema = z.object({
   name: z.string().min(3, {
@@ -16,7 +17,9 @@ const doctorSchema = z.object({
   photo: z.string(),
   // qualifications: z.string().min(3),
   about: z.string(),
-  // specialities: z.array(z.string()).nonempty(),
+  specialities: z
+    .array(z.string())
+    .nonempty({ message: "Select at least one speciality" }),
   designation: z.string(),
   // languages: z.array(z.string()).nonempty(),
   institute: z.string(),
@@ -44,7 +47,7 @@ const AddDoctor = () => {
       photo: "",
       qualifications: "",
       about: "",
-      specialities: ["Hematologist", "Oncologist"],
+      specialities: [],
       designation: "",
       languages: ["English", "Bengali"],
       institute: "",
@@ -77,6 +80,7 @@ const AddDoctor = () => {
         });
 
         queryClient.invalidateQueries("doctors");
+        queryClient.invalidateQueries("specialities");
         navigate("../");
       } else {
         toast("Failed to add doctor", {
@@ -94,7 +98,6 @@ const AddDoctor = () => {
   const onSubmit = (data) => {
     const doctorData = {
       ...data,
-      specialities: ["Hematologist", "Oncologist"],
       languages: ["English", "Bengali"],
       offDays: ["FRI", "SAT"],
       branchNames: [
@@ -119,12 +122,19 @@ const AddDoctor = () => {
             placeholder="Enter doctor name"
             formControl={form.control}
           />
-          {/* <DashFormField
+          <DashFormField
             label="Qualifications"
             name="qualifications"
             placeholder="Enter doctor qualifications"
             formControl={form.control}
-          /> */}
+          />
+          <DoctorSpecialities
+            label="Specialities"
+            name="specialities"
+            placeholder="Enter doctor specialities"
+            formControl={form.control}
+            onSelectChange={form.setValue}
+          />
           <DashFormField
             label="Designation"
             name="designation"

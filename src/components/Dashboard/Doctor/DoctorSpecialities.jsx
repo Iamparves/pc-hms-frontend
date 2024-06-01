@@ -1,0 +1,75 @@
+import { FancyMultiSelect } from "@/components/shared/FancyMultiSelect";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getAllSpecialities } from "@/db/doctor";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
+
+const DoctorSpecialities = ({
+  label,
+  name,
+  placeholder,
+  formControl,
+  disabled,
+  onSelectChange,
+}) => {
+  const [selected, setSelected] = useState([]);
+
+  const specialitiesQuery = useQuery({
+    queryKey: ["specialities"],
+    queryFn: getAllSpecialities,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
+  const specialities = useMemo(() => {
+    return (
+      specialitiesQuery.data?.data?.specialities.map((speciality) => ({
+        value: speciality.name,
+        label: speciality.name,
+      })) || []
+    );
+  }, [specialitiesQuery.data]);
+
+  useEffect(() => {
+    onSelectChange(
+      name,
+      selected.map((s) => s.value),
+    );
+  }, [selected]);
+
+  return (
+    <FormField
+      control={formControl}
+      label={label}
+      name={name}
+      render={() => (
+        <FormItem className="space-y-1">
+          <FormLabel className="mb-10">{label}</FormLabel>
+          <FormControl>
+            {!specialitiesQuery.isFetching ? (
+              <FancyMultiSelect
+                selected={selected}
+                setSelected={setSelected}
+                placeholderText={placeholder}
+                initialSelectables={specialities}
+              />
+            ) : (
+              <Skeleton className="h-[46px]" />
+            )}
+          </FormControl>
+          <FormMessage className="text-[13px]" />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+export default DoctorSpecialities;
