@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 import DashFormField from "../shared/DashFormField";
+import DoctorMultiSelect from "./DoctorMultiSelect";
 import DoctorOffDays from "./DoctorOffDays";
 import DoctorPhotoUpload from "./DoctorPhotoUpload";
 import DoctorSpecialities from "./DoctorSpecialities";
@@ -17,13 +18,17 @@ const doctorSchema = z.object({
     message: "Name must be at least 3 characters long",
   }),
   photo: z.string(),
-  qualifications: z.string().min(3),
+  qualifications: z.string().min(1, {
+    message: "Qualifications is required",
+  }),
   about: z.string(),
   specialities: z
     .array(z.string())
     .nonempty({ message: "Select at least one speciality" }),
   designation: z.string(),
-  // languages: z.array(z.string()).nonempty(),
+  languages: z
+    .array(z.string())
+    .nonempty({ message: "Select at least one language" }),
   institute: z.string(),
   department: z.string(),
   appointmentNo: z.string(),
@@ -31,11 +36,11 @@ const doctorSchema = z.object({
   offDays: z.array(z.string()),
   floorNo: z.string(),
   roomNumber: z.string(),
-  // branchNames: z.array(z.string()).nonempty(),
+  branchNames: z.array(z.string()),
   bmdcNo: z.string(),
-  consultationFee: z.number().positive(),
+  consultationFee: z.number().optional(),
   phone: z.string(),
-  feesToShowReport: z.number().positive(),
+  feesToShowReport: z.number().optional(),
 });
 
 const AddDoctor = () => {
@@ -50,7 +55,7 @@ const AddDoctor = () => {
       about: "",
       specialities: [],
       designation: "",
-      languages: ["English", "Bengali"],
+      languages: [],
       institute: "",
       department: "",
       appointmentNo: "",
@@ -58,14 +63,11 @@ const AddDoctor = () => {
       offDays: [],
       floorNo: "",
       roomNumber: "",
-      branchNames: [
-        "Popular Diagnostic Center, Laxmipur Branch",
-        "Popular Diagnostic Center, Feni Branch",
-      ],
+      branchNames: [],
       bmdcNo: "",
-      consultationFee: 0,
+      consultationFee: undefined,
       phone: "",
-      feesToShowReport: 0,
+      feesToShowReport: undefined,
     },
   });
 
@@ -105,16 +107,7 @@ const AddDoctor = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    const doctorData = {
-      ...data,
-      languages: ["English", "Bengali"],
-      branchNames: [
-        "Popular Diagnostic Center, Laxmipur Branch",
-        "Popular Diagnostic Center, Feni Branch",
-      ],
-    };
-
+  const onSubmit = (doctorData) => {
     createMutation.mutate(doctorData);
   };
 
@@ -221,18 +214,24 @@ const AddDoctor = () => {
               placeholder="Enter fees to show report"
               formControl={form.control}
             />
-            {/* <DashFormField
-            label="Languages"
-            name="languages"
-            placeholder="Separate languages with comma (,)"
-            formControl={form.control}
-          /> */}
-            {/* <DashFormField
-            label="Branch Names"
-            name="branchNames"
-            placeholder="Separate branch names with semicolon (;)"
-            formControl={form.control}
-          /> */}
+            <DoctorMultiSelect
+              label="Languages"
+              name="languages"
+              placeholder="Select languages doctor speaks"
+              formControl={form.control}
+              onSelectChange={form.setValue}
+              initialSelectables={[
+                { value: "English", label: "English" },
+                { value: "Bengali", label: "Bengali" },
+              ]}
+            />
+            <DoctorMultiSelect
+              label="Branch Names"
+              name="branchNames"
+              placeholder="Type branch names doctor works at"
+              formControl={form.control}
+              onSelectChange={form.setValue}
+            />
             <div className="col-span-2">
               <DashFormField
                 label="About Doctor"

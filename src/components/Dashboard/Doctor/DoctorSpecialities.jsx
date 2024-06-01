@@ -33,7 +33,7 @@ const DoctorSpecialities = ({ formControl, disabled, onSelectChange }) => {
 
   useEffect(() => {
     onSelectChange(
-      name,
+      "specialities",
       selected.map((s) => s.value),
     );
   }, [selected]);
