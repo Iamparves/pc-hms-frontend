@@ -17,7 +17,7 @@ const FormModal = ({ children, title }) => {
 
   return (
     <Dialog onOpenChange={handleClose} defaultOpen>
-      <DialogContent className="grid max-h-[calc(100dvh-80px)] w-[calc(100%-40px)] max-w-[780px] grid-cols-1 grid-rows-[auto_1fr] gap-0 rounded-lg p-0">
+      <DialogContent className="grid max-h-[calc(100dvh-40px)] w-[calc(100%-20px)] max-w-[780px] grid-cols-1 grid-rows-[auto_1fr] gap-0 rounded-lg p-0 sm:w-[calc(100%-40px)] md:max-h-[calc(100dvh-60px)]">
         <DialogHeader
           className={
             "flex w-full flex-row items-center justify-between gap-5 space-y-0 border-b px-5 py-4"

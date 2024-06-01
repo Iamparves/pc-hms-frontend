@@ -11,14 +11,7 @@ import { getAllSpecialities } from "@/db/doctor";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 
-const DoctorSpecialities = ({
-  label,
-  name,
-  placeholder,
-  formControl,
-  disabled,
-  onSelectChange,
-}) => {
+const DoctorSpecialities = ({ formControl, disabled, onSelectChange }) => {
   const [selected, setSelected] = useState([]);
 
   const specialitiesQuery = useQuery({
@@ -48,17 +41,17 @@ const DoctorSpecialities = ({
   return (
     <FormField
       control={formControl}
-      label={label}
-      name={name}
+      label={"Specialities"}
+      name={"specialities"}
       render={() => (
         <FormItem className="space-y-1">
-          <FormLabel className="mb-10">{label}</FormLabel>
+          <FormLabel className="mb-10">{"Specialities"}</FormLabel>
           <FormControl>
             {!specialitiesQuery.isFetching ? (
               <FancyMultiSelect
                 selected={selected}
                 setSelected={setSelected}
-                placeholderText={placeholder}
+                placeholderText={"Select specialities"}
                 initialSelectables={specialities}
               />
             ) : (
