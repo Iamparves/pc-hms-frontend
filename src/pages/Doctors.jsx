@@ -22,11 +22,9 @@ const Doctors = () => {
 
   const specialities = specialitiesQuery.data?.data?.specialities || [];
 
-  console.log(queryString);
-
   return (
-    <section>
-      <div className="container grid grid-cols-[400px_1fr] items-start gap-10 py-10 md:py-16">
+    <section className="mx-auto max-w-[420px] sm:max-w-none">
+      <div className="container grid grid-cols-1 items-start gap-8 px-5 py-10 md:py-16 lg:grid-cols-[380px_1fr]">
         <div className="rounded-lg bg-white p-5">
           <DoctorFilters
             setQueryString={setQueryString}
@@ -35,7 +33,7 @@ const Doctors = () => {
         </div>
         <div className="">
           {!doctorsQuery.isFetching && doctors.length > 0 && (
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               {doctors.map((doctor) => (
                 <DoctorCard key={doctor._id} doctor={doctor} />
               ))}

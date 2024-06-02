@@ -56,7 +56,7 @@ const DoctorFilters = ({ setQueryString, selectable }) => {
           Clear Filters
         </button>
       </div>
-      <div className="space-y-5">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-1">
         <div className="">
           <label
             htmlFor="district"
@@ -103,6 +103,9 @@ const DoctorFilters = ({ setQueryString, selectable }) => {
           />
         </div>
         <div className="">
+          <label className="mb-1 block text-sm font-medium text-gray-600">
+            Specialities
+          </label>
           <FilterSpecialityField
             specialities={selectable}
             checkedspecialities={specialities}

@@ -13,7 +13,7 @@ const Navbar = () => {
           <img className="h-9" src="/logo.png" alt="Patientoo" />
         </Link>
         <nav>
-          <ul className="flex items-center gap-x-6 text-[15px] font-medium">
+          <ul className="hidden items-center gap-x-6 text-[15px] font-medium md:flex">
             <li>
               <NavLink
                 to="/"
