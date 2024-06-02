@@ -1,39 +1,43 @@
 import DoctorCard from "@/components/Doctors/DoctorCard";
-import { getAllDoctors } from "@/db/doctor";
-import { useQuery } from "@tanstack/react-query";
+import DoctorFilters from "@/components/Doctors/DoctorFilters";
+import { getAllDoctors, getAllSpecialities } from "@/db/doctor";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 const Doctors = () => {
-  const [queryStr, setQueryStr] = useState("");
+  const [queryString, setQueryString] = useState("");
 
   const doctorsQuery = useQuery({
-    queryKey: ["doctors", queryStr],
-    queryFn: () => getAllDoctors(`?name=${queryStr}`),
+    queryKey: ["doctors", queryString],
+    queryFn: () => getAllDoctors(queryString),
+    placeholderData: keepPreviousData,
   });
 
   const doctors = doctorsQuery.data?.data?.doctors || [];
 
+  const specialitiesQuery = useQuery({
+    queryKey: ["specialities"],
+    queryFn: getAllSpecialities,
+  });
+
+  const specialities = specialitiesQuery.data?.data?.specialities || [];
+
+  console.log(queryString);
+
   return (
     <section>
       <div className="container grid grid-cols-[400px_1fr] items-start gap-10 py-10 md:py-16">
-        <div className="rounded-xl bg-white p-5">
-          <h2 className="text-2xl font-semibold">Filters</h2>
-          <p className="my-2 text-sm text-gray-400">
-            All filters will be here. For now, you can search by doctor's name.
-          </p>
-          <input
-            type="text"
-            placeholder="Search by doctor's name"
-            className="mt-5 w-full rounded-lg border border-gray-200 p-2"
-            value={queryStr}
-            onChange={(e) => setQueryStr(e.target.value)}
+        <div className="rounded-lg bg-white p-5">
+          <DoctorFilters
+            setQueryString={setQueryString}
+            selectable={specialities}
           />
         </div>
         <div className="">
           {!doctorsQuery.isFetching && doctors.length > 0 && (
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {doctors.map((doctor) => (
-                <DoctorCard key={doctor.id} doctor={doctor} />
+                <DoctorCard key={doctor._id} doctor={doctor} />
               ))}
             </div>
           )}
