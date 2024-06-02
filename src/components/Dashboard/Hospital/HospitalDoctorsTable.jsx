@@ -8,6 +8,19 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import DashDataTable from "../shared/DashDataTable";
 
+// header: ({ column }) => {
+//   return (
+//     <Button
+//       variant="ghost"
+//       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+//       className="px-0 py-0 hover:bg-transparent hover:text-white"
+//     >
+//       Name
+//       <ArrowUpDown className="ml-2 h-4 w-4" />
+//     </Button>
+//   );
+// },
+
 const HospitalDoctorsTable = () => {
   const doctorsQuery = useQuery({
     queryKey: ["doctors"],
@@ -100,7 +113,12 @@ const HospitalDoctorsTable = () => {
       header: "View",
       cell: (props) => (
         <div className="flex max-w-[200px] items-center gap-x-2">
-          <Button variant="outline" size="icon" asChild>
+          <Button
+            className="text-gray-600"
+            variant="outline"
+            size="icon"
+            asChild
+          >
             <Link to={`/doctors/${props.getValue()}`}>
               <LuEye className="text-lg" />
             </Link>
@@ -114,7 +132,7 @@ const HospitalDoctorsTable = () => {
       header: "Edit",
       cell: (props) => (
         <div className="flex max-w-[200px] items-center gap-x-2">
-          <Button variant="outline" size="icon" asChild>
+          <Button className="text-blue" variant="outline" size="icon" asChild>
             <Link to={`edit/${props.getValue()}`}>
               <TbEdit className="text-lg" />
             </Link>
@@ -129,6 +147,7 @@ const HospitalDoctorsTable = () => {
       cell: (props) => (
         <div className="flex max-w-[200px] items-center gap-x-2">
           <Button
+            className="text-[#FF5556]"
             onClick={() => handleDeleteDoctor(props.getValue())}
             variant="outline"
             size="icon"

@@ -53,6 +53,14 @@ const App = () => {
                   </FormModal>
                 }
               ></Route>
+              <Route
+                path="edit/:doctorId"
+                element={
+                  <FormModal title={"Update Existing Doctor"}>
+                    <AddDoctor />
+                  </FormModal>
+                }
+              ></Route>
             </Route>
             <Route path="appointments" element={<HospitalAppointments />} />
             <Route path="profile" element={<HospitalProfile />} />
