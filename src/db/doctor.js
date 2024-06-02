@@ -21,6 +21,26 @@ export const createDoctor = async (doctorData) => {
   }
 };
 
+export const getAllDoctors = async (queryString = "") => {
+  try {
+    const response = await fetch(`${BASE_URL}/doctors${queryString}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+
+    return { error: error.message };
+  }
+};
+
 export const getAllSpecialities = async () => {
   try {
     const response = await fetch(`${BASE_URL}/doctors/specialities`, {

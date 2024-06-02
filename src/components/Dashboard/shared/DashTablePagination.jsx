@@ -7,12 +7,16 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function DashTablePagination({ table }) {
   const [currentPage, setCurrentPage] = useState(
     table.getState().pagination.pageIndex + 1,
   );
+
+  useEffect(() => {
+    setCurrentPage(table.getState().pagination.pageIndex + 1);
+  }, [table.getState().pagination.pageIndex]);
 
   return (
     <div className="px-1 py-2.5">

@@ -2,10 +2,8 @@ import { Button } from "@/components/ui/button";
 import { useStore } from "@/store";
 import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import DashDataTable from "../shared/DashDataTable";
 import DashboardHeader from "../shared/DashboardHeader";
-import { columns } from "./DoctorColumns";
-import doctorsData from "./doctors.json";
+import HospitalDoctorsTable from "./HospitalDoctorsTable";
 
 const HospitalDoctos = () => {
   const navigate = useNavigate();
@@ -39,11 +37,7 @@ const HospitalDoctos = () => {
               Add Doctor
             </Button>
           </div>
-          <DashDataTable
-            columns={columns}
-            data={doctorsData}
-            noPagination={false}
-          />
+          <HospitalDoctorsTable />
         </div>
       </div>
     </>

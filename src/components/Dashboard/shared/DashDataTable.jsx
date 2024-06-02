@@ -9,6 +9,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -36,6 +37,7 @@ const DashDataTable = ({
   pageSize,
   noPagination,
   filterPlaceholder,
+  isLoading = false,
 }) => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState([]);
@@ -145,9 +147,13 @@ const DashDataTable = ({
                 <TableRow>
                   <TableCell
                     colSpan={columns.length}
-                    className="h-24 text-center"
+                    className="h-40 text-center"
                   >
-                    No results.
+                    {isLoading ? (
+                      <Loader className="mx-auto w-16" />
+                    ) : (
+                      "No data found"
+                    )}
                   </TableCell>
                 </TableRow>
               )}
