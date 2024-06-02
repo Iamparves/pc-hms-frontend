@@ -8,6 +8,7 @@ import FormModal from "./components/Dashboard/shared/FormModal";
 import Layout from "./components/shared/Layout";
 import { Toaster } from "./components/ui/sonner";
 import Dashboard from "./pages/Dashboard";
+import DoctorProfile from "./pages/DoctorProfile";
 import Doctors from "./pages/Doctors";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -27,7 +28,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/verify-otp" element={<VerifyAccount />} />
             <Route path="/doctors" element={<Doctors />} />
-            <Route path="/doctors/:doctorId" element={<Doctors />} />
+            <Route path="/doctors/:doctorId" element={<DoctorProfile />} />
           </Route>
           <Route
             path="/dashboard/admin"
