@@ -17,7 +17,7 @@ const DoctorProfile = () => {
   return (
     <section>
       <div className="container py-10">
-        <div className="grid grid-cols-[1fr_auto] gap-10">
+        <div className="grid grid-cols-[1fr_auto] items-start gap-5">
           <DoctorDetails doctor={doctor} />
           <DoctorAppointment doctor={doctor} />
         </div>
