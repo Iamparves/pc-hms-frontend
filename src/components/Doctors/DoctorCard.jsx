@@ -11,7 +11,7 @@ const DoctorCard = ({ doctor }) => {
             "https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=400:*"
           }
           alt={doctor.name}
-          className="h-full w-40 rounded-md object-cover object-center xl:w-32 2xl:w-[170px]"
+          className="h-full w-40 rounded-md object-cover object-center xl:w-32 2xl:w-[165px]"
         />
       </div>
       <div className="py-2 xl:py-0 2xl:py-2">
