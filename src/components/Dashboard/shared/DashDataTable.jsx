@@ -35,7 +35,6 @@ const DashDataTable = ({
   columns,
   data,
   pageSize,
-  noPagination,
   filterPlaceholder,
   isLoading = false,
 }) => {

@@ -13,7 +13,7 @@ const Navbar = () => {
           <img className="h-9" src="/logo.png" alt="Patientoo" />
         </Link>
         <nav>
-          <ul className="flex items-center gap-5">
+          <ul className="flex items-center gap-x-6 text-[15px] font-medium">
             <li>
               <NavLink
                 to="/"
@@ -21,6 +21,33 @@ const Navbar = () => {
                 className="[&.active]:text-blue"
               >
                 Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/about"
+                activeclassname="active"
+                className="[&.active]:text-blue"
+              >
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/blog"
+                activeclassname="active"
+                className="[&.active]:text-blue"
+              >
+                Blog
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/contact"
+                activeclassname="active"
+                className="[&.active]:text-blue"
+              >
+                Contact Us
               </NavLink>
             </li>
             <li>

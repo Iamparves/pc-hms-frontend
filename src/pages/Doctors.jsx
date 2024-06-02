@@ -1,45 +1,43 @@
-import { FancyMultiSelect } from "@/components/shared/FancyMultiSelect";
+import DoctorCard from "@/components/Doctors/DoctorCard";
+import { getAllDoctors } from "@/db/doctor";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-const medicalSpecialities = [
-  { value: "Allergy and Immunology", label: "Allergy and Immunology" },
-  { value: "Anesthesiology", label: "Anesthesiology" },
-  { value: "Dermatology", label: "Dermatology" },
-  { value: "Diagnostic Radiology", label: "Diagnostic Radiology" },
-  { value: "Emergency Medicine", label: "Emergency Medicine" },
-  { value: "Family Medicine", label: "Family Medicine" },
-  { value: "Internal Medicine", label: "Internal Medicine" },
-  { value: "Medical Genetics", label: "Medical Genetics" },
-  { value: "Neurology", label: "Neurology" },
-  { value: "Nuclear Medicine", label: "Nuclear Medicine" },
-  { value: "Obstetrics and Gynecology", label: "Obstetrics and Gynecology" },
-  { value: "Ophthalmology", label: "Ophthalmology" },
-  { value: "Pathology", label: "Pathology" },
-  { value: "Pediatrics", label: "Pediatrics" },
-  {
-    value: "Physical Medicine and Rehabilitation",
-    label: "Physical Medicine and Rehabilitation",
-  },
-  { value: "Preventive Medicine", label: "Preventive Medicine" },
-  { value: "Psychiatry", label: "Psychiatry" },
-  { value: "Radiation Oncology", label: "Radiation Oncology" },
-  { value: "Surgery", label: "Surgery" },
-  { value: "Urology", label: "Urology" },
-];
-
 const Doctors = () => {
-  const [selected, setSelected] = useState([]);
+  const [queryStr, setQueryStr] = useState("");
+
+  const doctorsQuery = useQuery({
+    queryKey: ["doctors", queryStr],
+    queryFn: () => getAllDoctors(`?name=${queryStr}`),
+  });
+
+  const doctors = doctorsQuery.data?.data?.doctors || [];
 
   return (
     <section>
-      <div className="container py-10">
-        <div className="mx-auto max-w-xl rounded-xl bg-white p-10">
-          <FancyMultiSelect
-            selected={selected}
-            setSelected={setSelected}
-            initialSelectables={medicalSpecialities}
-            placeholderText="Select medical specialities..."
+      <div className="container grid grid-cols-[400px_1fr] items-start gap-10 py-10 md:py-16">
+        <div className="rounded-xl bg-white p-5">
+          <h2 className="text-2xl font-semibold">Filters</h2>
+          <p className="my-2 text-sm text-gray-400">
+            All filters will be here. For now, you can search by doctor's name.
+          </p>
+          <input
+            type="text"
+            placeholder="Search by doctor's name"
+            className="mt-5 w-full rounded-lg border border-gray-200 p-2"
+            value={queryStr}
+            onChange={(e) => setQueryStr(e.target.value)}
           />
+        </div>
+        <div className="">
+          {!doctorsQuery.isFetching && doctors.length > 0 && (
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              {doctors.map((doctor) => (
+                <DoctorCard key={doctor.id} doctor={doctor} />
+              ))}
+            </div>
+          )}
+          {doctorsQuery.isFetching && <p>Loading...</p>}
         </div>
       </div>
     </section>

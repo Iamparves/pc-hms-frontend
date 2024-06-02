@@ -27,13 +27,14 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/verify-otp" element={<VerifyAccount />} />
             <Route path="/doctors" element={<Doctors />} />
+            <Route path="/doctors/:doctorId" element={<Doctors />} />
           </Route>
           <Route
             path="/dashboard/admin"
             element={<Dashboard allowedRoles={["admin"]} />}
           >
             <Route path="" element={<Navigate to="overview" replace />} />
-            <Route path="overview" element={<h1>Overview</h1>} />
+            <Route path="overview" element={<HospitalOverview />} />
             <Route path="hospitals" element={<h1>Hospitals</h1>} />
             <Route path="admins" element={<h1>Admins</h1>} />
             <Route path="profile" element={<h1>Profile</h1>} />

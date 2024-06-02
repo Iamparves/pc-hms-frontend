@@ -119,7 +119,7 @@ const HospitalDoctorsTable = () => {
             size="icon"
             asChild
           >
-            <Link to={`/doctors/${props.getValue()}`}>
+            <Link target="_blank" to={`/doctors/${props.getValue()}`}>
               <LuEye className="text-lg" />
             </Link>
           </Button>
@@ -167,6 +167,7 @@ const HospitalDoctorsTable = () => {
         data={doctors}
         noPagination={false}
         isLoading={doctorsQuery.isFetching}
+        filterPlaceholder={"Search doctors..."}
       />
     </div>
   );
