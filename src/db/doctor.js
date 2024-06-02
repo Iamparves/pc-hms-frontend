@@ -41,6 +41,26 @@ export const getAllDoctors = async (queryString = "") => {
   }
 };
 
+export const deleteDoctor = async (doctorId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/doctors/${doctorId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+
+    return { error: error.message };
+  }
+};
+
 export const getAllSpecialities = async () => {
   try {
     const response = await fetch(`${BASE_URL}/doctors/specialities`, {

@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { getAllDoctors } from "@/db/doctor";
-import { useQuery } from "@tanstack/react-query";
+import { deleteDoctor, getAllDoctors } from "@/db/doctor";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { LuEye } from "react-icons/lu";
 import { MdDeleteOutline } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import DashDataTable from "../shared/DashDataTable";
 
 const HospitalDoctorsTable = () => {
@@ -12,8 +13,46 @@ const HospitalDoctorsTable = () => {
     queryKey: ["doctors"],
     queryFn: () => getAllDoctors(),
   });
-
   const doctors = doctorsQuery.data?.data?.doctors || [];
+
+  const deleteMutation = useMutation({
+    mutationFn: (doctorId) => deleteDoctor(doctorId),
+    onSuccess: () => {
+      toast("Doctor deleted successfully", { type: "success" });
+      doctorsQuery.refetch();
+    },
+    onError: (error) => {
+      toast("Failed to delete doctor", { type: "error" });
+      console.error(error);
+    },
+  });
+
+  const handleDeleteDoctor = (doctorId) => {
+    toast("Are you sure you want to delete this doctor?", {
+      description:
+        "This action cannot be undone and will permanently delete the doctor.",
+      cancel: (
+        <Button onClick={() => toast.dismiss()} size="sm" variant="outline">
+          Cancel
+        </Button>
+      ),
+      action: (
+        <Button
+          onClick={() => deleteMutation.mutate(doctorId)}
+          size="sm"
+          variant="destructive"
+        >
+          Delete
+        </Button>
+      ),
+      position: "top-center",
+      classNames: {
+        toast: "flex-wrap [&_[data-content]]:w-full justify-end",
+        title: "text-sm",
+        description: "mb-2",
+      },
+    });
+  };
 
   const columns = [
     {
@@ -87,17 +126,17 @@ const HospitalDoctorsTable = () => {
     {
       accessorFn: (row) => row._id,
       header: "Delete",
-      cell: (props) => {
-        const doctorId = props.getValue();
-
-        return (
-          <div className="flex max-w-[200px] items-center gap-x-2">
-            <Button variant="outline" size="icon">
-              <MdDeleteOutline className="text-lg" />
-            </Button>
-          </div>
-        );
-      },
+      cell: (props) => (
+        <div className="flex max-w-[200px] items-center gap-x-2">
+          <Button
+            onClick={() => handleDeleteDoctor(props.getValue())}
+            variant="outline"
+            size="icon"
+          >
+            <MdDeleteOutline className="text-lg" />
+          </Button>
+        </div>
+      ),
       enableHiding: false,
     },
   ];
