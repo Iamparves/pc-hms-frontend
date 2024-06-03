@@ -43,13 +43,16 @@ export const getAllDoctors = async (queryString = "") => {
 
 export const getHospitalDoctors = async (queryString = "") => {
   try {
-    const response = await fetch(`${BASE_URL}/doctors/my-doctors${queryString}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${BASE_URL}/doctors/my-doctors${queryString}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
       },
-      credentials: "include",
-    });
+    );
 
     const data = await response.json();
 
@@ -76,6 +79,27 @@ export const getDoctorById = async (doctorId) => {
     return data;
   } catch (error) {
     console.log(error);
+
+    return { error: error.message };
+  }
+};
+
+export const updateDoctor = async ({ doctorId, doctorData }) => {
+  try {
+    const response = await fetch(`${BASE_URL}/doctors/${doctorId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(doctorData),
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
 
     return { error: error.message };
   }

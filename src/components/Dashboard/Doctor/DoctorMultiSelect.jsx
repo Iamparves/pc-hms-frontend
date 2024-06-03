@@ -16,8 +16,9 @@ const DoctorMultiSelect = ({
   disabled,
   onSelectChange,
   initialSelectables = [],
+  initialSelected = [],
 }) => {
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState(initialSelected);
 
   useEffect(() => {
     onSelectChange(

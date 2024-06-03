@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AdminProfile from "./components/Dashboard/Admin/AdminProfile";
 import AddDoctor from "./components/Dashboard/Doctor/AddDoctor";
+import UpdateDoctor from "./components/Dashboard/Doctor/UpdateDoctor";
 import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppointments";
 import HospitalDoctors from "./components/Dashboard/Hospital/HospitalDoctors";
 import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
@@ -78,7 +79,7 @@ const App = () => {
                 path="edit/:doctorId"
                 element={
                   <FormModal title={"Update Existing Doctor"}>
-                    <AddDoctor />
+                    <UpdateDoctor />
                   </FormModal>
                 }
               ></Route>

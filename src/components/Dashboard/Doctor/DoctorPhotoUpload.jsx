@@ -1,8 +1,8 @@
 import ImageUpload from "@/components/shared/ImageUpload";
 import { useState } from "react";
 
-const DoctorPhotoUpload = ({ isUpdate = false }) => {
-  const [photo, setPhoto] = useState("");
+const DoctorPhotoUpload = ({ isUpdate = false, oldPhoto = "" }) => {
+  const [photo, setPhoto] = useState(oldPhoto);
   const [isUploading, setIsUploading] = useState(false);
   const handlePhotoUpload = (imageUrl) => setPhoto(imageUrl);
 

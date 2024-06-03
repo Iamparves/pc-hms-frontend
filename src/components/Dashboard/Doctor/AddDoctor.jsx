@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { createDoctor } from "@/db/doctor";
+import { createDoctor, updateDoctor } from "@/db/doctor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -31,7 +31,7 @@ const doctorSchema = z.object({
     .nonempty({ message: "Select at least one language" }),
   institute: z.string(),
   department: z.string(),
-  appointmentNo: z.string(),
+  appointmentNo: z.any(),
   chamberTime: z.string(),
   offDays: z.array(z.string()),
   floorNo: z.string(),
@@ -43,35 +43,35 @@ const doctorSchema = z.object({
   feesToShowReport: z.number().optional(),
 });
 
-const AddDoctor = () => {
+const AddDoctor = ({ doctor = {} }) => {
   const navigate = useNavigate();
 
   const form = useForm({
     resolver: zodResolver(doctorSchema),
     defaultValues: {
-      name: "",
-      photo: "",
-      qualifications: "",
-      about: "",
-      specialities: [],
-      designation: "",
-      languages: [],
-      institute: "",
-      department: "",
-      appointmentNo: "",
-      chamberTime: "",
-      offDays: [],
-      floorNo: "",
-      roomNumber: "",
-      branchNames: [],
-      bmdcNo: "",
-      consultationFee: undefined,
-      phone: "",
-      feesToShowReport: undefined,
+      name: doctor?.name || "",
+      photo: doctor?.photo || "",
+      qualifications: doctor?.qualifications || "",
+      about: doctor?.about || "",
+      specialities: doctor?.specialities || [],
+      designation: doctor?.designation || "",
+      languages: doctor?.languages || [],
+      institute: doctor?.institute || "",
+      department: doctor?.department || "",
+      appointmentNo: doctor?.appointmentNo || "",
+      chamberTime: doctor?.chamberTime || "",
+      offDays: doctor?.offDays || [],
+      floorNo: doctor?.floorNo || "",
+      roomNumber: doctor?.roomNumber || "",
+      branchNames: doctor?.branchNames || [],
+      bmdcNo: doctor?.bmdcNo || "",
+      consultationFee: doctor?.consulatationFee || undefined,
+      phone: doctor?.phone || "",
+      feesToShowReport: doctor?.feesToShowReport || undefined,
     },
   });
 
-  const checkedDays = form.watch("offDays", []);
+  const checkedDays = form.watch("offDays", doctor?.offDays || []);
 
   const handleDaysChange = (day, checked) => {
     const newCheckedDays = checked
@@ -107,8 +107,38 @@ const AddDoctor = () => {
     },
   });
 
+  const updateMutation = useMutation({
+    mutationFn: updateDoctor,
+    onSuccess: (result) => {
+      if (result.status === "success") {
+        toast("Doctor updated successfully", {
+          type: "success",
+        });
+
+        queryClient.invalidateQueries("doctors");
+        queryClient.invalidateQueries("specialities");
+        navigate("../");
+      } else {
+        toast(result.message || "Failed to update doctor", {
+          type: "error",
+        });
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+
+      toast("Failed to update doctor", {
+        type: "error",
+      });
+    },
+  });
+
   const onSubmit = (doctorData) => {
-    createMutation.mutate(doctorData);
+    if (doctor._id) {
+      updateMutation.mutate({ doctorId: doctor._id, doctorData });
+    } else {
+      createMutation.mutate(doctorData);
+    }
   };
 
   return (
@@ -119,7 +149,10 @@ const AddDoctor = () => {
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <div className="grid grid-cols-[240px_1fr] gap-6">
-            <DoctorPhotoUpload />
+            <DoctorPhotoUpload
+              isUpdate={!!doctor?.photo}
+              oldPhoto={doctor?.photo || ""}
+            />
             <div className="space-y-4">
               <DashFormField
                 label="Name"
@@ -136,6 +169,12 @@ const AddDoctor = () => {
               <DoctorSpecialities
                 formControl={form.control}
                 onSelectChange={form.setValue}
+                initialSelected={
+                  doctor?.specialities?.map((s) => ({
+                    value: s.name,
+                    label: s.name,
+                  })) || []
+                }
               />
             </div>
           </div>
@@ -224,6 +263,12 @@ const AddDoctor = () => {
                 { value: "English", label: "English" },
                 { value: "Bengali", label: "Bengali" },
               ]}
+              initialSelected={
+                doctor?.languages?.map((lang) => ({
+                  value: lang,
+                  label: lang,
+                })) || []
+              }
             />
             <DoctorMultiSelect
               label="Branch Names"
@@ -231,6 +276,12 @@ const AddDoctor = () => {
               placeholder="Type branch names doctor works at"
               formControl={form.control}
               onSelectChange={form.setValue}
+              initialSelected={
+                doctor?.branchNames?.map((branch) => ({
+                  value: branch,
+                  label: branch,
+                })) || []
+              }
             />
             <div className="col-span-2">
               <DashFormField

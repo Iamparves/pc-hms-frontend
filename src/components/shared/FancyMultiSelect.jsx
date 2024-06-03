@@ -72,7 +72,11 @@ export function FancyMultiSelect({
   };
 
   useEffect(() => {
-    setSelectables(initialSelectables.filter((val) => !selected.includes(val)));
+    setSelectables(
+      initialSelectables.filter(
+        (val) => !selected.some((s) => s.value === val.value),
+      ),
+    );
   }, [selected]);
 
   return (

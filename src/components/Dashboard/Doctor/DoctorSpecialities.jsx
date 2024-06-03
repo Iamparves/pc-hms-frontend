@@ -11,8 +11,13 @@ import { getAllSpecialities } from "@/db/doctor";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 
-const DoctorSpecialities = ({ formControl, disabled, onSelectChange }) => {
-  const [selected, setSelected] = useState([]);
+const DoctorSpecialities = ({
+  initialSelected = [],
+  formControl,
+  disabled,
+  onSelectChange,
+}) => {
+  const [selected, setSelected] = useState(initialSelected);
 
   const specialitiesQuery = useQuery({
     queryKey: ["specialities"],

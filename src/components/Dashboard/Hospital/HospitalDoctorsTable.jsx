@@ -51,7 +51,10 @@ const HospitalDoctorsTable = () => {
       ),
       action: (
         <Button
-          onClick={() => deleteMutation.mutate(doctorId)}
+          onClick={() => {
+            deleteMutation.mutate(doctorId);
+            toast.dismiss();
+          }}
           size="sm"
           variant="destructive"
         >
