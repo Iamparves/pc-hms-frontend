@@ -1,4 +1,3 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { getAllAppointments } from "@/db/appointments";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/store";
@@ -72,7 +71,7 @@ const PatientAppointments = () => {
   return (
     <>
       <DashboardHeader title="Appointments" desc="View upcoming appointments" />
-      <ScrollArea className="h-[calc(100dvh-80px)] w-full">
+      <div className="h-[calc(100dvh-80px)] w-full">
         <div className="p-3 sm:p-5 xl:p-10">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-2xl font-bold">Appointment List</h2>
@@ -86,7 +85,7 @@ const PatientAppointments = () => {
             />
           </div>
         </div>
-      </ScrollArea>
+      </div>
     </>
   );
 };

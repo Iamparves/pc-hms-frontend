@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import DashboardHeader from "../shared/DashboardHeader";
 import HospitalDoctorsTable from "./HospitalDoctorsTable";
 
-const HospitalDoctos = () => {
+const HospitalDoctors = () => {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);
 
@@ -44,4 +44,4 @@ const HospitalDoctos = () => {
   );
 };
 
-export default HospitalDoctos;
+export default HospitalDoctors;

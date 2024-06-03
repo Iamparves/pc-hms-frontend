@@ -41,6 +41,26 @@ export const getAllDoctors = async (queryString = "") => {
   }
 };
 
+export const getHospitalDoctors = async (queryString = "") => {
+  try {
+    const response = await fetch(`${BASE_URL}/doctors/my-doctors${queryString}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+
+    return { error: error.message };
+  }
+};
+
 export const getDoctorById = async (doctorId) => {
   try {
     const response = await fetch(`${BASE_URL}/doctors/${doctorId}`, {

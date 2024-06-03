@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AdminProfile from "./components/Dashboard/Admin/AdminProfile";
 import AddDoctor from "./components/Dashboard/Doctor/AddDoctor";
 import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppointments";
-import HospitalDoctos from "./components/Dashboard/Hospital/HospitalDoctos";
+import HospitalDoctors from "./components/Dashboard/Hospital/HospitalDoctors";
 import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
 import HospitalProfile from "./components/Dashboard/Hospital/HospitalProfile";
 import PatientAppointments from "./components/Dashboard/Patient/PatientAppointments";
@@ -65,7 +65,7 @@ const App = () => {
           >
             <Route path="" element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<HospitalOverview />} />
-            <Route path="doctors" element={<HospitalDoctos />}>
+            <Route path="doctors" element={<HospitalDoctors />}>
               <Route
                 path="add"
                 element={
