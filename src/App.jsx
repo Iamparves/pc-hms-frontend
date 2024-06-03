@@ -1,9 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import AdminProfile from "./components/Dashboard/Admin/AdminProfile";
 import AddDoctor from "./components/Dashboard/Doctor/AddDoctor";
 import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppointments";
 import HospitalDoctos from "./components/Dashboard/Hospital/HospitalDoctos";
 import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
 import HospitalProfile from "./components/Dashboard/Hospital/HospitalProfile";
+import PatientProfile from "./components/Dashboard/Patient/PatientProfile";
 import FormModal from "./components/Dashboard/shared/FormModal";
 import Layout from "./components/shared/Layout";
 import { Toaster } from "./components/ui/sonner";
@@ -31,6 +33,14 @@ const App = () => {
             <Route path="/doctors/:doctorId" element={<DoctorProfile />} />
           </Route>
           <Route
+            path="/dashboard/patient"
+            element={<Dashboard allowedRoles={["patient"]} />}
+          >
+            <Route path="" element={<Navigate to="overview" replace />} />
+            <Route path="overview" element={<HospitalOverview />} />
+            <Route path="profile" element={<PatientProfile />} />
+          </Route>
+          <Route
             path="/dashboard/admin"
             element={<Dashboard allowedRoles={["admin"]} />}
           >
@@ -38,7 +48,7 @@ const App = () => {
             <Route path="overview" element={<HospitalOverview />} />
             <Route path="hospitals" element={<h1>Hospitals</h1>} />
             <Route path="admins" element={<h1>Admins</h1>} />
-            <Route path="profile" element={<h1>Profile</h1>} />
+            <Route path="profile" element={<AdminProfile />} />
           </Route>
           <Route
             path="/dashboard/hospital"

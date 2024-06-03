@@ -23,6 +23,9 @@ export const bookAppointment = async (appointmentdata) => {
 
 export const checkExistingAppointment = async (doctorId, patientId) => {
   try {
+    if (!doctorId || !patientId)
+      return { error: "Doctor and Patient ID required" };
+
     const response = await fetch(
       `${BASE_URL}/appointments?doctor=${doctorId}&patient=${patientId}`,
       {
