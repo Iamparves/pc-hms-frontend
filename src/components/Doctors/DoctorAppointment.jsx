@@ -17,7 +17,10 @@ const DoctorAppointment = ({ doctor }) => {
   const offDays = doctor?.offDays?.map((od) => days[od]) || [];
 
   return (
-    <div className="flex max-w-[360px] flex-col items-center justify-center gap-3.5 bg-white p-6">
+    <div
+      id="appointment"
+      className="flex max-w-[360px] flex-col items-center justify-center gap-3.5 bg-white p-6"
+    >
       <div className="spac-y-2">
         <h2 className="w-full font-semibold">Book Your Appointment</h2>
         <p className="text-sm text-gray-500">

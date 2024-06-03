@@ -1,12 +1,4 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "../ui/button";
+import DoctorProfileShare from "./DoctorProfileShare";
 
 const DataRow = ({ title, value }) => {
   return (
@@ -44,8 +36,8 @@ const DoctorDetails = ({ doctor }) => {
 
   return (
     <div className=" bg-white p-6">
-      <div className="grid grid-cols-[300px_1fr] gap-x-10">
-        <div className="">
+      <div className="grid grid-cols-[320px_1fr] items-start gap-x-10">
+        <div className="shadow-sm">
           <img
             src={
               photo ||
@@ -54,39 +46,45 @@ const DoctorDetails = ({ doctor }) => {
             alt={name}
             className="aspect-[3/4] object-cover"
           />
+          <div className="px-5 pb-5 pt-5 text-center">
+            <h2 className="mb-2 text-xl font-medium text-blue">{name}</h2>
+            <p className="mb-1 text-[15px] text-gray-500">
+              <span className="font-medium text-gray-700">Designation:</span>{" "}
+              {designation}
+            </p>
+            <p className="text-[15px] text-gray-500">
+              <span className="font-medium text-gray-700">Qualifications:</span>{" "}
+              {qualifications}
+            </p>
+          </div>
         </div>
         <div className="">
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-xl font-medium text-blue">{name}</h2>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button size="sm" variant="outline">
-                  Share
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <div className="mb-5 flex items-center justify-between gap-5">
+            <h2 className="text-xl font-medium">Additional Information</h2>
+            <DoctorProfileShare doctorId={doctor._id} />
+          </div>
+          <div className="mb-5">
+            <p className="text-gray-500">{about}</p>
           </div>
           <table class="w-full border border-[#ebebeb]">
             <tbody>
-              <DataRow title="Qualifications" value={qualifications} />
-              <DataRow title="Designation" value={designation} />
-              <DataRow title="Languages" value={languages.join(", ")} />
               <DataRow title="Department" value={department} />
-              <DataRow title="Institute" value={institute} />
+              <DataRow
+                title="Specialities"
+                value={specialities?.map((s) => s.name).join(", ")}
+              />
               <DataRow title="Chamber Time" value={chamberTime} />
-              <DataRow title="Off Days" value={offDays.join(", ")} />
+              <DataRow title="Off Days" value={offDays?.join(", ")} />
               <DataRow title="Floor No." value={floorNo} />
               <DataRow title="Room No." value={roomNumber} />
               <DataRow title="Consultation Fee" value={consulatationFee} />
               <DataRow title="Fees to Show Report" value={feesToShowReport} />
+              <DataRow title="Appointment" value={appointmentNo} />
+              <DataRow title="Contact" value={phone} />
+              <DataRow title="Institute" value={institute} />
+              <DataRow title="Branches" value={branchNames?.join("<br/>")} />
+              <DataRow title="Languages" value={languages?.join(", ")} />
+              <DataRow title="BMDC No." value={bmdcNo} />
             </tbody>
           </table>
         </div>
