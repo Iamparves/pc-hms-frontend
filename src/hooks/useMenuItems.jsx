@@ -44,6 +44,11 @@ const menuItems = {
       path: "overview",
       icon: <MdDashboard />,
     },
+    {
+      title: "Appointments",
+      path: "appointments",
+      icon: <RiCalendarScheduleLine />,
+    },
   ],
 };
 

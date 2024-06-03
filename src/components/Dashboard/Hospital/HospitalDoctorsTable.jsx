@@ -165,7 +165,6 @@ const HospitalDoctorsTable = () => {
       <DashDataTable
         columns={columns}
         data={doctors}
-        noPagination={false}
         isLoading={doctorsQuery.isFetching}
         filterPlaceholder={"Search doctors..."}
       />

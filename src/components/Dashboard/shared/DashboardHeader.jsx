@@ -4,7 +4,10 @@ import { Link, useOutletContext } from "react-router-dom";
 
 const DashboardHeader = ({ title, desc }) => {
   const [_sidebarOpen, setSidebarOpen] = useOutletContext();
-  const { name, photo } = useStore((state) => state.user);
+  const {
+    name,
+    profile: { photo },
+  } = useStore((state) => state.user);
 
   const toggleSidebar = () => setSidebarOpen((open) => !open);
 

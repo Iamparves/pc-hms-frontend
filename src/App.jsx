@@ -5,6 +5,7 @@ import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppoin
 import HospitalDoctos from "./components/Dashboard/Hospital/HospitalDoctos";
 import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
 import HospitalProfile from "./components/Dashboard/Hospital/HospitalProfile";
+import PatientAppointments from "./components/Dashboard/Patient/PatientAppointments";
 import PatientProfile from "./components/Dashboard/Patient/PatientProfile";
 import FormModal from "./components/Dashboard/shared/FormModal";
 import Layout from "./components/shared/Layout";
@@ -24,6 +25,7 @@ const App = () => {
       <Toaster />
       <BrowserRouter>
         <Routes>
+          {/* GENERAL ROUTES */}
           <Route path="/" element={<Layout />}>
             <Route path="" index element={<Home />} />
             <Route path="/signup" element={<Signup />} />
@@ -32,14 +34,19 @@ const App = () => {
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:doctorId" element={<DoctorProfile />} />
           </Route>
+
+          {/* PATIENT DASHBOARD ROUTES */}
           <Route
             path="/dashboard/patient"
             element={<Dashboard allowedRoles={["patient"]} />}
           >
             <Route path="" element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<HospitalOverview />} />
+            <Route path="appointments" element={<PatientAppointments />} />
             <Route path="profile" element={<PatientProfile />} />
           </Route>
+
+          {/* ADMIN DASHBOARD ROUTES */}
           <Route
             path="/dashboard/admin"
             element={<Dashboard allowedRoles={["admin"]} />}
@@ -50,6 +57,8 @@ const App = () => {
             <Route path="admins" element={<h1>Admins</h1>} />
             <Route path="profile" element={<AdminProfile />} />
           </Route>
+
+          {/* HOSPITAL DASHBOARD ROUTES */}
           <Route
             path="/dashboard/hospital"
             element={<Dashboard allowedRoles={["hospital"]} />}
@@ -78,6 +87,7 @@ const App = () => {
             <Route path="profile" element={<HospitalProfile />} />
           </Route>
 
+          {/* 404 PAGE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

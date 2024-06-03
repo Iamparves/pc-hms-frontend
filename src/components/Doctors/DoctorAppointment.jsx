@@ -1,7 +1,7 @@
 import { bookAppointment, checkExistingAppointment } from "@/db/appointments";
 import generateDayId from "@/lib/generateDayId";
 import { useStore } from "@/store";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -26,6 +26,8 @@ const DoctorAppointment = ({ doctorOffDays, doctorId, hospitalId }) => {
   const notPatient =
     !user || user?.role === "doctor" || user?.role === "hospital";
 
+  const queryClient = useQueryClient();
+
   const appointmentsQuery = useQuery({
     queryKey: ["appointments", { doctorId, patientId: user?.profile?._id }],
     queryFn: () => checkExistingAppointment(doctorId, user?.profile?._id),
@@ -40,7 +42,7 @@ const DoctorAppointment = ({ doctorOffDays, doctorId, hospitalId }) => {
         toast.success("Appointment booked successfully");
         setDate(null);
 
-        appointmentsQuery.refetch();
+        queryClient.invalidateQueries(["appointments"]);
       } else {
         toast.error(result.message || "Failed to book appointment");
       }
