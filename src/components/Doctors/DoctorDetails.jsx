@@ -2,11 +2,11 @@ import DoctorProfileShare from "./DoctorProfileShare";
 
 const DataRow = ({ title, value }) => {
   return (
-    <tr class="text-[13px] text-[#151515] sm:text-sm">
-      <td class="w-2/5 max-w-[130px] border border-[#ebebeb] bg-[#f8f8f8] px-2 py-3 font-semibold sm:w-[200px] sm:max-w-none sm:px-5">
+    <tr className="text-[13px] text-[#151515] sm:text-sm">
+      <td className="w-2/5 max-w-[130px] border border-[#ebebeb] bg-[#f8f8f8] px-2 py-3 font-semibold sm:w-[200px] sm:max-w-none sm:px-5">
         {title}
       </td>
-      <td class="border border-[#ebebeb] px-2 py-3 sm:px-5">{value}</td>
+      <td className="border border-[#ebebeb] px-2 py-3 sm:px-5">{value}</td>
     </tr>
   );
 };
@@ -32,6 +32,7 @@ const DoctorDetails = ({ doctor }) => {
     consulatationFee,
     phone,
     feesToShowReport,
+    hospital,
   } = doctor;
 
   return (
@@ -68,8 +69,10 @@ const DoctorDetails = ({ doctor }) => {
           <div className="mb-5 text-[15px] sm:text-base">
             <p className="text-gray-500">{about}</p>
           </div>
-          <table class="w-full border border-[#ebebeb]">
+          <table className="w-full border border-[#ebebeb]">
             <tbody>
+              <DataRow title="Hospital" value={hospital?.name} />
+              <DataRow title="Address" value={hospital?.address} />
               <DataRow title="Department" value={department} />
               <DataRow
                 title="Specialities"
@@ -84,7 +87,10 @@ const DoctorDetails = ({ doctor }) => {
               <DataRow title="Appointment" value={appointmentNo} />
               <DataRow title="Contact" value={phone} />
               <DataRow title="Institute" value={institute} />
-              <DataRow title="Branches" value={branchNames?.join("<br/>")} />
+              <DataRow
+                title="Other Branches"
+                value={branchNames?.join("<br/>")}
+              />
               <DataRow title="Languages" value={languages?.join(", ")} />
               <DataRow title="BMDC No." value={bmdcNo} />
             </tbody>

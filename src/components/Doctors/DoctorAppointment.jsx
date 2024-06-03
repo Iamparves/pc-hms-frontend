@@ -1,5 +1,9 @@
+import { bookAppointment, checkExistingAppointment } from "@/db/appointments";
+import generateDayId from "@/lib/generateDayId";
 import { useStore } from "@/store";
-import { useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 
@@ -13,12 +17,69 @@ const days = {
   SAT: 6,
 };
 
-const DoctorAppointment = ({ doctor }) => {
+const DoctorAppointment = ({ doctorOffDays, doctorId, hospitalId }) => {
   const user = useStore((state) => state.user);
   const [date, setDate] = useState(null);
-  const offDays = doctor?.offDays?.map((od) => days[od]) || [];
+  const [existingAppointment, setExistingAppointment] = useState(null);
+
+  const offDays = doctorOffDays?.map((od) => days[od]) || [];
   const notPatient =
     !user || user?.role === "doctor" || user?.role === "hospital";
+
+  const appointmentsQuery = useQuery({
+    queryKey: ["appointments", { doctorId, patientId: user?.profile?._id }],
+    queryFn: () => checkExistingAppointment(doctorId, user?.profile?._id),
+  });
+
+  const appointments = appointmentsQuery.data?.data?.appointments || [];
+
+  const appointmentMutation = useMutation({
+    mutationFn: bookAppointment,
+    onSuccess: (result) => {
+      if (result.status === "success") {
+        toast.success("Appointment booked successfully");
+        setDate(null);
+
+        appointmentsQuery.refetch();
+      } else {
+        toast.error(result.message || "Failed to book appointment");
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to book appointment");
+    },
+  });
+
+  const handleAppointmentBooking = () => {
+    if (!date)
+      return toast.error("Please select a date to book an appointment");
+
+    const appointmentData = {
+      doctor: doctorId,
+      hospital: hospitalId,
+      appointmentDate: date.toISOString(),
+    };
+
+    appointmentMutation.mutate(appointmentData);
+  };
+
+  useEffect(() => {
+    if (!date) {
+      return setExistingAppointment(null);
+    }
+
+    const dayId = generateDayId(date);
+
+    const _existingAppointment = appointments.find(
+      (appointment) => appointment.dayId === dayId,
+    );
+
+    if (_existingAppointment) {
+      setExistingAppointment(_existingAppointment);
+    } else {
+      setExistingAppointment(null);
+    }
+  }, [date]);
 
   return (
     <div className="bg-white">
@@ -56,8 +117,26 @@ const DoctorAppointment = ({ doctor }) => {
             );
           }}
         />
-        <Button className="w-full bg-blue hover:bg-blue/90" size="lg">
-          Confirm Appointment
+        {existingAppointment && (
+          <p className="text-sm text-gray-500">
+            You already have an appointment on this date with this doctor and
+            serial number:{" "}
+            <span className="text-[15px] text-blue">
+              {String(existingAppointment.serialNo).padStart(2, "0")}
+            </span>
+          </p>
+        )}
+        <Button
+          onClick={handleAppointmentBooking}
+          className="w-full bg-blue hover:bg-blue/90"
+          size="lg"
+          disabled={
+            !date || existingAppointment || appointmentMutation.isPending
+          }
+        >
+          {appointmentMutation.isPending
+            ? "Booking Appointment..."
+            : "Confirm Appointment"}
         </Button>
       </div>
     </div>

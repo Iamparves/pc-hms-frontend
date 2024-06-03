@@ -27,7 +27,11 @@ const DoctorProfile = () => {
       <div className="container px-3 py-10 sm:px-5">
         <div className="mx-auto grid max-w-xl grid-cols-1 items-start gap-5 lg:max-w-none lg:grid-cols-[1fr_auto]">
           <DoctorDetails doctor={doctor} />
-          <DoctorAppointment doctor={doctor} />
+          <DoctorAppointment
+            doctorId={doctor._id}
+            hospitalId={doctor.hospital?._id}
+            doctorOffDays={doctor.offDays}
+          />
         </div>
       </div>
     </section>
