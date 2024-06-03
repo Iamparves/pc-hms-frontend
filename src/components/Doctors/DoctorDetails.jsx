@@ -2,8 +2,8 @@ import DoctorProfileShare from "./DoctorProfileShare";
 
 const DataRow = ({ title, value }) => {
   return (
-    <tr class="text-sm text-[#151515]">
-      <td class="border border-[#ebebeb] bg-[#f8f8f8] px-2 py-3 font-semibold sm:w-[200px] sm:px-5">
+    <tr class="text-[13px] text-[#151515] sm:text-sm">
+      <td class="w-2/5 max-w-[130px] border border-[#ebebeb] bg-[#f8f8f8] px-2 py-3 font-semibold sm:w-[200px] sm:max-w-none sm:px-5">
         {title}
       </td>
       <td class="border border-[#ebebeb] px-2 py-3 sm:px-5">{value}</td>
@@ -35,16 +35,16 @@ const DoctorDetails = ({ doctor }) => {
   } = doctor;
 
   return (
-    <div className=" bg-white p-6">
-      <div className="grid grid-cols-[320px_1fr] items-start gap-x-10">
-        <div className="shadow-sm">
+    <div className=" bg-white p-2.5 sm:p-6">
+      <div className="grid grid-cols-1 items-start gap-x-10 gap-y-8 xl:grid-cols-[290px_1fr] 2xl:grid-cols-[320px_1fr]">
+        <div className="mx-auto max-w-[400px] shadow-sm">
           <img
             src={
               photo ||
               "https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=400:*"
             }
             alt={name}
-            className="aspect-[3/4] object-cover"
+            className="mx-auto aspect-[3/4] object-cover"
           />
           <div className="px-5 pb-5 pt-5 text-center">
             <h2 className="mb-2 text-xl font-medium text-blue">{name}</h2>
@@ -60,10 +60,12 @@ const DoctorDetails = ({ doctor }) => {
         </div>
         <div className="">
           <div className="mb-5 flex items-center justify-between gap-5">
-            <h2 className="text-xl font-medium">Additional Information</h2>
+            <h2 className="text-lg font-medium sm:text-xl">
+              Additional Information
+            </h2>
             <DoctorProfileShare doctorId={doctor._id} />
           </div>
-          <div className="mb-5">
+          <div className="mb-5 text-[15px] sm:text-base">
             <p className="text-gray-500">{about}</p>
           </div>
           <table class="w-full border border-[#ebebeb]">

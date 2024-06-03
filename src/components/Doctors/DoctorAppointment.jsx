@@ -17,19 +17,22 @@ const DoctorAppointment = ({ doctor }) => {
   const user = useStore((state) => state.user);
   const [date, setDate] = useState(null);
   const offDays = doctor?.offDays?.map((od) => days[od]) || [];
-  const notPatient = user.role === "doctor" || user.role === "hospital";
+  const notPatient =
+    !user || user?.role === "doctor" || user?.role === "hospital";
 
   return (
     <div className="bg-white">
       <div
         id="appointment"
-        className="relative flex max-w-[360px] flex-col items-center justify-center gap-3.5 bg-white p-6 aria-disabled:pointer-events-none"
+        className="relative mx-auto flex max-w-[360px] flex-col items-center justify-center gap-3.5 bg-white p-6 aria-disabled:pointer-events-none"
         aria-disabled={notPatient}
       >
         {notPatient && (
-          <div className="absolute bottom-0 left-0 right-0 top-0 z-[2] flex items-center justify-center bg-white/50 backdrop-blur-[2px]">
+          <div className="absolute bottom-0 left-0 right-0 top-0 z-[2] flex items-center justify-center bg-white/60 backdrop-blur-[1px]">
             <p className="bg-black/5 p-5 text-center">
-              Login with a patient profile to book an appointment
+              {user
+                ? "Login with a patient profile to book an appointment"
+                : "Please login to book an appointment"}
             </p>
           </div>
         )}
