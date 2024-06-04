@@ -11,7 +11,12 @@ import { CalendarIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import FilterSpecialityField from "./FilterSpecialityField";
 
-const DoctorFilters = ({ setQueryString, selectable, currentPage }) => {
+const DoctorFilters = ({
+  setQueryString,
+  selectable,
+  currentPage,
+  setCurrentPage,
+}) => {
   const [district, setDistrict] = useState("");
   const [hospital, setHospital] = useState("");
   const [doctor, setDoctor] = useState("");
@@ -36,7 +41,6 @@ const DoctorFilters = ({ setQueryString, selectable, currentPage }) => {
     if (specialities.length)
       query.append("specialities", specialities.join(","));
     if (date) query.append("date", date);
-    query.append("page", currentPage);
 
     setQueryString(`?${query.toString()}`);
   };
@@ -145,7 +149,10 @@ const DoctorFilters = ({ setQueryString, selectable, currentPage }) => {
         <div className="">
           <Button
             className="w-full bg-blue py-[22px] hover:bg-blue/90"
-            onClick={handleFilters}
+            onClick={() => {
+              handleFilters();
+              setCurrentPage(1);
+            }}
           >
             Apply Filters
           </Button>

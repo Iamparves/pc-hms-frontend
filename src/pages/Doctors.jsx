@@ -41,6 +41,7 @@ const Doctors = () => {
             setQueryString={setQueryString}
             selectable={specialities}
             currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
           />
         </div>
         <div className="">
