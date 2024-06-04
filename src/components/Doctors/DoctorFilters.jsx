@@ -8,10 +8,10 @@ import {
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterSpecialityField from "./FilterSpecialityField";
 
-const DoctorFilters = ({ setQueryString, selectable }) => {
+const DoctorFilters = ({ setQueryString, selectable, currentPage }) => {
   const [district, setDistrict] = useState("");
   const [hospital, setHospital] = useState("");
   const [doctor, setDoctor] = useState("");
@@ -36,6 +36,8 @@ const DoctorFilters = ({ setQueryString, selectable }) => {
     if (specialities.length)
       query.append("specialities", specialities.join(","));
     if (date) query.append("date", date);
+    query.append("page", currentPage);
+
     setQueryString(`?${query.toString()}`);
   };
 
@@ -47,6 +49,10 @@ const DoctorFilters = ({ setQueryString, selectable }) => {
     setDate("");
     setQueryString("");
   };
+
+  useEffect(() => {
+    handleFilters();
+  }, [currentPage]);
 
   return (
     <>
