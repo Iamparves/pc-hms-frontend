@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { deleteAdmin, getAdmins } from "@/db/admin";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { ArrowDown, ArrowUp } from "lucide-react";
 import { MdDeleteOutline } from "react-icons/md";
 import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -73,8 +74,29 @@ const Admins = () => {
       header: "Mobile No",
     },
     {
-      accessorFn: (row) => format(new Date(row.createdAt), "dd MMM yyyy"),
-      header: "Admin Since",
+      accessorKey: "createdAt",
+      // header: "Member Since",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="px-0 py-0 hover:bg-transparent hover:text-white"
+          >
+            Admin Since
+            {column.getIsSorted() && (
+              <>
+                {column.getIsSorted() === "asc" ? (
+                  <ArrowUp className="ml-2 h-4 w-4" />
+                ) : (
+                  <ArrowDown className="ml-2 h-4 w-4" />
+                )}
+              </>
+            )}
+          </Button>
+        );
+      },
+      cell: (props) => format(new Date(props.getValue()), "dd MMM yyyy"),
     },
     {
       accessorFn: (row) => row._id,

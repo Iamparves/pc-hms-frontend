@@ -8,19 +8,6 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import DashDataTable from "../shared/DashDataTable";
 
-// header: ({ column }) => {
-//   return (
-//     <Button
-//       variant="ghost"
-//       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-//       className="px-0 py-0 hover:bg-transparent hover:text-white"
-//     >
-//       Name
-//       <ArrowUpDown className="ml-2 h-4 w-4" />
-//     </Button>
-//   );
-// },
-
 const HospitalDoctorsTable = () => {
   const doctorsQuery = useQuery({
     queryKey: ["doctors"],
