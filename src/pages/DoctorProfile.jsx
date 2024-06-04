@@ -26,7 +26,7 @@ const DoctorProfile = () => {
     <section>
       <div className="container px-3 py-10 sm:px-5">
         <div className="mx-auto grid max-w-xl grid-cols-1 items-start gap-5 lg:max-w-none lg:grid-cols-[1fr_auto]">
-          <DoctorDetails doctor={doctor} />
+          <DoctorDetails isFetching={doctorQuery.isFetching} doctor={doctor} />
           <DoctorAppointment
             doctorId={doctor._id}
             hospitalId={doctor.hospital?._id}
