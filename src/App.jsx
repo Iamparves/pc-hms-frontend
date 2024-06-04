@@ -14,6 +14,9 @@ import PatientProfile from "./components/Dashboard/Patient/PatientProfile";
 import FormModal from "./components/Dashboard/shared/FormModal";
 import Layout from "./components/shared/Layout";
 import { Toaster } from "./components/ui/sonner";
+import About from "./pages/About";
+import Blog from "./pages/Blog";
+import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import DoctorProfile from "./pages/DoctorProfile";
 import Doctors from "./pages/Doctors";
@@ -37,6 +40,9 @@ const App = () => {
             <Route path="/verify-otp" element={<VerifyAccount />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:doctorId" element={<DoctorProfile />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<Contact />} />
           </Route>
 
           {/* PATIENT DASHBOARD ROUTES */}
