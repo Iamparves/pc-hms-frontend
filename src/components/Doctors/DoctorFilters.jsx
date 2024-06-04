@@ -35,7 +35,7 @@ const DoctorFilters = ({ selectable }) => {
     setSearchParams((prev) => {
       prev.set("district", district);
       prev.set("hospital", hospital);
-      prev.set("doctor", doctor);
+      prev.set("name", doctor);
       prev.set("specialities", specialities.join(","));
       prev.set("date", date);
       prev.set("page", 1);
@@ -54,7 +54,7 @@ const DoctorFilters = ({ selectable }) => {
     setSearchParams((prev) => {
       prev.delete("district");
       prev.delete("hospital");
-      prev.delete("doctor");
+      prev.delete("name");
       prev.delete("specialities");
       prev.delete("date");
       prev.set("page", 1);
