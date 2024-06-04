@@ -40,7 +40,7 @@ export const getAdmins = async () => {
 export const updateAdmin = async (adminId, adminData) => {
   try {
     const response = await fetch(`${BASE_URL}/users/admin/${adminId}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },

@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardHeader from "../shared/DashboardHeader";
 import ProfilePasswordForm from "../shared/ProfilePasswordForm";
+import AdminProfileForm from "./AdminProfileForm";
 
 const AdminProfile = () => {
   return (
@@ -21,7 +22,7 @@ const AdminProfile = () => {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="account">
-              {/* <HospitalProfileForm /> */}
+              <AdminProfileForm />
             </TabsContent>
             <TabsContent value="password">
               <ProfilePasswordForm />
