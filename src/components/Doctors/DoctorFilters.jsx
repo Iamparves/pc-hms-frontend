@@ -8,20 +8,18 @@ import {
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import FilterSpecialityField from "./FilterSpecialityField";
 
-const DoctorFilters = ({
-  setQueryString,
-  selectable,
-  currentPage,
-  setCurrentPage,
-}) => {
+const DoctorFilters = ({ selectable }) => {
   const [district, setDistrict] = useState("");
   const [hospital, setHospital] = useState("");
   const [doctor, setDoctor] = useState("");
   const [date, setDate] = useState("");
   const [specialities, setSpecialities] = useState([]);
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSpecialitiesChange = (speciality, checked) => {
     setSpecialities((prev) => {
@@ -34,29 +32,36 @@ const DoctorFilters = ({
   };
 
   const handleFilters = () => {
-    const query = new URLSearchParams();
-    if (district) query.append("district", district);
-    if (hospital) query.append("hospital", hospital);
-    if (doctor) query.append("name", doctor);
-    if (specialities.length)
-      query.append("specialities", specialities.join(","));
-    if (date) query.append("date", date);
+    setSearchParams((prev) => {
+      prev.set("district", district);
+      prev.set("hospital", hospital);
+      prev.set("doctor", doctor);
+      prev.set("specialities", specialities.join(","));
+      prev.set("date", date);
+      prev.set("page", 1);
 
-    setQueryString(`?${query.toString()}`);
+      return prev;
+    });
   };
 
   const clearFilters = () => {
     setDistrict("");
     setHospital("");
     setDoctor("");
-    setSpecialities([]);
     setDate("");
-    setQueryString("");
-  };
+    setSpecialities([]);
 
-  useEffect(() => {
-    handleFilters();
-  }, [currentPage]);
+    setSearchParams((prev) => {
+      prev.delete("district");
+      prev.delete("hospital");
+      prev.delete("doctor");
+      prev.delete("specialities");
+      prev.delete("date");
+      prev.set("page", 1);
+
+      return prev;
+    });
+  };
 
   return (
     <>

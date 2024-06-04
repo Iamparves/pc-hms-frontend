@@ -4,6 +4,7 @@ import {
   FiChevronsLeft,
   FiChevronsRight,
 } from "react-icons/fi";
+import { useSearchParams } from "react-router-dom";
 
 const Button = ({ page, icon, disabled, handlePageChange }) => {
   return (
@@ -23,10 +24,15 @@ const Pagination = ({
   lastPage,
   isFetching,
   currentPage,
-  setCurrentPage,
 }) => {
+  const [_searchParams, setSearchParams] = useSearchParams();
+
   const handlePageChange = (page) => {
-    setCurrentPage(page);
+    setSearchParams((prev) => {
+      prev.set("page", page);
+
+      return prev;
+    });
   };
 
   return (

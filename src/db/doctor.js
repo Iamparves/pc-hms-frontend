@@ -41,6 +41,39 @@ export const getAllDoctors = async (queryString = "") => {
   }
 };
 
+export const getDoctorsPaginated = async (params) => {
+  try {
+    const query = new URLSearchParams();
+
+    for (const [key, value] of Object.entries(params)) {
+      if (value) query.append(key, value);
+    }
+
+    const response = await fetch(`${BASE_URL}/doctors?${query.toString()}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    const totalPages = Math.ceil(result.data.totalDocs / params.limit) || 1;
+
+    return {
+      doctors: result.data?.doctors,
+      totalPages,
+      totalDoctors: result.data.totalDocs,
+      result: result.results,
+    };
+  } catch (error) {
+    console.log(error);
+
+    return { error: error.message };
+  }
+};
+
 export const getHospitalDoctors = async (queryString = "") => {
   try {
     const response = await fetch(
