@@ -11,6 +11,9 @@ import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import FilterSpecialityField from "./FilterSpecialityField";
+import DoctorDistrictFilter from "./Filters/DoctorDistrictFilter";
+import DoctorHospitalFilter from "./Filters/DoctorHospitalFilter";
+import DoctorNameFilter from "./Filters/DoctorNameFilter";
 
 const DoctorFilters = ({ selectable }) => {
   const [district, setDistrict] = useState("");
@@ -19,7 +22,7 @@ const DoctorFilters = ({ selectable }) => {
   const [date, setDate] = useState("");
   const [specialities, setSpecialities] = useState([]);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [_searchParams, setSearchParams] = useSearchParams();
 
   const handleSpecialitiesChange = (speciality, checked) => {
     setSpecialities((prev) => {
@@ -72,51 +75,18 @@ const DoctorFilters = ({ selectable }) => {
         </button>
       </div>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-1">
-        <div className="">
-          <label
-            htmlFor="district"
-            className="mb-1 block text-sm font-medium text-gray-600"
-          >
-            District
-          </label>
-          <input
-            id="district"
-            type="text"
-            value={district}
-            onChange={(e) => setDistrict(e.target.value)}
-            className="w-full rounded-md border px-3 py-2 outline-none"
-          />
-        </div>
-        <div className="">
-          <label
-            htmlFor="hospital"
-            className="mb-1 block text-sm font-medium text-gray-600"
-          >
-            Hospital
-          </label>
-          <input
-            id="hospital"
-            type="text"
-            value={hospital}
-            onChange={(e) => setHospital(e.target.value)}
-            className="w-full rounded-md border px-3 py-2 outline-none"
-          />
-        </div>
-        <div className="">
-          <label
-            htmlFor="doctor"
-            className="mb-1 block text-sm font-medium text-gray-600"
-          >
-            Doctor Name
-          </label>
-          <input
-            id="doctor"
-            type="text"
-            value={doctor}
-            onChange={(e) => setDoctor(e.target.value)}
-            className="w-full rounded-md border px-3 py-2 outline-none"
-          />
-        </div>
+        <DoctorDistrictFilter district={district} setDistrict={setDistrict} />
+        <DoctorHospitalFilter
+          district={district}
+          hospital={hospital}
+          setHospital={setHospital}
+        />
+        <DoctorNameFilter
+          district={district}
+          hospital={hospital}
+          doctor={doctor}
+          setDoctor={setDoctor}
+        />
         <div className="">
           <label className="mb-1 block text-sm font-medium text-gray-600">
             Specialities
