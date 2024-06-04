@@ -61,6 +61,13 @@ const Doctors = () => {
             </div>
           )}
           {doctorsQuery.isFetching && <DoctorsSkeleton />}
+          {!doctorsQuery.isFetching && doctors.length === 0 && (
+            <div className="rounded-lg bg-white px-5 py-14 text-center">
+              <p className="text-base font-medium text-gray-400">
+                No doctors found
+              </p>
+            </div>
+          )}
           <Pagination
             hasPrevPage={currentPage > 1}
             hasNextPage={currentPage < totalPages}

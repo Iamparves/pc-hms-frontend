@@ -30,7 +30,7 @@ const Pagination = ({
   };
 
   return (
-    <div className="mt-10">
+    <div className="mt-8">
       <div className="flex justify-center gap-[1px]">
         <Button
           page={1}
