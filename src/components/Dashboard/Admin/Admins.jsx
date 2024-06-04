@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { deleteAdmin, getAdmins } from "@/db/admin";
+import { useStore } from "@/store";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { ArrowDown, ArrowUp } from "lucide-react";
@@ -11,6 +12,7 @@ import DashboardHeader from "../shared/DashboardHeader";
 
 const Admins = () => {
   const navigate = useNavigate();
+  const user = useStore((state) => state.user);
 
   const adminsQuery = useQuery({
     queryKey: ["admins"],
@@ -75,7 +77,6 @@ const Admins = () => {
     },
     {
       accessorKey: "createdAt",
-      // header: "Member Since",
       header: ({ column }) => {
         return (
           <Button
@@ -108,6 +109,7 @@ const Admins = () => {
             onClick={() => handleDeleteAdmin(props.getValue())}
             variant="outline"
             size="icon"
+            disabled={deleteMutation.isLoading || user._id === props.getValue()}
           >
             <MdDeleteOutline className="text-lg" />
           </Button>
@@ -132,7 +134,6 @@ const Admins = () => {
               Add Admin
             </Button>
           </div>
-          {/* <HospitalDoctorsTable /> */}
           <div>
             <DashDataTable
               columns={columns}
