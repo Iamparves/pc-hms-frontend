@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import AdminHospitals from "./components/Dashboard/Admin/AdminHospitals";
 import AdminProfile from "./components/Dashboard/Admin/AdminProfile";
 import AddDoctor from "./components/Dashboard/Doctor/AddDoctor";
 import UpdateDoctor from "./components/Dashboard/Doctor/UpdateDoctor";
@@ -54,7 +55,7 @@ const App = () => {
           >
             <Route path="" element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<HospitalOverview />} />
-            <Route path="hospitals" element={<h1>Hospitals</h1>} />
+            <Route path="hospitals" element={<AdminHospitals />} />
             <Route path="admins" element={<h1>Admins</h1>} />
             <Route path="profile" element={<AdminProfile />} />
           </Route>
