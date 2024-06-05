@@ -2,10 +2,10 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
 const BlogCard = ({ blog }) => {
-  const { _id, title, tags, featuredImage, publishedDate, author } = blog;
+  const { _id, title, featuredImage, publishedDate, author } = blog;
 
   return (
-    <Link className="h-full" to={`/blogs/${_id}`}>
+    <Link className="mx-auto h-full max-w-sm" to={`/blogs/${_id}`}>
       <div className="h-full overflow-hidden rounded-md bg-white">
         <img
           className="aspect-video object-cover"

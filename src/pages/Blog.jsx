@@ -23,7 +23,7 @@ const Blog = () => {
         {!blogsQuery.isFetching && blogs.length === 0 && <p>No blogs found</p>}
         {blogsQuery.isFetching && <p>Loading...</p>}
         {!blogsQuery.isFetching && blogs.length !== 0 && (
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {blogs.map((blog) => (
               <BlogCard key={blog.id} blog={blog} />
             ))}
