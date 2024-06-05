@@ -1,7 +1,11 @@
 import { FaRegHospital } from "react-icons/fa";
 import { FaUserDoctor } from "react-icons/fa6";
 import { MdDashboard } from "react-icons/md";
-import { RiAdminLine, RiCalendarScheduleLine } from "react-icons/ri";
+import {
+  RiAdminLine,
+  RiArticleLine,
+  RiCalendarScheduleLine,
+} from "react-icons/ri";
 
 const menuItems = {
   admin: [
@@ -14,6 +18,11 @@ const menuItems = {
       title: "Hospitals",
       path: "hospitals",
       icon: <FaRegHospital />,
+    },
+    {
+      title: "Blogs",
+      path: "blogs",
+      icon: <RiArticleLine />,
     },
     {
       title: "Admins",
@@ -36,6 +45,11 @@ const menuItems = {
       title: "Appointments",
       path: "appointments",
       icon: <RiCalendarScheduleLine />,
+    },
+    {
+      title: "Blogs",
+      path: "blogs",
+      icon: <RiArticleLine />,
     },
   ],
   patient: [

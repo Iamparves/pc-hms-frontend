@@ -55,8 +55,6 @@ const ImageUpload = ({
     onImageUpload("");
   };
 
-  console.log(isUpdate);
-
   return (
     <div
       className={cn(

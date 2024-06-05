@@ -1,8 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import "./App.css";
 import AddAdmin from "./components/Dashboard/Admin/AddAdmin";
 import AdminHospitals from "./components/Dashboard/Admin/AdminHospitals";
 import AdminProfile from "./components/Dashboard/Admin/AdminProfile";
 import Admins from "./components/Dashboard/Admin/Admins";
+import DashBlogs from "./components/Dashboard/Blog/DashBlogs";
+import NewBlog from "./components/Dashboard/Blog/NewBlog";
 import AddDoctor from "./components/Dashboard/Doctor/AddDoctor";
 import UpdateDoctor from "./components/Dashboard/Doctor/UpdateDoctor";
 import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppointments";
@@ -16,6 +19,7 @@ import Layout from "./components/shared/Layout";
 import { Toaster } from "./components/ui/sonner";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
+import BlogDetails from "./pages/BlogDetails";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import DoctorProfile from "./pages/DoctorProfile";
@@ -41,7 +45,8 @@ const App = () => {
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:doctorId" element={<DoctorProfile />} />
             <Route path="/about" element={<About />} />
-            <Route path="/blog" element={<Blog />} />
+            <Route path="/blogs" element={<Blog />} />
+            <Route path="/blogs/:blogId" element={<BlogDetails />} />
             <Route path="/contact" element={<Contact />} />
           </Route>
 
@@ -64,6 +69,8 @@ const App = () => {
             <Route path="" element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<HospitalOverview />} />
             <Route path="hospitals" element={<AdminHospitals />} />
+            <Route path="blogs" element={<DashBlogs />} />
+            <Route path="blogs/new" element={<NewBlog />} />
             <Route path="admins" element={<Admins />}>
               <Route
                 path="add"
@@ -103,6 +110,8 @@ const App = () => {
               ></Route>
             </Route>
             <Route path="appointments" element={<HospitalAppointments />} />
+            <Route path="blogs" element={<DashBlogs />} />
+            <Route path="blogs/new" element={<NewBlog />} />
             <Route path="profile" element={<HospitalProfile />} />
           </Route>
 

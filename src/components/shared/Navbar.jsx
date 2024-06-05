@@ -34,7 +34,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/blog"
+                to="/blogs"
                 activeclassname="active"
                 className="[&.active]:text-blue"
               >
