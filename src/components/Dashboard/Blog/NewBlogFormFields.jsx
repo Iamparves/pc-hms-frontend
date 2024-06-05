@@ -19,14 +19,17 @@ const NewBlogFormFields = ({
   return (
     <div className="grid grid-cols-[1fr_auto] gap-7 rounded-md bg-white p-8">
       <div className="space-y-5">
-        <Input
-          placeholder={"Enter blog title"}
-          type={"text"}
-          className="px-[15px] py-[22px] text-[15px] transition-colors placeholder:text-gray-400 focus:border-blue/60"
-          disabled={isUploading}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <div>
+          <h3 className="mb-2 text-sm font-medium">Title</h3>
+          <Input
+            placeholder={"Enter blog title"}
+            type={"text"}
+            className="px-[15px] py-[22px] text-[15px] transition-colors placeholder:text-gray-400 focus:border-blue/60"
+            disabled={isUploading}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
         <div>
           <h3 className="mb-2 text-sm font-medium">Content</h3>
           <ReactQuill
