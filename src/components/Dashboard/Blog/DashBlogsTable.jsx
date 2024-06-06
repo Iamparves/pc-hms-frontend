@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { LuEye } from "react-icons/lu";
 import { MdDeleteOutline } from "react-icons/md";
@@ -22,6 +23,24 @@ const DashBlogsTable = ({ blogs, isFetching }) => {
     {
       accessorKey: "author.name",
       header: "Author",
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: (props) => {
+        return (
+          <span
+            className={cn(
+              "rounded-full px-2 py-1 text-[13px]",
+              props.getValue() === "Published"
+                ? "bg-green-100 text-green-600"
+                : "bg-red-100 text-red-600",
+            )}
+          >
+            {props.getValue()}
+          </span>
+        );
+      },
     },
     {
       accessorFn: (row) => row._id,

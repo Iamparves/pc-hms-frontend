@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 
 const Blog = () => {
   const blogsQuery = useQuery({
-    queryKey: ["blogs"],
-    queryFn: () => getAllBlogs(),
+    queryKey: ["blogs", { status: "Published" }],
+    queryFn: () => getAllBlogs("?status=Published"),
   });
 
   const blogs = blogsQuery.data?.data?.blogs || [];
