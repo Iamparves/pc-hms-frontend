@@ -1,4 +1,5 @@
 import { BlogComments } from "@/components/Blogs/BlogComments";
+import BlogDetailsSkeleton from "@/components/Blogs/BlogDetailsSkeleton";
 import BlogReactions from "@/components/Blogs/BlogReactions";
 import { getBlogById } from "@/db/blog";
 import { cn } from "@/lib/utils";
@@ -85,6 +86,7 @@ const BlogDetails = () => {
               </div>
             </div>
           )}
+          {blogQuery.isFetching && <BlogDetailsSkeleton />}
           <BlogReactions reactions={blog?.reactions} blogId={blogId} />
           <BlogComments blogId={blogId} />
         </div>
