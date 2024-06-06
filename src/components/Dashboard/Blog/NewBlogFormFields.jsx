@@ -30,10 +30,10 @@ const NewBlogFormFields = ({
   const selectableTags = tagsQuery.data?.data?.tags || [];
 
   return (
-    <div className="grid grid-cols-[1fr_auto] gap-x-7 gap-y-5 rounded-md bg-white p-8">
+    <div className="grid grid-cols-1 gap-x-7 gap-y-5 rounded-md bg-white p-4 sm:p-8 xl:grid-cols-[1fr_auto]">
       {blogUrl && (
-        <div className="col-span-2">
-          <p className="rounded-sm bg-[#E2F0FE] px-5 py-3 text-center text-[15px] text-gray-800">
+        <div className="col-span-1 xl:col-span-2">
+          <p className="rounded-sm bg-[#E2F0FE] px-5 py-3 text-center text-sm text-gray-800 sm:text-[15px]">
             You can view the blog post here:{" "}
             <Link
               target="_blank"
@@ -62,12 +62,12 @@ const NewBlogFormFields = ({
             theme="snow"
             value={content}
             onChange={setContent}
-            className="[&_.ql-editor]:min-h-[300px] md:[&_.ql-editor]:min-h-[400px] xl:[&_.ql-editor]:min-h-[460px]"
+            className="[&_.ql-editor]:h-[300px] md:[&_.ql-editor]:h-[400px] xl:[&_.ql-editor]:h-[460px]"
           />
         </div>
       </div>
-      <div className="sidebar w-[400px] space-y-5">
-        <div className="">
+      <div className="sidebar w-full space-y-5 xl:min-w-[300px] 2xl:w-[400px]">
+        <div className="max-w-[400px]">
           <h3 className="mb-2 text-sm font-medium">Featured Image</h3>
           <ImageUpload
             isUpdate={isUpdate}
@@ -83,7 +83,7 @@ const NewBlogFormFields = ({
             }}
           />
         </div>
-        <div className="">
+        <div className="w-full max-w-[400px]">
           <h3 className="mb-2 text-sm font-medium">Tags</h3>
           {!tagsQuery.isFetching ? (
             <FancyMultiSelect
