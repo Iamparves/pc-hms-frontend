@@ -90,3 +90,25 @@ export const deleteBlog = async (blogId) => {
     };
   }
 };
+
+export const getAllTags = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/blogs/tags`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error: error.message,
+    };
+  }
+};

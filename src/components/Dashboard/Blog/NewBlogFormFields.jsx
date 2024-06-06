@@ -1,6 +1,9 @@
 import { FancyMultiSelect } from "@/components/shared/FancyMultiSelect";
 import ImageUpload from "@/components/shared/ImageUpload";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getAllTags } from "@/db/blog";
+import { useQuery } from "@tanstack/react-query";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -16,6 +19,13 @@ const NewBlogFormFields = ({
   tags,
   setTags,
 }) => {
+  const tagsQuery = useQuery({
+    queryKey: ["tags"],
+    queryFn: getAllTags,
+  });
+
+  const selectableTags = tagsQuery.data?.data?.tags || [];
+
   return (
     <div className="grid grid-cols-[1fr_auto] gap-7 rounded-md bg-white p-8">
       <div className="space-y-5">
@@ -57,12 +67,21 @@ const NewBlogFormFields = ({
         </div>
         <div className="">
           <h3 className="mb-2 text-sm font-medium">Tags</h3>
-          <FancyMultiSelect
-            selected={tags}
-            setSelected={setTags}
-            initialSelectables={[]}
-            placeholderText="Add tags (optional)"
-          />
+          {!tagsQuery.isFetching ? (
+            <FancyMultiSelect
+              selected={tags}
+              setSelected={setTags}
+              initialSelectables={selectableTags.map((tag) => ({
+                label: tag,
+                value: tag,
+              }))}
+              placeholderText="Add tags (optional)"
+            />
+          ) : (
+            <Skeleton className="flex h-12 w-full items-center justify-center text-sm text-gray-500">
+              Fetching tags...
+            </Skeleton>
+          )}
         </div>
       </div>
     </div>
