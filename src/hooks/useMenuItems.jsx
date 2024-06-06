@@ -1,5 +1,6 @@
 import { FaRegHospital } from "react-icons/fa";
 import { FaUserDoctor } from "react-icons/fa6";
+import { HiOutlineBellAlert } from "react-icons/hi2";
 import { MdDashboard } from "react-icons/md";
 import {
   RiAdminLine,
@@ -23,6 +24,11 @@ const menuItems = {
       title: "Blogs",
       path: "blogs",
       icon: <RiArticleLine />,
+    },
+    {
+      title: "Notice",
+      path: "notice",
+      icon: <HiOutlineBellAlert />,
     },
     {
       title: "Admins",

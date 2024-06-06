@@ -13,6 +13,7 @@ import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppoin
 import HospitalDoctors from "./components/Dashboard/Hospital/HospitalDoctors";
 import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
 import HospitalProfile from "./components/Dashboard/Hospital/HospitalProfile";
+import Notice from "./components/Dashboard/Notice/Notice";
 import PatientAppointments from "./components/Dashboard/Patient/PatientAppointments";
 import PatientProfile from "./components/Dashboard/Patient/PatientProfile";
 import FormModal from "./components/Dashboard/shared/FormModal";
@@ -79,6 +80,17 @@ const App = () => {
                 element={
                   <FormModal title={"Add new admin"}>
                     <AddAdmin />
+                  </FormModal>
+                }
+              ></Route>
+            </Route>
+            <Route path="notice" element={<Notice />}>
+              <Route
+                path="add"
+                element={
+                  <FormModal title={"Add new notice"}>
+                    {/* <AddAdmin /> */}
+                    <h1>Add a new notice from here</h1>
                   </FormModal>
                 }
               ></Route>
