@@ -1,16 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { getAllBlogs } from "@/db/blog";
+import { useStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import DashboardHeader from "../shared/DashboardHeader";
 import DashBlogsTable from "./DashBlogsTable";
 
 const DashBlogs = () => {
+  const user = useStore((state) => state.user);
   const navigate = useNavigate();
 
   const blogsQuery = useQuery({
-    queryKey: ["blogs"],
-    queryFn: () => getAllBlogs(),
+    queryKey: ["blogs", { postedBy: user?.role }],
+    queryFn: () =>
+      getAllBlogs(
+        `?postedBy=${user?.role}${user.role === "admin" ? "" : `&author=${user._id}`}`,
+      ),
+    enabled: !!user?._id,
   });
 
   const blogs = blogsQuery.data?.data?.blogs || [];

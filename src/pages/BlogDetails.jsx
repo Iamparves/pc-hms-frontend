@@ -1,11 +1,12 @@
 import { BlogComments } from "@/components/Blogs/BlogComments";
 import BlogReactions from "@/components/Blogs/BlogReactions";
 import { getBlogById } from "@/db/blog";
+import { cn } from "@/lib/utils";
 import { useStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { franc } from "franc";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "sonner";
 
 const BlogDetails = () => {
   const user = useStore((state) => state.user);
@@ -20,24 +21,15 @@ const BlogDetails = () => {
 
   const blog = blogQuery.data?.data?.blog || {};
 
-  if (
-    !blogQuery.isFetching &&
-    blog.status !== "Published" &&
-    user?.role !== "admin" &&
-    user?.role !== "hospital"
-  ) {
-    navigate("/blogs");
-  } else if (
-    !blogQuery.isFetching &&
-    blog.status !== "Published" &&
-    user?.role === "hospital" &&
-    blog.author?._id !== user?._id
-  ) {
-    navigate("/blogs");
-  } else if (!blogQuery.isFetching && !blog?._id) {
-    toast.error("Blog not found");
-    return navigate("/blogs");
+  if (!blogQuery.isFetching && blog.status === "Draft") {
+    const isNotAuthor =
+      user?.role !== "admin" && blog.author?._id !== user?._id;
+    const isNotAdminPost = user?.role === "admin" && blog.postedBy !== "admin";
+
+    if (isNotAuthor || isNotAdminPost) return navigate("/blogs");
   }
+
+  const langCode = franc(blog?.content || "");
 
   return (
     <section className="py-10 md:py-14">
@@ -45,7 +37,12 @@ const BlogDetails = () => {
         <div className="mx-auto max-w-5xl">
           {!blogQuery.isFetching && (
             <div className="rounded-lg bg-white p-4 sm:p-6 md:p-10">
-              <h1 className="mb-5 text-center text-[22px] font-semibold leading-snug sm:text-2xl md:text-3xl">
+              <h1
+                className={cn(
+                  "mb-5 text-center text-[22px] font-semibold leading-snug sm:text-2xl md:text-3xl",
+                  langCode === "ben" && "font-hindSiligrui",
+                )}
+              >
                 {blog.title}
               </h1>
               <img
@@ -73,7 +70,12 @@ const BlogDetails = () => {
                   </p>
                 )}
               </div>
-              <div className="blog-content mt-10">
+              <div
+                className={cn(
+                  "blog-content mt-10",
+                  langCode === "ben" && "[&_*]:font-hindSiligrui",
+                )}
+              >
                 <div
                   dangerouslySetInnerHTML={{
                     __html: blog.content,

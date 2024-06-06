@@ -73,6 +73,7 @@ module.exports = {
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        hindSiligrui: ["Hind Siliguri", "sans-serif"],
       },
       "caret-blink": {
         "0%,70%,100%": { opacity: "1" },
