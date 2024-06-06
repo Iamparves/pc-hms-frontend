@@ -133,3 +133,69 @@ export const getAllTags = async () => {
     };
   }
 };
+
+export const getBlogReaction = async (blogId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/blogs/${blogId}/reactions`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error: error.message,
+    };
+  }
+};
+
+export const likeBlog = async (blogId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/blogs/${blogId}/like`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error: error.message,
+    };
+  }
+};
+
+export const dislikeBlog = async (blogId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/blogs/${blogId}/dislike`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error: error.message,
+    };
+  }
+};
