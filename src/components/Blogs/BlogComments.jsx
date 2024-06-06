@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { commentOnBlog, getCommentsByBlog } from "@/db/comment";
+import { commentOnBlog, getCommentsByBlog, updateComment } from "@/db/comment";
 import { useStore } from "@/store";
 import {
   keepPreviousData,
@@ -16,6 +16,7 @@ import CommentCard from "./CommentCard";
 
 export const BlogComments = ({ blogId }) => {
   const user = useStore((state) => state.user);
+  const [commentUpdateId, setCommentUpdateId] = useState("");
   const [commentInput, setCommentInput] = useState("");
 
   const queryClient = useQueryClient();
@@ -30,20 +31,35 @@ export const BlogComments = ({ blogId }) => {
   const comments = commentsQuery.data?.data?.comments || [];
 
   const commentMutation = useMutation({
-    mutationFn: commentOnBlog,
+    mutationFn: (commentData) => {
+      if (commentUpdateId) {
+        return updateComment(commentUpdateId, commentData);
+      }
+
+      return commentOnBlog(commentData);
+    },
     onSuccess: (result) => {
       if (result.status === "success") {
         queryClient.invalidateQueries(["comments", { blogId }]);
+
+        if (commentUpdateId) {
+          toast.success("Comment updated successfully");
+          setCommentUpdateId("");
+        } else {
+          toast.success("Comment added successfully");
+        }
+
         setCommentInput("");
-        toast.success("Comment added successfully");
       } else {
-        toast.error(result.message || "Failed to add comment");
+        toast.error(result.message);
       }
     },
     onError: (error) => {
       console.log(error);
 
-      toast.error("Failed to add comment");
+      toast.error(
+        commentUpdateId ? "Failed to update comment" : "Failed to comment",
+      );
     },
   });
 
@@ -60,7 +76,7 @@ export const BlogComments = ({ blogId }) => {
     <div className="mt-3 rounded-lg bg-white p-4 sm:p-6 lg:px-10 lg:py-8">
       <h4 className="mb-5 text-xl font-semibold">Comments</h4>
       {user?._id ? (
-        <div className="flex flex-col items-end gap-4">
+        <div id="comment-input" className="flex flex-col items-end gap-4">
           <Textarea
             placeholder={"Write something..."}
             className="w-full px-[15px] py-[10px] text-[15px] transition-colors placeholder:text-gray-400 focus:border-blue/60"
@@ -68,14 +84,33 @@ export const BlogComments = ({ blogId }) => {
             onChange={(e) => setCommentInput(e.target.value)}
             disabled={commentMutation.isPending}
           />
-          <Button
-            disabled={!commentInput || commentMutation.isPending}
-            size="lg"
-            className="bg-blue hover:bg-blue/90"
-            onClick={handleComment}
-          >
-            {commentMutation.isPending ? "Adding comment..." : "Comment"}
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              disabled={!commentInput || commentMutation.isPending}
+              size="lg"
+              variant="outline"
+              onClick={() => {
+                setCommentInput("");
+                setCommentUpdateId("");
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              disabled={!commentInput || commentMutation.isPending}
+              size="lg"
+              className="bg-blue hover:bg-blue/90"
+              onClick={handleComment}
+            >
+              {commentMutation.isPending
+                ? !commentUpdateId
+                  ? "Commenting..."
+                  : "Updating..."
+                : !commentUpdateId
+                  ? "Comment"
+                  : "Update"}
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="text-center">
@@ -97,8 +132,11 @@ export const BlogComments = ({ blogId }) => {
             {comments.map((comment) => (
               <CommentCard
                 key={comment._id}
-                currentUserId={user}
+                currentUserId={user?._id}
                 comment={comment}
+                commentUpdateId={commentUpdateId}
+                setCommentUpdateId={setCommentUpdateId}
+                setCommentInput={setCommentInput}
               />
             ))}
           </div>
