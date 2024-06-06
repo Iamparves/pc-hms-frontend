@@ -6,6 +6,7 @@ import { getAllTags } from "@/db/blog";
 import { useQuery } from "@tanstack/react-query";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Link } from "react-router-dom";
 
 const NewBlogFormFields = ({
   title,
@@ -19,6 +20,7 @@ const NewBlogFormFields = ({
   tags,
   setTags,
   isUpdate,
+  blogUrl,
 }) => {
   const tagsQuery = useQuery({
     queryKey: ["tags"],
@@ -28,7 +30,21 @@ const NewBlogFormFields = ({
   const selectableTags = tagsQuery.data?.data?.tags || [];
 
   return (
-    <div className="grid grid-cols-[1fr_auto] gap-7 rounded-md bg-white p-8">
+    <div className="grid grid-cols-[1fr_auto] gap-x-7 gap-y-5 rounded-md bg-white p-8">
+      {blogUrl && (
+        <div className="col-span-2">
+          <p className="rounded-sm bg-[#E2F0FE] px-5 py-3 text-center text-[15px] text-gray-800">
+            You can view the blog post here:{" "}
+            <Link
+              target="_blank"
+              className="text-blue hover:underline"
+              to={blogUrl}
+            >
+              {title}
+            </Link>
+          </p>
+        </div>
+      )}
       <div className="space-y-5">
         <div>
           <h3 className="mb-2 text-sm font-medium">Title</h3>

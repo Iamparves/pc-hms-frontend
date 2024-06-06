@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import NewBlogFormFields from "./NewBlogFormFields";
 
 const NewBlogForm = ({ blog = {} }) => {
+  const [blogUrl, setBlogUrl] = useState(blog._id ? `/blogs/${blog._id}` : "");
   const [isUploading, setIsUploading] = useState(false);
   const [title, setTitle] = useState(blog.title || "");
   const [content, setContent] = useState(blog.content || "");
@@ -36,7 +37,7 @@ const NewBlogForm = ({ blog = {} }) => {
         toast.success(result.message);
 
         queryClient.invalidateQueries(["blogs"]);
-        navigate(`/blogs/${result.data?.blog?._id}`);
+        setBlogUrl(`/blogs/${result.data?.blog?._id}`);
       }
     },
   });
@@ -101,6 +102,7 @@ const NewBlogForm = ({ blog = {} }) => {
             </div>
           </div>
           <NewBlogFormFields
+            blogUrl={blogUrl}
             tags={tags}
             setTags={setTags}
             title={title}
