@@ -7,6 +7,7 @@ import { useStore } from "@/store";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { franc } from "franc";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const BlogDetails = () => {
@@ -32,6 +33,10 @@ const BlogDetails = () => {
   }
 
   const langCode = franc(blog?.content || "");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <section className="py-10 md:py-14">
@@ -86,7 +91,7 @@ const BlogDetails = () => {
               </div>
             </div>
           )}
-          {blogQuery.isFetching && <BlogDetailsSkeleton />}
+          {blogQuery.isFetching && !blog._id && <BlogDetailsSkeleton />}
           <BlogReactions reactions={blog?.reactions} blogId={blogId} />
           <BlogComments blogId={blogId} />
         </div>

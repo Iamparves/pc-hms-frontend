@@ -18,3 +18,17 @@ export const commentOnBlog = async (commentData) => {
     console.error(error);
   }
 };
+
+export const getCommentsByBlog = async (blogId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/comments/${blogId}`, {
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -1,17 +1,33 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { commentOnBlog } from "@/db/comment";
+import { commentOnBlog, getCommentsByBlog } from "@/db/comment";
 import { useStore } from "@/store";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { Skeleton } from "../ui/skeleton";
+import CommentCard from "./CommentCard";
 
 export const BlogComments = ({ blogId }) => {
   const user = useStore((state) => state.user);
   const [commentInput, setCommentInput] = useState("");
 
   const queryClient = useQueryClient();
+
+  const commentsQuery = useQuery({
+    queryKey: ["comments", { blogId }],
+    queryFn: () => getCommentsByBlog(blogId),
+    enabled: !!blogId,
+    placeholderData: keepPreviousData,
+  });
+
+  const comments = commentsQuery.data?.data?.comments || [];
 
   const commentMutation = useMutation({
     mutationFn: commentOnBlog,
@@ -72,6 +88,36 @@ export const BlogComments = ({ blogId }) => {
           </p>
         </div>
       )}
+      <div className="mt-7 md:mt-10">
+        {!commentsQuery.isFetching && comments?.length === 0 && (
+          <p className="text-center text-sm text-gray-500">No comments found</p>
+        )}
+        {(!commentsQuery.isFetching || comments?.length > 0) && (
+          <div className="flex flex-col gap-y-5">
+            {comments.map((comment) => (
+              <CommentCard
+                key={comment._id}
+                currentUserId={user}
+                comment={comment}
+              />
+            ))}
+          </div>
+        )}
+        {commentsQuery.isFetching && !comments?.length && (
+          <div className="mt-5 space-y-5">
+            {[...Array(2)].map((_, ind) => (
+              <div
+                key={ind}
+                className="rounded-md border border-gray-100/70 p-5"
+              >
+                <Skeleton className="mb-2 h-4 w-52" />
+                <Skeleton className="mb-5 h-3 w-44" />
+                <Skeleton className="h-12 w-full" />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
