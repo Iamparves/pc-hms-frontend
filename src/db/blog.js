@@ -68,3 +68,25 @@ export const getBlogById = async (blogId) => {
     };
   }
 };
+
+export const deleteBlog = async (blogId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/blogs/${blogId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error: error.message,
+    };
+  }
+};

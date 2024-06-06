@@ -1,13 +1,64 @@
 import { Button } from "@/components/ui/button";
+import { deleteBlog } from "@/db/blog";
 import { cn } from "@/lib/utils";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { LuEye } from "react-icons/lu";
 import { MdDeleteOutline } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import DashDataTable from "../shared/DashDataTable";
 
 const DashBlogsTable = ({ blogs, isFetching }) => {
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteBlog,
+    onSuccess: (result) => {
+      if (result.status === "success") {
+        toast.success("Blog deleted successfully");
+        queryClient.invalidateQueries(["blogs"]);
+      } else {
+        toast.error(result.message);
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error("Blog deletion failed");
+    },
+  });
+
+  const handleDeleteDoctor = (blogId) => {
+    toast("Are you sure you want to delete this blog?", {
+      description:
+        "This action cannot be undone and will permanently delete the blog.",
+      cancel: (
+        <Button onClick={() => toast.dismiss()} size="sm" variant="outline">
+          Cancel
+        </Button>
+      ),
+      action: (
+        <Button
+          onClick={() => {
+            deleteMutation.mutate(blogId);
+            toast.dismiss();
+          }}
+          size="sm"
+          variant="destructive"
+        >
+          Delete
+        </Button>
+      ),
+      position: "top-center",
+      classNames: {
+        toast: "flex-wrap [&_[data-content]]:w-full justify-end",
+        title: "text-sm",
+        description: "mb-2",
+      },
+    });
+  };
+
   const columns = [
     {
       accessorKey: "title",
@@ -80,7 +131,13 @@ const DashBlogsTable = ({ blogs, isFetching }) => {
       header: "Delete",
       cell: (props) => (
         <div className="flex max-w-[200px] items-center gap-x-2">
-          <Button className="text-[#FF5556]" variant="outline" size="icon">
+          <Button
+            onClick={() => handleDeleteDoctor(props.getValue())}
+            className="text-[#FF5556]"
+            variant="outline"
+            size="icon"
+            disabled={deleteMutation.isPending}
+          >
             <MdDeleteOutline className="text-lg" />
           </Button>
         </div>

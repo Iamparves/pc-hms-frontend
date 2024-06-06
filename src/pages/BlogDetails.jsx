@@ -5,6 +5,7 @@ import { useStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const BlogDetails = () => {
   const user = useStore((state) => state.user);
@@ -22,9 +23,20 @@ const BlogDetails = () => {
   if (
     !blogQuery.isFetching &&
     blog.status !== "Published" &&
-    user?.role !== "admin"
+    user?.role !== "admin" &&
+    user?.role !== "hospital"
   ) {
     navigate("/blogs");
+  } else if (
+    !blogQuery.isFetching &&
+    blog.status !== "Published" &&
+    user?.role === "hospital" &&
+    blog.author?._id !== user?._id
+  ) {
+    navigate("/blogs");
+  } else if (!blogQuery.isFetching && !blog?._id) {
+    toast.error("Blog not found");
+    return navigate("/blogs");
   }
 
   return (
