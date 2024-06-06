@@ -18,6 +18,7 @@ const NewBlogFormFields = ({
   setIsUploading,
   tags,
   setTags,
+  isUpdate,
 }) => {
   const tagsQuery = useQuery({
     queryKey: ["tags"],
@@ -35,7 +36,6 @@ const NewBlogFormFields = ({
             placeholder={"Enter blog title"}
             type={"text"}
             className="px-[15px] py-[22px] text-[15px] transition-colors placeholder:text-gray-400 focus:border-blue/60"
-            disabled={isUploading}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -54,8 +54,10 @@ const NewBlogFormFields = ({
         <div className="">
           <h3 className="mb-2 text-sm font-medium">Featured Image</h3>
           <ImageUpload
+            isUpdate={isUpdate}
+            updateNote="Don't upload a new image if you don't want to change the current one"
             photo={featuredImage}
-            isRequired={true}
+            isRequired={!isUpdate}
             onImageUpload={setFeaturedImage}
             imageId="featuredImage"
             isUploading={isUploading}

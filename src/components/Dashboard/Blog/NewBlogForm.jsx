@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { createNewBlog } from "@/db/blog";
+import { createNewBlog, updateBlog } from "@/db/blog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import NewBlogFormFields from "./NewBlogFormFields";
 
-const NewBlogForm = () => {
+const NewBlogForm = ({ blog = {} }) => {
   const [isUploading, setIsUploading] = useState(false);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [featuredImage, setFeaturedImage] = useState("");
-  const [tags, setTags] = useState([]);
+  const [title, setTitle] = useState(blog.title || "");
+  const [content, setContent] = useState(blog.content || "");
+  const [featuredImage, setFeaturedImage] = useState(blog.featuredImage || "");
+  const [tags, setTags] = useState(
+    blog.tags?.map((tag) => ({ value: tag, label: tag })) || [],
+  );
 
   const navigate = useNavigate();
 
@@ -21,7 +23,11 @@ const NewBlogForm = () => {
 
   const postMutation = useMutation({
     mutationFn: (blogData) => {
-      return createNewBlog(blogData);
+      if (!blog._id) {
+        return createNewBlog(blogData);
+      } else {
+        return updateBlog(blog._id, blogData);
+      }
     },
     onSuccess: (result) => {
       if (result.status === "fail") {
@@ -38,17 +44,23 @@ const NewBlogForm = () => {
   const handlePostBlog = (e, status) => {
     e.preventDefault();
 
-    if (!title || !content || !featuredImage) {
+    if (!title || !content || (!featuredImage && !blog.featuredImage)) {
       return toast.error("Please fill in all of the required fields");
+    }
+
+    let publishedDate = blog.publishedDate;
+
+    if (!blog._id || (blog.status === "Draft" && status === "Published")) {
+      publishedDate = new Date();
     }
 
     const blogData = {
       title,
       content,
-      featuredImage,
+      featuredImage: featuredImage || blog.featuredImage,
       tags: tags.map((tag) => tag.value),
       status,
-      publishedDate: new Date(),
+      publishedDate,
     };
 
     postMutation.mutate(blogData);
@@ -75,12 +87,14 @@ const NewBlogForm = () => {
                 className="py-5"
                 variant="outline"
                 type="button"
+                disabled={isUploading || postMutation.isPending}
               >
                 Save Draft
               </Button>
               <Button
                 onClick={(e) => handlePostBlog(e, "Published")}
                 className="bg-blue py-5 hover:bg-blue/90"
+                disabled={isUploading || postMutation.isPending}
               >
                 Publish
               </Button>
@@ -97,6 +111,7 @@ const NewBlogForm = () => {
             setFeaturedImage={setFeaturedImage}
             isUploading={isUploading}
             setIsUploading={setIsUploading}
+            isUpdate={!!blog._id}
           />
         </form>
       </Form>

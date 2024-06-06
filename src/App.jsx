@@ -6,6 +6,7 @@ import AdminProfile from "./components/Dashboard/Admin/AdminProfile";
 import Admins from "./components/Dashboard/Admin/Admins";
 import DashBlogs from "./components/Dashboard/Blog/DashBlogs";
 import NewBlog from "./components/Dashboard/Blog/NewBlog";
+import UpdateBlog from "./components/Dashboard/Blog/UpdateBlog";
 import AddDoctor from "./components/Dashboard/Doctor/AddDoctor";
 import UpdateDoctor from "./components/Dashboard/Doctor/UpdateDoctor";
 import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppointments";
@@ -71,6 +72,7 @@ const App = () => {
             <Route path="hospitals" element={<AdminHospitals />} />
             <Route path="blogs" element={<DashBlogs />} />
             <Route path="blogs/new" element={<NewBlog />} />
+            <Route path="blogs/edit/:blogId" element={<UpdateBlog />} />
             <Route path="admins" element={<Admins />}>
               <Route
                 path="add"
@@ -112,6 +114,7 @@ const App = () => {
             <Route path="appointments" element={<HospitalAppointments />} />
             <Route path="blogs" element={<DashBlogs />} />
             <Route path="blogs/new" element={<NewBlog />} />
+            <Route path="blogs/edit/:blogId" element={<UpdateBlog />} />
             <Route path="profile" element={<HospitalProfile />} />
           </Route>
 

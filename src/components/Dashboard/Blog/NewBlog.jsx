@@ -1,10 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import DashboardHeader from "../shared/DashboardHeader";
 import NewBlogForm from "./NewBlogForm";
 
 const NewBlog = () => {
-  const navigate = useNavigate();
-
   return (
     <>
       <DashboardHeader title="New Blog" desc="Add a new blog post" />

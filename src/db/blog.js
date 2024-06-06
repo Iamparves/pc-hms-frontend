@@ -2,8 +2,6 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const createNewBlog = async (blogData) => {
   try {
-    console.log(blogData);
-
     const response = await fetch(`${BASE_URL}/blogs`, {
       method: "POST",
       headers: {
@@ -54,6 +52,29 @@ export const getBlogById = async (blogId) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error: error.message,
+    };
+  }
+};
+
+export const updateBlog = async (blogId, blogData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/blogs/${blogId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(blogData),
       credentials: "include",
     });
 
