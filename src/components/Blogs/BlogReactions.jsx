@@ -73,7 +73,11 @@ const BlogReactions = ({ reactions, blogId }) => {
         <button
           onClick={() => handleBlogReaction("like")}
           className={cn(buttonStyles, liked && "text-blue")}
-          disabled={reactionMutation.isPending || !user?._id}
+          disabled={
+            blogReactQuery.isFetching ||
+            reactionMutation.isPending ||
+            !user?._id
+          }
         >
           {!liked ? (
             <AiOutlineLike className="text-[22px]" />
@@ -85,7 +89,11 @@ const BlogReactions = ({ reactions, blogId }) => {
         <button
           onClick={() => handleBlogReaction("dislike")}
           className={cn(buttonStyles, disliked && "text-red-500")}
-          disabled={reactionMutation.isPending || !user?._id}
+          disabled={
+            blogReactQuery.isFetching ||
+            reactionMutation.isPending ||
+            !user?._id
+          }
         >
           {!disliked ? (
             <AiOutlineDislike className="text-[22px]" />

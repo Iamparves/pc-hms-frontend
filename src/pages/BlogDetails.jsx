@@ -86,7 +86,7 @@ const BlogDetails = () => {
             </div>
           )}
           <BlogReactions reactions={blog?.reactions} blogId={blogId} />
-          <BlogComments />
+          <BlogComments blogId={blogId} />
         </div>
       </div>
     </section>
