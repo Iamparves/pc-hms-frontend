@@ -14,6 +14,7 @@ import HospitalDoctors from "./components/Dashboard/Hospital/HospitalDoctors";
 import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
 import HospitalProfile from "./components/Dashboard/Hospital/HospitalProfile";
 import Notice from "./components/Dashboard/Notice/Notice";
+import NoticeDetails from "./components/Dashboard/Notice/NoticeDetails";
 import NoticeForm from "./components/Dashboard/Notice/NoticeForm";
 import UpdateNotice from "./components/Dashboard/Notice/UpdateNotice";
 import PatientAppointments from "./components/Dashboard/Patient/PatientAppointments";
@@ -100,6 +101,14 @@ const App = () => {
                 element={
                   <FormModal title={"Update existing notice"}>
                     <UpdateNotice />
+                  </FormModal>
+                }
+              ></Route>
+              <Route
+                path=":noticeId"
+                element={
+                  <FormModal title={"Notice"}>
+                    <NoticeDetails />
                   </FormModal>
                 }
               ></Route>
