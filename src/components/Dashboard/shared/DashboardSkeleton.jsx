@@ -14,6 +14,7 @@ const DashboardSkeleton = () => {
           <div className="mt-8 flex flex-col gap-[22px]">
             {[...Array(7)].map((_, index) => (
               <div
+                key={index}
                 className={cn(
                   "flex items-center gap-2 px-8",
                   index === 4 && "border-b border-lightBG pb-[22px]",

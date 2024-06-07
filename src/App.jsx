@@ -14,6 +14,8 @@ import HospitalDoctors from "./components/Dashboard/Hospital/HospitalDoctors";
 import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
 import HospitalProfile from "./components/Dashboard/Hospital/HospitalProfile";
 import Notice from "./components/Dashboard/Notice/Notice";
+import NoticeForm from "./components/Dashboard/Notice/NoticeForm";
+import UpdateNotice from "./components/Dashboard/Notice/UpdateNotice";
 import PatientAppointments from "./components/Dashboard/Patient/PatientAppointments";
 import PatientProfile from "./components/Dashboard/Patient/PatientProfile";
 import FormModal from "./components/Dashboard/shared/FormModal";
@@ -89,8 +91,15 @@ const App = () => {
                 path="add"
                 element={
                   <FormModal title={"Add new notice"}>
-                    {/* <AddAdmin /> */}
-                    <h1>Add a new notice from here</h1>
+                    <NoticeForm />
+                  </FormModal>
+                }
+              ></Route>
+              <Route
+                path="edit/:noticeId"
+                element={
+                  <FormModal title={"Update existing notice"}>
+                    <UpdateNotice />
                   </FormModal>
                 }
               ></Route>
@@ -127,6 +136,9 @@ const App = () => {
             <Route path="blogs" element={<DashBlogs />} />
             <Route path="blogs/new" element={<NewBlog />} />
             <Route path="blogs/edit/:blogId" element={<UpdateBlog />} />
+            <Route path="notice" element={<Notice />}>
+              {/* View Notice Route */}
+            </Route>
             <Route path="profile" element={<HospitalProfile />} />
           </Route>
 

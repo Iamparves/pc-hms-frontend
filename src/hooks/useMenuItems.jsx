@@ -57,6 +57,11 @@ const menuItems = {
       path: "blogs",
       icon: <RiArticleLine />,
     },
+    {
+      title: "Notice",
+      path: "notice",
+      icon: <HiOutlineBellAlert />,
+    },
   ],
   patient: [
     {
@@ -68,6 +73,11 @@ const menuItems = {
       title: "Appointments",
       path: "appointments",
       icon: <RiCalendarScheduleLine />,
+    },
+    {
+      title: "Notice",
+      path: "notice",
+      icon: <HiOutlineBellAlert />,
     },
   ],
 };
