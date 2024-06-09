@@ -63,16 +63,19 @@ const VerifyAccount = () => {
 
   if (isUserFetching) {
     return (
-      <section className="flex min-h-[calc(100dvh-80px)] w-screen items-center justify-center bg-white">
-        <div className="relative flex w-full max-w-[445px] flex-col space-y-3">
-          <Skeleton className="h-[140px] w-full rounded-xl" />
-          <div className="space-y-2">
-            <Skeleton className="h-8 w-full" />
-            <Skeleton className="h-8 w-full" />
+      <section className="flex min-h-[calc(100dvh-80px)] w-full items-center justify-center">
+        <div className="flex w-full max-w-[445px] flex-col items-center rounded-md border bg-white p-5">
+          <Skeleton className="mb-3 h-5 w-[200px]" />
+          <Skeleton className="mb-1 h-3 w-10/12" />
+          <Skeleton className="mb-5 h-3 w-8/12" />
+          <div className="mb-2 grid grid-cols-6 gap-0.5">
+            {[...Array(6)].map((_, index) => (
+              <Skeleton key={index} className="size-11" />
+            ))}
           </div>
-          <p className="absolute left-1/2 top-14 -translate-x-1/2 text-gray-400">
-            Loading...
-          </p>
+          <Skeleton className="mb-5 h-3 w-8/12" />
+          <Skeleton className="mb-1.5 h-10 w-[274px]" />
+          <Skeleton className="h-10 w-[274px]" />
         </div>
       </section>
     );
@@ -125,6 +128,7 @@ const VerifyAccount = () => {
           </Button>
           <ResendOTP
             isLoading={isLoading}
+            setIsLoading={setIsLoading}
             mobileNo={searchParams.get("phone")}
           />
         </div>

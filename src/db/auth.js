@@ -91,6 +91,24 @@ export const verifyAccount = async (otpData) => {
   }
 };
 
+export const resendVerificationOTP = async (mobileNo) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/resend-otp`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ mobileNo }),
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
 export const updatePassword = async (passwordData) => {
   try {
     const response = await fetch(`${BASE_URL}/users/update-password`, {
