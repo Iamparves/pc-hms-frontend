@@ -69,7 +69,7 @@ const BlogReactions = ({ reactions, blogId }) => {
 
   return (
     <div className="mt-3 rounded-lg bg-white p-4 sm:p-6 lg:px-10 lg:py-6">
-      <div className={"flex items-center justify-between gap-5"}>
+      <div className={"flex items-center justify-between gap-2 sm:gap-5"}>
         <button
           onClick={() => handleBlogReaction("like")}
           className={cn(buttonStyles, liked && "text-blue")}
@@ -84,7 +84,10 @@ const BlogReactions = ({ reactions, blogId }) => {
           ) : (
             <AiFillLike className="text-[22px] text-blue" />
           )}
-          <span className="">{reactions?.like || 0} Likes</span>
+          <span className="">
+            {reactions?.like || 0}{" "}
+            <span className="hidden sm:inline-block">Likes</span>
+          </span>
         </button>
         <button
           onClick={() => handleBlogReaction("dislike")}
@@ -100,7 +103,10 @@ const BlogReactions = ({ reactions, blogId }) => {
           ) : (
             <AiFillDislike className="text-[22px]" />
           )}
-          <span className="">{reactions?.dislike || 0} Dislikes</span>
+          <span className="">
+            {reactions?.dislike || 0}{" "}
+            <span className="hidden sm:inline-block">Dislikes</span>
+          </span>
         </button>
         <BlogShareButton blogId={blogId} buttonStyles={buttonStyles} />
       </div>

@@ -27,8 +27,8 @@ const formSchema = z.object({
   name: z.string().min(3),
   mobileNo: z
     .string()
-    .min(11, { message: "Mobile no must be at least 11 characters long" })
-    .max(11, { message: "Mobile no must be at least 11 characters long" }),
+    .min(11, { message: "Mobile no must be 11 characters long" })
+    .max(11, { message: "Mobile no must be 11 characters long" }),
   password: z.string().min(8),
   confirmPassword: z.string().min(8),
   role: z.enum(["patient", "hospital"], { message: "Please select a role" }),

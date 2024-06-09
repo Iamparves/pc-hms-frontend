@@ -29,6 +29,7 @@ import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import DoctorProfile from "./pages/DoctorProfile";
 import Doctors from "./pages/Doctors";
+import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -53,6 +54,7 @@ const App = () => {
             <Route path="/blogs" element={<Blog />} />
             <Route path="/blogs/:blogId" element={<BlogDetails />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
           </Route>
 
           {/* PATIENT DASHBOARD ROUTES */}
