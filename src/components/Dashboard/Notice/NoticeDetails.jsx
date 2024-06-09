@@ -38,8 +38,12 @@ const NoticeDetails = () => {
           </p>
         </div>
         <div className="mt-4">
-          <p className="text-[15px] leading-relaxed text-gray-600 sm:text-base">
-            {notice.content}
+          <p className="text-[15px] leading-relaxed text-gray-500 sm:text-[15.5px]">
+            {notice.content?.split("<br>").map((line, index) => (
+              <span key={index} className="block [&:not(:last-child)]:mb-4">
+                {line}
+              </span>
+            ))}
           </p>
         </div>
       </div>

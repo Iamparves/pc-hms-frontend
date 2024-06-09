@@ -13,12 +13,10 @@ import { useSearchParams } from "react-router-dom";
 import FilterSpecialityField from "./FilterSpecialityField";
 import DoctorDistrictFilter from "./Filters/DoctorDistrictFilter";
 import DoctorHospitalFilter from "./Filters/DoctorHospitalFilter";
-import DoctorNameFilter from "./Filters/DoctorNameFilter";
 
 const DoctorFilters = ({ selectable }) => {
   const [district, setDistrict] = useState("");
   const [hospital, setHospital] = useState("");
-  const [doctor, setDoctor] = useState("");
   const [date, setDate] = useState("");
   const [specialities, setSpecialities] = useState([]);
 
@@ -38,7 +36,6 @@ const DoctorFilters = ({ selectable }) => {
     setSearchParams((prev) => {
       prev.set("district", district);
       prev.set("hospital", hospital);
-      prev.set("name", doctor);
       prev.set("specialities", specialities.join(","));
       prev.set("date", date);
       prev.set("page", 1);
@@ -50,14 +47,12 @@ const DoctorFilters = ({ selectable }) => {
   const clearFilters = () => {
     setDistrict("");
     setHospital("");
-    setDoctor("");
     setDate("");
     setSpecialities([]);
 
     setSearchParams((prev) => {
       prev.delete("district");
       prev.delete("hospital");
-      prev.delete("name");
       prev.delete("specialities");
       prev.delete("date");
       prev.set("page", 1);
@@ -80,12 +75,6 @@ const DoctorFilters = ({ selectable }) => {
           district={district}
           hospital={hospital}
           setHospital={setHospital}
-        />
-        <DoctorNameFilter
-          district={district}
-          hospital={hospital}
-          doctor={doctor}
-          setDoctor={setDoctor}
         />
         <div className="">
           <label className="mb-1 block text-sm font-medium text-gray-600">

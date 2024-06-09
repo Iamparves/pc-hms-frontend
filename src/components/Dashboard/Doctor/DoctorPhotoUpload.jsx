@@ -1,22 +1,23 @@
 import ImageUpload from "@/components/shared/ImageUpload";
 import { useState } from "react";
 
-const DoctorPhotoUpload = ({ isUpdate = false, oldPhoto = "" }) => {
-  const [photo, setPhoto] = useState(oldPhoto);
+const DoctorPhotoUpload = ({
+  isUpdate = false,
+  oldPhoto = "",
+  handlePhotoUpload,
+}) => {
   const [isUploading, setIsUploading] = useState(false);
-  const handlePhotoUpload = (imageUrl) => setPhoto(imageUrl);
 
   return (
     <div>
       <ImageUpload
-        photo={photo}
+        photo={oldPhoto}
         isUpdate={isUpdate}
         onImageUpload={handlePhotoUpload}
         isUploading={isUploading}
         setIsUploading={setIsUploading}
         uploadButtonLabel="Upload doctor photo"
         imageId="doctorPhoto"
-        // updateNote=""
         customStyles={{
           wrapper: "h-[260px]",
         }}

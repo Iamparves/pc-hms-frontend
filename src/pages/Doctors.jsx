@@ -17,11 +17,10 @@ const Doctors = () => {
   const limit = parseInt(searchParams.get("limit") || "10");
   const district = searchParams.get("district") || "";
   const hospital = searchParams.get("hospital") || "";
-  const name = searchParams.get("name") || "";
   const specialities = searchParams.get("specialities") || "";
   const date = searchParams.get("date") || "";
 
-  const params = { page, limit, district, hospital, name, specialities, date };
+  const params = { page, limit, district, hospital, specialities, date };
 
   const doctorsQuery = useQuery({
     queryKey: ["doctors", params],

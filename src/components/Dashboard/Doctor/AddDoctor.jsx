@@ -81,6 +81,10 @@ const AddDoctor = ({ doctor = {} }) => {
     form.setValue("offDays", newCheckedDays);
   };
 
+  const handlePhotoUpload = (imageUrl) => {
+    form.setValue("photo", imageUrl);
+  };
+
   const queryClient = useQueryClient();
 
   const createMutation = useMutation({
@@ -152,6 +156,7 @@ const AddDoctor = ({ doctor = {} }) => {
             <DoctorPhotoUpload
               isUpdate={!!doctor?.photo}
               oldPhoto={doctor?.photo || ""}
+              handlePhotoUpload={handlePhotoUpload}
             />
             <div className="space-y-4">
               <DashFormField

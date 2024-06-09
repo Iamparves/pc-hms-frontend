@@ -66,7 +66,7 @@ const HospitalDoctorsTable = () => {
           <img
             src={props.getValue() || "/doctor-avatar.jpg"}
             alt={props.row.original.name}
-            className="size-12 rounded-full"
+            className="size-12 rounded-full object-cover"
           />
         );
       },
