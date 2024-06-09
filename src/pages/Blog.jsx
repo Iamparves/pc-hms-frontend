@@ -37,7 +37,13 @@ const Blog = () => {
         </div>
       </div>
       <div className="container py-10 md:py-14">
-        {!blogsQuery.isFetching && blogs.length === 0 && <p>No blogs found</p>}
+        {!blogsQuery.isFetching && blogs.length === 0 && (
+          <div className="rounded-lg bg-white px-5 py-14 text-center">
+            <p className="text-base font-medium text-gray-400">
+              No blog post found
+            </p>
+          </div>
+        )}
         {!blogsQuery.isFetching && blogs.length !== 0 && (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {blogs.map((blog) => (
