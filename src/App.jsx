@@ -11,12 +11,13 @@ import AddDoctor from "./components/Dashboard/Doctor/AddDoctor";
 import UpdateDoctor from "./components/Dashboard/Doctor/UpdateDoctor";
 import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppointments";
 import HospitalDoctors from "./components/Dashboard/Hospital/HospitalDoctors";
-import HospitalOverview from "./components/Dashboard/Hospital/HospitalOverview";
 import HospitalProfile from "./components/Dashboard/Hospital/HospitalProfile";
 import Notice from "./components/Dashboard/Notice/Notice";
 import NoticeDetails from "./components/Dashboard/Notice/NoticeDetails";
 import NoticeForm from "./components/Dashboard/Notice/NoticeForm";
 import UpdateNotice from "./components/Dashboard/Notice/UpdateNotice";
+import HospitalOverview from "./components/Dashboard/Overview/HospitalOverview";
+import PatientOverview from "./components/Dashboard/Overview/PatientOverview";
 import PatientAppointments from "./components/Dashboard/Patient/PatientAppointments";
 import PatientProfile from "./components/Dashboard/Patient/PatientProfile";
 import FormModal from "./components/Dashboard/shared/FormModal";
@@ -63,7 +64,7 @@ const App = () => {
             element={<Dashboard allowedRoles={["patient"]} />}
           >
             <Route path="" element={<Navigate to="overview" replace />} />
-            <Route path="overview" element={<HospitalOverview />} />
+            <Route path="overview" element={<PatientOverview />} />
             <Route path="appointments" element={<PatientAppointments />} />
             <Route path="profile" element={<PatientProfile />} />
             <Route path="notice" element={<Notice />}>

@@ -16,7 +16,7 @@ const OverviewNotice = ({ role = null }) => {
     <div className="px-3 pt-5 md:px-5">
       <div className="grid grid-cols-[auto_1fr] overflow-hidden rounded-sm bg-gray-100">
         <h3 className="bg-blue px-2.5 py-2.5 text-[15px] font-medium text-white">
-          Latest Notice:
+          <span className="mr-1.5 hidden sm:inline-block">Latest</span>Notice:
         </h3>
         <div className="p-2.5">
           <Marquee pauseOnHover={true}>

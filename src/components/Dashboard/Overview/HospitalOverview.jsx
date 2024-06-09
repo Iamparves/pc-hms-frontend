@@ -2,10 +2,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getOverview } from "@/db/overview";
 import { useStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
-import HospitalOverviewAppointments from "../Overview/HospitalOverviewAppointments";
-import DashOverviewCards from "../Overview/HospitalOverviewCards";
-import OverviewNotice from "../Overview/OverviewNotice";
 import DashboardHeader from "../shared/DashboardHeader";
+import HospitalOverviewAppointments from "./HospitalOverviewAppointments";
+import HospitalOverviewCards from "./HospitalOverviewCards";
+import OverviewNotice from "./OverviewNotice";
 
 const HospitalOverview = () => {
   const user = useStore((state) => state.user);
@@ -26,7 +26,7 @@ const HospitalOverview = () => {
           <div className="rounded-md border bg-white">
             <OverviewNotice role={user?.role} />
             {!overviewQuery.isFetching && (
-              <DashOverviewCards overview={overview} />
+              <HospitalOverviewCards overview={overview} />
             )}
             {overviewQuery.isFetching && (
               <div className="grid grid-cols-2 gap-3 p-3 sm:gap-5 sm:p-5 md:grid-cols-3 2xl:grid-cols-[repeat(6,auto)]">

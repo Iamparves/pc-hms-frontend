@@ -1,7 +1,11 @@
+import { BiCommentDots } from "react-icons/bi";
 import { FaUserDoctor } from "react-icons/fa6";
+import { HiOutlineBellAlert } from "react-icons/hi2";
+import { LuCalendarClock, LuCalendarDays } from "react-icons/lu";
+import { RiArticleLine } from "react-icons/ri";
 import OverviewCard from "./OverviewCard";
 
-const DashOverviewCards = ({ overview }) => {
+const HospitalOverviewCards = ({ overview }) => {
   const {
     doctors,
     appointments,
@@ -22,35 +26,35 @@ const DashOverviewCards = ({ overview }) => {
       <OverviewCard
         title={appointments}
         desc="Total Appointments"
-        icon={<FaUserDoctor className="text-[#41C385]" />}
+        icon={<LuCalendarDays className="text-[#41C385]" />}
         className="bg-[#E6F5EF]"
       />
       <OverviewCard
         title={upcomingAppointments}
         desc="Upcoming Appointments"
-        icon={<FaUserDoctor className="text-[#1F77FA]" />}
+        icon={<LuCalendarClock className="text-[#1F77FA]" />}
         className="bg-[#E9F1FF]"
       />
       <OverviewCard
         title={blogs}
         desc="Total Blogs"
-        icon={<FaUserDoctor className="text-[#b92eff]" />}
+        icon={<RiArticleLine className="text-[#b92eff]" />}
         className="bg-[#f7e8ff]"
       />
       <OverviewCard
         title={comments}
         desc="Total Comments"
-        icon={<FaUserDoctor className="text-[#79ea4f]" />}
+        icon={<BiCommentDots className="text-[#79ea4f]" />}
         className="bg-[#eeffe8]"
       />
       <OverviewCard
         title={notices}
         desc="Total Notices"
-        icon={<FaUserDoctor className="text-[#ff2e6d]" />}
+        icon={<HiOutlineBellAlert className="text-[#ff2e6d]" />}
         className="bg-[#ffe8ef]"
       />
     </div>
   );
 };
 
-export default DashOverviewCards;
+export default HospitalOverviewCards;

@@ -7,7 +7,7 @@ import DashDataTable from "../shared/DashDataTable";
 
 const queryString = `?sort=-appointmentDate&populate=doctor:name|chamberTime,patient:name|mobileNo&limit=6&appointmentDate[gte]=${new Date().toISOString()}`;
 
-const HospitalOverviewAppointments = () => {
+const PatientOverviewAppointments = () => {
   const appointmentsQuery = useQuery({
     queryKey: ["appointments", queryString],
     queryFn: () => getAllAppointments(queryString),
@@ -75,4 +75,4 @@ const HospitalOverviewAppointments = () => {
   );
 };
 
-export default HospitalOverviewAppointments;
+export default PatientOverviewAppointments;
