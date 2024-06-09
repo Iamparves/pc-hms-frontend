@@ -148,7 +148,14 @@ const App = () => {
             <Route path="blogs/new" element={<NewBlog />} />
             <Route path="blogs/edit/:blogId" element={<UpdateBlog />} />
             <Route path="notice" element={<Notice />}>
-              {/* View Notice Route */}
+              <Route
+                path=":noticeId"
+                element={
+                  <FormModal title={"Notice"}>
+                    <NoticeDetails />
+                  </FormModal>
+                }
+              ></Route>
             </Route>
             <Route path="profile" element={<HospitalProfile />} />
           </Route>

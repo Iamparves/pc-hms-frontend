@@ -24,7 +24,10 @@ const FormModal = ({ children, title }) => {
           }
         >
           <DialogTitle className="text-xl">{title}</DialogTitle>
-          <button onClick={handleClose} className="text-2xl text-red-500">
+          <button
+            onClick={handleClose}
+            className="text-2xl text-red-500 outline-none ring-0"
+          >
             <MdOutlineClose />
           </button>
         </DialogHeader>
