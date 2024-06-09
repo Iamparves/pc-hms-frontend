@@ -1,15 +1,31 @@
 import BlogCard from "@/components/Blogs/BlogCard";
+import Pagination from "@/components/Doctors/Pagination";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getAllBlogs } from "@/db/blog";
+import { getBlogsPaginated } from "@/db/blog";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
 
 const Blog = () => {
-  const blogsQuery = useQuery({
-    queryKey: ["blogs", { status: "Published" }],
-    queryFn: () => getAllBlogs("?status=Published"),
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: "1",
+    limit: "10",
   });
 
-  const blogs = blogsQuery.data?.data?.blogs || [];
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = parseInt(searchParams.get("limit") || "10");
+
+  const blogsQuery = useQuery({
+    queryKey: ["blogs", { status: "Published", page, limit }],
+    queryFn: () =>
+      getBlogsPaginated({
+        status: "Published",
+        page,
+        limit,
+      }),
+  });
+
+  const blogs = blogsQuery.data?.blogs || [];
+  const totalPages = blogsQuery.data?.totalPages || 1;
 
   return (
     <section>
@@ -25,7 +41,7 @@ const Blog = () => {
         {!blogsQuery.isFetching && blogs.length !== 0 && (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {blogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
+              <BlogCard key={blog._id} blog={blog} />
             ))}
           </div>
         )}
@@ -41,6 +57,13 @@ const Blog = () => {
             ))}
           </div>
         )}
+        <Pagination
+          hasPrevPage={page > 1}
+          hasNextPage={page < totalPages}
+          lastPage={totalPages}
+          isFetching={blogsQuery.isFetching}
+          currentPage={page}
+        />
       </div>
     </section>
   );

@@ -45,6 +45,41 @@ export const getAllBlogs = async (queryString = "") => {
   }
 };
 
+export const getBlogsPaginated = async (params) => {
+  try {
+    const query = new URLSearchParams();
+
+    for (const [key, value] of Object.entries(params)) {
+      if (value) query.append(key, value);
+    }
+
+    const response = await fetch(`${BASE_URL}/blogs?${query.toString()}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    const totalPages = Math.ceil(result.data?.totalDocs / params.limit) || 1;
+
+    return {
+      blogs: result.data?.blogs,
+      totalPages,
+      totalBlogs: result.data?.totalDocs,
+      result: result.results,
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error: error.message,
+    };
+  }
+};
+
 export const getBlogById = async (blogId) => {
   try {
     const response = await fetch(`${BASE_URL}/blogs/${blogId}`, {
