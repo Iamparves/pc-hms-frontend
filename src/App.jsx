@@ -16,6 +16,7 @@ import Notice from "./components/Dashboard/Notice/Notice";
 import NoticeDetails from "./components/Dashboard/Notice/NoticeDetails";
 import NoticeForm from "./components/Dashboard/Notice/NoticeForm";
 import UpdateNotice from "./components/Dashboard/Notice/UpdateNotice";
+import AdminOverview from "./components/Dashboard/Overview/AdminOverview";
 import HospitalOverview from "./components/Dashboard/Overview/HospitalOverview";
 import PatientOverview from "./components/Dashboard/Overview/PatientOverview";
 import PatientAppointments from "./components/Dashboard/Patient/PatientAppointments";
@@ -85,7 +86,7 @@ const App = () => {
             element={<Dashboard allowedRoles={["admin"]} />}
           >
             <Route path="" element={<Navigate to="overview" replace />} />
-            <Route path="overview" element={<HospitalOverview />} />
+            <Route path="overview" element={<AdminOverview />} />
             <Route path="hospitals" element={<AdminHospitals />} />
             <Route path="blogs" element={<DashBlogs />} />
             <Route path="blogs/new" element={<NewBlog />} />

@@ -66,7 +66,7 @@ const PatientOverviewAppointments = () => {
           className="mt-5 rounded-full bg-blue px-5 py-6 hover:bg-blue/90"
           asChild
         >
-          <Link to="/dashboard/hospital/appointments">
+          <Link to="/dashboard/patient/appointments">
             View all appointments
           </Link>
         </Button>
