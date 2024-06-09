@@ -1,75 +1,39 @@
 import useAuth from "@/hooks/useAuth";
-import { cn } from "@/lib/utils";
-import { Link, NavLink } from "react-router-dom";
-import { buttonVariants } from "../ui/button";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import DesktopNavItems from "./DesktopNavItems";
+import MobileNavItems from "./MobileNavItems";
+
+const navItems = [
+  { title: "Home", path: "/" },
+  { title: "About", path: "/about" },
+  { title: "Blog", path: "/blogs" },
+  { title: "Contact Us", path: "/contact" },
+];
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const location = useLocation();
+  const { isLoading, user } = useAuth();
+  const [showMenu, setShowMenu] = useState(false);
+
+  useEffect(() => {
+    setShowMenu(false);
+  }, [location.pathname]);
 
   return (
-    <header className="bg-white py-5">
+    <header className="bg-white py-4 md:py-5">
       <div className="container flex items-center justify-between">
         <Link to="/">
-          <img className="h-9" src="/logo.png" alt="Patientoo" />
+          <img className="h-8 md:h-9" src="/logo.png" alt="Patientoo" />
         </Link>
-        <nav>
-          <ul className="hidden items-center gap-x-6 text-[15px] font-medium md:flex">
-            <li>
-              <NavLink
-                to="/"
-                activeclassname="active"
-                className="[&.active]:text-blue"
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/about"
-                activeclassname="active"
-                className="[&.active]:text-blue"
-              >
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/blogs"
-                activeclassname="active"
-                className="[&.active]:text-blue"
-              >
-                Blog
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/contact"
-                activeclassname="active"
-                className="[&.active]:text-blue"
-              >
-                Contact Us
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={user ? `/dashboard/${user.role}` : "/login"}
-                activeclassname="active"
-                className="[&.active]:text-blue"
-              >
-                {user ? "Dashboard" : "Login"}
-              </NavLink>
-            </li>
-            <li>
-              <Link
-                className={cn(buttonVariants({ variant: "outline" }))}
-                to="/doctors"
-                variant="outline"
-              >
-                Find Doctor
-              </Link>
-            </li>
-          </ul>
-        </nav>
+        <DesktopNavItems items={navItems} user={user} isLoading={isLoading} />
+        <MobileNavItems
+          user={user}
+          items={navItems}
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+          isLoading={isLoading}
+        />
       </div>
     </header>
   );
