@@ -27,6 +27,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { DashTablePagination } from "./DashTablePagination";
@@ -37,6 +38,7 @@ const DashDataTable = ({
   pageSize,
   filterPlaceholder,
   isLoading = false,
+  noPagination = false,
 }) => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState([]);
@@ -100,7 +102,7 @@ const DashDataTable = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="border-b">
+      <div className={cn(!noPagination && "border-b")}>
         <ScrollArea>
           <Table>
             <TableHeader>
@@ -161,7 +163,7 @@ const DashDataTable = ({
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </div>
-      <DashTablePagination table={table} />
+      {!noPagination && <DashTablePagination table={table} />}
     </div>
   );
 };
