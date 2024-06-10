@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getAllTags } from "@/db/blog";
 import { useQuery } from "@tanstack/react-query";
-import "react-quill/dist/quill.snow.css";
 import { Link } from "react-router-dom";
 import TiptapEditor from "./TiptapEditor";
 
