@@ -3,24 +3,33 @@ import DoctorDetails from "@/components/Doctors/DoctorDetails";
 import { getDoctorById } from "@/db/doctor";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const DoctorProfile = () => {
   const { doctorId } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const doctorQuery = useQuery({
     queryKey: ["doctor", { doctorId }],
     queryFn: () => getDoctorById(doctorId),
   });
 
-  const doctor = doctorQuery.data?.data.doctor || {};
+  const doctor = doctorQuery.data?.data?.doctor || {};
 
   useEffect(() => {
     if (location.hash === "#appointment") {
       document.getElementById("appointment").scrollIntoView();
     }
   }, []);
+
+  useEffect(() => {
+    if (!doctorQuery.isFetching && doctorQuery.data?.status === "fail") {
+      toast.error("Doctor not found or has been deleted");
+      return navigate("/doctors");
+    }
+  }, [doctorQuery.isFetching, doctor._id]);
 
   return (
     <section>
