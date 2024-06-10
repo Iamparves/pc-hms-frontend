@@ -14,6 +14,9 @@ module.exports = {
         center: true,
         padding: "1.5rem",
       },
+      screens: {
+        "2xl": "1440px",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
