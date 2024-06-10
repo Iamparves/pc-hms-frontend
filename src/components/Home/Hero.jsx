@@ -18,7 +18,7 @@ const Hero = () => {
               informed about your health.
             </p>
             <Button
-              className="mt-6 border-2 border-blue bg-blue px-5 py-6 text-[15px] transition-colors duration-300 hover:bg-transparent hover:text-blue lg:mt-7"
+              className="mt-6 rounded-full border-2 border-blue bg-blue px-5 py-6 text-[15px] transition-colors duration-300 hover:bg-transparent hover:text-blue lg:mt-7"
               asChild
             >
               <Link to="/doctors">Find a Doctor</Link>
