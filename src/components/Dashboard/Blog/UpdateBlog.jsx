@@ -1,3 +1,4 @@
+import Loader from "@/components/shared/Loader";
 import { getBlogById } from "@/db/blog";
 import { useStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
@@ -28,11 +29,16 @@ const UpdateBlog = () => {
     <>
       <DashboardHeader title="Update Blog" desc="Update an existing blog" />
       <div className="mx-auto h-[calc(100dvh-80px)] w-full overflow-y-auto">
-        <div className="p-3 sm:p-5 xl:p-10">
+        <div className="h-full p-3 sm:p-5 xl:p-10">
           {!blogQuery.isFetching && blog?._id ? (
             <NewBlogForm blog={blog} />
           ) : (
-            <div>Loading...</div>
+            <div className="flex h-full items-center justify-center gap-3">
+              <div className="rounded-md bg-white px-20 py-10">
+                <Loader className="size-20" />
+                <p className="text-gray-500">Please Wait</p>
+              </div>
+            </div>
           )}
         </div>
       </div>
