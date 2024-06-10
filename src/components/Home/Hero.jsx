@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 
 const Hero = () => {
   return (
-    <section className="border-t border-gray-200/50 bg-white/70 py-16 lg:py-20 xl:py-24">
+    <section className="border-t border-gray-200/50 bg-white/70 pb-12 pt-16 lg:py-20 xl:py-24">
       <div className="container">
         <div className="mx-auto grid max-w-lg grid-cols-1 items-center gap-x-10 gap-y-6 lg:max-w-none lg:grid-cols-2">
           <div className="text-center lg:text-left">
