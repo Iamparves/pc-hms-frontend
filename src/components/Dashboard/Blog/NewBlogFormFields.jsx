@@ -4,9 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getAllTags } from "@/db/blog";
 import { useQuery } from "@tanstack/react-query";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Link } from "react-router-dom";
+import TiptapEditor from "./TiptapEditor";
 
 const NewBlogFormFields = ({
   title,
@@ -58,12 +58,13 @@ const NewBlogFormFields = ({
         </div>
         <div>
           <h3 className="mb-2 text-sm font-medium">Content</h3>
-          <ReactQuill
+          {/* <ReactQuill
             theme="snow"
             value={content}
             onChange={setContent}
             className="[&_.ql-editor]:h-[300px] md:[&_.ql-editor]:h-[400px] xl:[&_.ql-editor]:h-[460px]"
-          />
+          /> */}
+          <TiptapEditor content={content} setContent={setContent} />
         </div>
       </div>
       <div className="sidebar w-full space-y-5 xl:min-w-[300px] 2xl:w-[400px]">

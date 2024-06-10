@@ -1,39 +1,56 @@
+/* Apply styles to paragraphs */
+.ProseMirror p,
 .blog-content p {
   @apply mb-4 text-[15px] text-gray-600 sm:text-base;
 }
 
+/* Apply styles to headings */
+.ProseMirror :is(h1, h2, h3, h4, h5, h6),
 .blog-content :is(h1, h2, h3, h4, h5, h6) {
   @apply mb-1.5 font-semibold text-gray-800;
 }
 
+/* Customize styles for specific heading levels */
+.ProseMirror h1,
 .blog-content h1 {
   @apply text-2xl md:text-3xl lg:text-4xl;
 }
 
+.ProseMirror h2,
 .blog-content h2 {
   @apply text-[22px] md:text-2xl lg:text-3xl;
 }
 
+.ProseMirror h3,
 .blog-content h3 {
   @apply text-xl md:text-[22px] lg:text-2xl;
 }
 
+/* Apply styles to lists */
+.ProseMirror ul,
 .blog-content ul {
-  @apply list-inside list-disc space-y-2.5;
+  @apply list-disc space-y-2.5 pl-5;
 }
 
+.ProseMirror ol,
 .blog-content ol {
-  @apply list-inside list-decimal space-y-2.5;
+  @apply list-decimal space-y-2.5 pl-5;
 }
 
+/* Apply styles to list items */
+.ProseMirror li,
 .blog-content li {
   @apply text-[15px] text-gray-600 sm:text-base;
 }
 
+/* Apply styles to strong elements (bold text) */
+.ProseMirror strong,
 .blog-content strong {
   @apply font-semibold text-gray-700;
 }
 
+/* Apply styles to links */
+.ProseMirror a,
 .blog-content a {
   @apply text-[15px] text-blue hover:underline sm:text-base;
 }

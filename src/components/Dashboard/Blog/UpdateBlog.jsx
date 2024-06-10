@@ -29,7 +29,7 @@ const UpdateBlog = () => {
       <DashboardHeader title="Update Blog" desc="Update an existing blog" />
       <div className="mx-auto h-[calc(100dvh-80px)] w-full overflow-y-auto">
         <div className="p-3 sm:p-5 xl:p-10">
-          {!blogQuery.isFetching && blog._id ? (
+          {!blogQuery.isFetching && blog?._id ? (
             <NewBlogForm blog={blog} />
           ) : (
             <div>Loading...</div>
