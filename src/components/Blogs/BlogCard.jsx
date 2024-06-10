@@ -3,14 +3,20 @@ import { format } from "date-fns";
 import { franc } from "franc";
 import { Link } from "react-router-dom";
 
-const BlogCard = ({ blog }) => {
+const BlogCard = ({ blog, isHome = false }) => {
   const { _id, title, featuredImage, publishedDate, author } = blog;
 
   const langCode = franc(title);
 
   return (
     <Link className="mx-auto h-full max-w-sm" to={`/blogs/${_id}`}>
-      <div className="h-full overflow-hidden rounded-md bg-white">
+      <div
+        className={cn(
+          "h-full overflow-hidden rounded-md bg-white shadow-sm",
+          isHome &&
+            "border border-gray-100 shadow-[0_1px_30px_0px_rgba(0,0,0,0.06)]",
+        )}
+      >
         <img
           className="aspect-video object-cover"
           src={featuredImage}

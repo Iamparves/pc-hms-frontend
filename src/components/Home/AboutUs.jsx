@@ -25,7 +25,7 @@ const AboutUs = () => {
               advancements to empower you to take control of your health.
             </p>
             <Button
-              className="rounded-full bg-blue px-8 py-6 text-[15px] hover:bg-blue/90"
+              className="rounded-full bg-blue px-8 py-[26px] text-[15px] hover:bg-blue/90"
               asChild
             >
               <Link to="/about">Learn More</Link>
