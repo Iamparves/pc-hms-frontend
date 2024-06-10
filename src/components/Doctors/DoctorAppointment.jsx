@@ -17,7 +17,12 @@ const days = {
   SAT: 6,
 };
 
-const DoctorAppointment = ({ doctorOffDays, doctorId, hospitalId }) => {
+const DoctorAppointment = ({
+  doctorOffDays,
+  doctorId,
+  hospitalId,
+  sendConfirmationSMS,
+}) => {
   const user = useStore((state) => state.user);
   const [date, setDate] = useState(null);
   const [existingAppointment, setExistingAppointment] = useState(null);
@@ -43,6 +48,12 @@ const DoctorAppointment = ({ doctorOffDays, doctorId, hospitalId }) => {
         setDate(null);
 
         queryClient.invalidateQueries(["appointments"]);
+
+        sendConfirmationSMS({
+          serialNo: result.data?.appointment?.serialNo,
+          appointmentDate: result.data?.appointment?.appointmentDate,
+          mobileNo: user.mobileNo,
+        });
       } else {
         toast.error(result.message || "Failed to book appointment");
       }
