@@ -4,7 +4,7 @@ export const uploadImage = async (imageFile) => {
     ImageData.set("image", imageFile);
 
     const res = await fetch(
-      "https://api.imgbb.com/1/upload?key=96414755e81ac2a7e751fe0575e30c1b",
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,
       {
         method: "POST",
         body: ImageData,
