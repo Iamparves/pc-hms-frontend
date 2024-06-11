@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button";
 import { getAllAppointments } from "@/db/appointments";
 import { getHospitalDoctors } from "@/db/doctor";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { FaDownload } from "react-icons/fa";
 import DashboardHeader from "../shared/DashboardHeader";
+import HospitalAppointmentDownload from "./HospitalAppointmentDownload";
 import HospitalAppointmentFilter from "./HospitalAppointmentFilter";
 import HospitalAppointmentTable from "./HospitalAppointmentTable";
 
@@ -33,12 +32,10 @@ const HospitalAppointments = () => {
         <div className="p-3 sm:p-5 xl:p-10">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-2xl font-bold">Appointment List</h2>
-            <Button
-              // onClick={handleAddDoctor}
-              className="bg-blue hover:bg-blue/90"
-            >
-              <FaDownload className="mr-2" /> Download PDF
-            </Button>
+            <HospitalAppointmentDownload
+              queryString={queryString}
+              appointments={appointments}
+            />
           </div>
           <div className="space-y-3">
             <HospitalAppointmentFilter
