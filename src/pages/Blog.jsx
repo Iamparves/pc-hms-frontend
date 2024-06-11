@@ -1,5 +1,6 @@
 import BlogCard from "@/components/Blogs/BlogCard";
 import Pagination from "@/components/Doctors/Pagination";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getBlogsPaginated } from "@/db/blog";
 import { useQuery } from "@tanstack/react-query";
@@ -29,6 +30,7 @@ const Blog = () => {
 
   return (
     <section>
+      <ScrollToTop />
       <div className="bg-[url(/doctor.jpg)] bg-cover bg-center">
         <div className="bg-black/60 py-20">
           <h1 className="text-center text-4xl font-bold text-white md:text-5xl">

@@ -1,6 +1,7 @@
 import { BlogComments } from "@/components/Blogs/BlogComments";
 import BlogDetailsSkeleton from "@/components/Blogs/BlogDetailsSkeleton";
 import BlogReactions from "@/components/Blogs/BlogReactions";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 import { getBlogById } from "@/db/blog";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/store";
@@ -36,10 +37,6 @@ const BlogDetails = () => {
   const langCode = franc(blog?.content || "");
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
     if (!blogQuery.isFetching && blogQuery.data?.status === "fail") {
       toast.error("Blog not found or has been deleted");
       return navigate("/blogs");
@@ -48,6 +45,7 @@ const BlogDetails = () => {
 
   return (
     <section className="py-10 md:py-14">
+      <ScrollToTop />
       <div className="container">
         <div className="mx-auto max-w-5xl">
           {(!blogQuery.isFetching || blog._id) &&
