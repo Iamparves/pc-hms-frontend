@@ -1,14 +1,15 @@
+import fetchWithAuth from "@/lib/fetchWithAuth";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const createDoctor = async (doctorData) => {
   try {
-    const response = await fetch(`${BASE_URL}/doctors`, {
+    const response = await fetchWithAuth(`${BASE_URL}/doctors`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(doctorData),
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -28,7 +29,6 @@ export const getAllDoctors = async (queryString = "") => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -54,7 +54,6 @@ export const getDoctorsPaginated = async (params) => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const result = await response.json();
@@ -76,14 +75,13 @@ export const getDoctorsPaginated = async (params) => {
 
 export const getHospitalDoctors = async (queryString = "") => {
   try {
-    const response = await fetch(
+    const response = await fetchWithAuth(
       `${BASE_URL}/doctors/my-doctors${queryString}`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
       },
     );
 
@@ -104,7 +102,6 @@ export const getDoctorById = async (doctorId) => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -119,13 +116,12 @@ export const getDoctorById = async (doctorId) => {
 
 export const updateDoctor = async ({ doctorId, doctorData }) => {
   try {
-    const response = await fetch(`${BASE_URL}/doctors/${doctorId}`, {
+    const response = await fetchWithAuth(`${BASE_URL}/doctors/${doctorId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(doctorData),
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -140,12 +136,11 @@ export const updateDoctor = async ({ doctorId, doctorData }) => {
 
 export const deleteDoctor = async (doctorId) => {
   try {
-    const response = await fetch(`${BASE_URL}/doctors/${doctorId}`, {
+    const response = await fetchWithAuth(`${BASE_URL}/doctors/${doctorId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -160,12 +155,11 @@ export const deleteDoctor = async (doctorId) => {
 
 export const getAllSpecialities = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/doctors/specialities`, {
+    const response = await fetchWithAuth(`${BASE_URL}/doctors/specialities`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const data = await response.json();

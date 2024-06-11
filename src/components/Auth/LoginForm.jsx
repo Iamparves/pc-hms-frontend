@@ -42,6 +42,7 @@ const LoginForm = () => {
 
         form.reset();
         setUser(data.data?.user);
+        localStorage.setItem("jwtToken", data.data?.token);
 
         return navigate(`/dashboard/${data.data?.user?.role}`);
       } else {

@@ -1,14 +1,15 @@
+import fetchWithAuth from "@/lib/fetchWithAuth";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const createNewBlog = async (blogData) => {
   try {
-    const response = await fetch(`${BASE_URL}/blogs`, {
+    const response = await fetchWithAuth(`${BASE_URL}/blogs`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(blogData),
-      credentials: "include",
     });
 
     const result = await response.json();
@@ -30,7 +31,6 @@ export const getAllBlogs = async (queryString = "") => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const result = await response.json();
@@ -58,7 +58,6 @@ export const getBlogsPaginated = async (params) => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const result = await response.json();
@@ -87,7 +86,6 @@ export const getBlogById = async (blogId) => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const result = await response.json();
@@ -104,13 +102,12 @@ export const getBlogById = async (blogId) => {
 
 export const updateBlog = async (blogId, blogData) => {
   try {
-    const response = await fetch(`${BASE_URL}/blogs/${blogId}`, {
+    const response = await fetchWithAuth(`${BASE_URL}/blogs/${blogId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(blogData),
-      credentials: "include",
     });
 
     const result = await response.json();
@@ -127,12 +124,11 @@ export const updateBlog = async (blogId, blogData) => {
 
 export const deleteBlog = async (blogId) => {
   try {
-    const response = await fetch(`${BASE_URL}/blogs/${blogId}`, {
+    const response = await fetchWithAuth(`${BASE_URL}/blogs/${blogId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const result = await response.json();
@@ -149,12 +145,11 @@ export const deleteBlog = async (blogId) => {
 
 export const getAllTags = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/blogs/tags`, {
+    const response = await fetchWithAuth(`${BASE_URL}/blogs/tags`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const result = await response.json();
@@ -176,7 +171,6 @@ export const getBlogReaction = async (blogId) => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const result = await response.json();
@@ -193,12 +187,11 @@ export const getBlogReaction = async (blogId) => {
 
 export const likeBlog = async (blogId) => {
   try {
-    const response = await fetch(`${BASE_URL}/blogs/${blogId}/like`, {
+    const response = await fetchWithAuth(`${BASE_URL}/blogs/${blogId}/like`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const result = await response.json();
@@ -215,13 +208,15 @@ export const likeBlog = async (blogId) => {
 
 export const dislikeBlog = async (blogId) => {
   try {
-    const response = await fetch(`${BASE_URL}/blogs/${blogId}/dislike`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetchWithAuth(
+      `${BASE_URL}/blogs/${blogId}/dislike`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-      credentials: "include",
-    });
+    );
 
     const result = await response.json();
 

@@ -1,6 +1,4 @@
-import { logout } from "@/db/auth";
 import { useStore } from "@/store";
-import { useMutation } from "@tanstack/react-query";
 import { TbLogout2 } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -8,29 +6,22 @@ import { toast } from "sonner";
 const LogoutButton = () => {
   const navigate = useNavigate();
   const setUser = useStore((state) => state.setUser);
-  const logoutMutation = useMutation({
-    mutationFn: logout,
-    onSuccess: (result) => {
-      if (result.status === "success") {
-        toast("Logout successful", {
-          type: "success",
-          description: "You have been logged out successfully",
-        });
 
-        setUser(null);
-        return navigate("/");
-      }
-    },
-    onError: (error) => {
-      console.log(error);
-      toast("Logout failed", { type: "error" });
-    },
-  });
+  const handleLogout = () => {
+    localStorage.removeItem("jwtToken");
+
+    toast.success("Logout successful", {
+      description: "You have been logged out successfully",
+    });
+
+    setUser(null);
+    return navigate("/");
+  };
 
   return (
     <button
       className="flex items-center gap-3 px-8 py-3 text-[#808080] duration-300 hover:text-blue"
-      onClick={logoutMutation.mutate}
+      onClick={handleLogout}
     >
       <span className="text-xl">
         <TbLogout2 />

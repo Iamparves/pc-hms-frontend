@@ -1,3 +1,5 @@
+import fetchWithAuth from "@/lib/fetchWithAuth";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const getAllHospitals = async (queryString) => {
@@ -19,9 +21,7 @@ export const getAllHospitals = async (queryString) => {
 
 export const getAdminHospitals = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/hospitals/admin`, {
-      credentials: "include",
-    });
+    const response = await fetchWithAuth(`${BASE_URL}/hospitals/admin`);
 
     const result = await response.json();
 
@@ -38,13 +38,12 @@ export const getAdminHospitals = async () => {
 
 export const updateHospital = async (hospitalData) => {
   try {
-    const response = await fetch(`${BASE_URL}/hospitals`, {
+    const response = await fetchWithAuth(`${BASE_URL}/hospitals`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(hospitalData),
-      credentials: "include",
     });
 
     const result = await response.json();

@@ -1,13 +1,14 @@
+import fetchWithAuth from "@/lib/fetchWithAuth";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const getOverview = async (role) => {
   try {
-    const response = await fetch(`${BASE_URL}/overview/${role}`, {
+    const response = await fetchWithAuth(`${BASE_URL}/overview/${role}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const data = await response.json();

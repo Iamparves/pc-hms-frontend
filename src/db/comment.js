@@ -1,14 +1,15 @@
+import fetchWithAuth from "@/lib/fetchWithAuth";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const commentOnBlog = async (commentData) => {
   try {
-    const response = await fetch(`${BASE_URL}/comments`, {
+    const response = await fetchWithAuth(`${BASE_URL}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(commentData),
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -21,9 +22,7 @@ export const commentOnBlog = async (commentData) => {
 
 export const getCommentsByBlog = async (blogId) => {
   try {
-    const response = await fetch(`${BASE_URL}/comments/${blogId}`, {
-      credentials: "include",
-    });
+    const response = await fetch(`${BASE_URL}/comments/${blogId}`);
 
     const data = await response.json();
 
@@ -35,13 +34,12 @@ export const getCommentsByBlog = async (blogId) => {
 
 export const updateComment = async (commentId, commentData) => {
   try {
-    const response = await fetch(`${BASE_URL}/comments/${commentId}`, {
+    const response = await fetchWithAuth(`${BASE_URL}/comments/${commentId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(commentData),
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -54,9 +52,8 @@ export const updateComment = async (commentId, commentData) => {
 
 export const deleteComment = async (commentId) => {
   try {
-    const response = await fetch(`${BASE_URL}/comments/${commentId}`, {
+    const response = await fetchWithAuth(`${BASE_URL}/comments/${commentId}`, {
       method: "DELETE",
-      credentials: "include",
     });
 
     const data = await response.json();

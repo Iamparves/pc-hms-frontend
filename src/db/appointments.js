@@ -1,14 +1,15 @@
+import fetchWithAuth from "@/lib/fetchWithAuth";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const bookAppointment = async (appointmentdata) => {
   try {
-    const response = await fetch(`${BASE_URL}/appointments`, {
+    const response = await fetchWithAuth(`${BASE_URL}/appointments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(appointmentdata),
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -26,14 +27,13 @@ export const checkExistingAppointment = async (doctorId, patientId) => {
     if (!doctorId || !patientId)
       return { error: "Doctor and Patient ID required" };
 
-    const response = await fetch(
+    const response = await fetchWithAuth(
       `${BASE_URL}/appointments?doctor=${doctorId}&patient=${patientId}`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
       },
     );
 
@@ -49,13 +49,15 @@ export const checkExistingAppointment = async (doctorId, patientId) => {
 
 export const getAllAppointments = async (queryString = "") => {
   try {
-    const response = await fetch(`${BASE_URL}/appointments${queryString}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetchWithAuth(
+      `${BASE_URL}/appointments${queryString}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-      credentials: "include",
-    });
+    );
 
     const data = await response.json();
 

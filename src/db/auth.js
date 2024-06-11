@@ -1,13 +1,14 @@
+import fetchWithAuth from "@/lib/fetchWithAuth";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const getLoggedInUser = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/users/me`, {
+    const response = await fetchWithAuth(`${BASE_URL}/users/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -38,13 +39,12 @@ export const signup = async (user) => {
 
 export const login = async (user) => {
   try {
-    const response = await fetch(`${BASE_URL}/users/login`, {
+    const response = await fetchWithAuth(`${BASE_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -57,12 +57,11 @@ export const login = async (user) => {
 
 export const logout = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/users/logout`, {
+    const response = await fetchWithAuth(`${BASE_URL}/users/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     const data = await response.json();
@@ -111,13 +110,12 @@ export const resendVerificationOTP = async (mobileNo) => {
 
 export const updatePassword = async (passwordData) => {
   try {
-    const response = await fetch(`${BASE_URL}/users/update-password`, {
+    const response = await fetchWithAuth(`${BASE_URL}/users/update-password`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(passwordData),
-      credentials: "include",
     });
 
     const data = await response.json();
