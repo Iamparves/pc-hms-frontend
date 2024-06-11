@@ -1,6 +1,9 @@
+import { sendMessage } from "@/db/contact";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdAlternateEmail } from "react-icons/md";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { Form } from "../ui/form";
@@ -19,6 +22,8 @@ const contactSchema = z.object({
 });
 
 const ContactForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -29,8 +34,22 @@ const ContactForm = () => {
     },
   });
 
-  const handleContactForm = (data) => {
-    console.log(data);
+  const handleContactForm = async (data) => {
+    setIsLoading(true);
+    const toastId = toast.loading("Sending message...");
+    const result = await sendMessage(data);
+    setIsLoading(false);
+
+    if (result.status === "success") {
+      form.reset();
+      return toast.success("Message sent successfully", {
+        id: toastId,
+      });
+    } else {
+      return toast.error("Failed to send message", {
+        id: toastId,
+      });
+    }
   };
 
   return (
@@ -47,12 +66,18 @@ const ContactForm = () => {
               type="text"
               placeholder="Your Name*"
               required
+              value={form.watch("name")}
+              onChange={(e) => form.setValue("name", e.target.value)}
+              disabled={isLoading}
             />
             <Input
               className="rounded-none border-[#d8d8d8] bg-transparent px-6 py-8 text-[15px] transition-colors duration-200 focus:border-blue "
               name="email"
               type="email"
               placeholder="Your Email"
+              value={form.watch("email")}
+              onChange={(e) => form.setValue("email", e.target.value)}
+              disabled={isLoading}
             />
           </div>
           <Input
@@ -60,18 +85,25 @@ const ContactForm = () => {
             name="subject"
             type="text"
             placeholder="Subject"
+            value={form.watch("subject")}
+            onChange={(e) => form.setValue("subject", e.target.value)}
+            disabled={isLoading}
           />
           <Textarea
             className="h-40 rounded-none border-[#d8d8d8] bg-transparent px-6 py-5 text-[15px] transition-colors duration-200 focus:border-blue"
             name="message"
             placeholder="Message*"
             required
+            value={form.watch("message")}
+            onChange={(e) => form.setValue("message", e.target.value)}
+            disabled={isLoading}
           />
 
           <div className="text-center md:text-left">
             <Button
               type="submit"
               className="inline-flex items-center gap-2 rounded-none border-2 border-blue bg-blue py-6 text-[15px] uppercase hover:bg-transparent hover:text-blue lg:px-7 lg:py-8 xl:px-8 xl:py-8"
+              disabled={isLoading}
             >
               <span className="text-xl">
                 <MdAlternateEmail />
