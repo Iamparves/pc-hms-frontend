@@ -126,7 +126,7 @@ const DoctorAppointment = ({
             return (
               date < currentDay ||
               offDays.includes(date.getDay()) ||
-              date > currentDay.setDate(currentDay.getDate() + 20)
+              date > currentDay.setDate(currentDay.getDate() + 30)
             );
           }}
         />

@@ -166,12 +166,15 @@ export const getAllTags = async () => {
 
 export const getBlogReaction = async (blogId) => {
   try {
-    const response = await fetch(`${BASE_URL}/blogs/${blogId}/reactions`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetchWithAuth(
+      `${BASE_URL}/blogs/${blogId}/reactions`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
 
     const result = await response.json();
 
