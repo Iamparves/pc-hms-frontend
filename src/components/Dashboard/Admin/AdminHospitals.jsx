@@ -9,7 +9,7 @@ const AdminHospitals = () => {
     queryFn: () => getAdminHospitals(),
   });
 
-  const hospitals = hospitalsQuery.data?.data.hospitals || [];
+  const hospitals = hospitalsQuery.data?.data?.hospitals || [];
 
   const columns = [
     {

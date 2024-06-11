@@ -1,4 +1,4 @@
-const fetchWithAuth = async (url, options) => {
+const fetchWithAuth = async (url, options = {}) => {
   const jwtToken = localStorage.getItem("jwtToken");
 
   if (jwtToken) {
