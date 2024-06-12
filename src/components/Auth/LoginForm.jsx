@@ -1,4 +1,4 @@
-import { login } from "@/db/auth";
+import { login, resendVerificationOTP } from "@/db/auth";
 import { useStore } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -34,19 +34,40 @@ const LoginForm = () => {
 
   const loginMutation = useMutation({
     mutationFn: login,
-    onSuccess: (data) => {
-      if (data.status === "success") {
+    onSuccess: (result) => {
+      if (result.status === "success") {
         toast("Login successful", {
           type: "success",
         });
 
         form.reset();
-        setUser(data.data?.user);
-        localStorage.setItem("jwtToken", data.data?.token);
+        setUser(result.data?.user);
+        localStorage.setItem("jwtToken", result.data?.token);
 
-        return navigate(`/dashboard/${data.data?.user?.role}`);
+        return navigate(`/dashboard/${result.data?.user?.role}`);
       } else {
-        toast("Login failed", { type: "error", description: data.message });
+        if (result.data?.user && !result.data?.user?.isVerified) {
+          toast.error("Account not verified", {
+            description: "Please verify your account to login.",
+            action: (
+              <Button
+                onClick={async () => {
+                  await resendVerificationOTP(result.data?.user?.mobileNo);
+                  toast.dismiss();
+                  navigate(`/verify-otp?phone=${result.data?.user?.mobileNo}`);
+                }}
+                className="bg-blue px-2 text-[13px] hover:bg-blue/90"
+                size="sm"
+              >
+                Verify Now
+              </Button>
+            ),
+          });
+
+          return;
+        }
+
+        toast("Login failed", { type: "error", description: result.message });
       }
     },
     onError: (error) => {

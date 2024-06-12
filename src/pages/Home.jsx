@@ -10,7 +10,7 @@ const Home = () => {
     <main>
       <ScrollToTop />
       <Hero />
-      <AboutUs />
+      <AboutUs isHome />
       <HowItWorks />
       <CallToAction />
       <HomeBlogs />
