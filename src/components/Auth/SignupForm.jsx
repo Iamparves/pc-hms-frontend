@@ -1,10 +1,3 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { signup } from "@/db/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -13,14 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { Form } from "../ui/form";
 import SignupFormField from "./SignupFormField";
 
 const formSchema = z.object({
@@ -31,7 +17,6 @@ const formSchema = z.object({
     .max(11, { message: "Mobile no must be 11 characters long" }),
   password: z.string().min(8),
   confirmPassword: z.string().min(8),
-  role: z.enum(["patient", "hospital"], { message: "Please select a role" }),
 });
 
 const SignupForm = () => {
@@ -44,7 +29,6 @@ const SignupForm = () => {
       mobileNo: "",
       password: "",
       confirmPassword: "",
-      role: "",
     },
   });
 
@@ -111,31 +95,6 @@ const SignupForm = () => {
             inputType="password"
             formControl={form.control}
             disabled={signupMutation.isPending}
-          />
-          <FormField
-            control={form.control}
-            name="role"
-            render={({ field }) => (
-              <FormItem className="space-y-1">
-                <FormLabel>Register as</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  disabled={signupMutation.isPending}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-full py-[22px] text-[15px]">
-                      <SelectValue placeholder="Select a user role" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="patient">Patient</SelectItem>
-                    <SelectItem value="hospital">Hospital</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage className="text-[13px]" />
-              </FormItem>
-            )}
           />
 
           <Button

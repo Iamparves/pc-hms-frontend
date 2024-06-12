@@ -29,7 +29,7 @@ const HospitalAppointmentDownload = ({ appointments, queryString }) => {
     return [...baseColumns, "Doctor", "Appointment Date", "Chamber Time"];
   }, [includesDoctor, includesDate]);
 
-  const sortedAppointments = appointments.sort((a, b) => {
+  const sortedAppointments = [...appointments].sort((a, b) => {
     if (includesDate) {
       return a.serialNo - b.serialNo;
     } else {

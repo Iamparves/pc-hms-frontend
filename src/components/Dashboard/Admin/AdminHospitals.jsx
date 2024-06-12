@@ -1,15 +1,23 @@
+import { Button } from "@/components/ui/button";
 import { getAdminHospitals } from "@/db/hospital";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import DashDataTable from "../shared/DashDataTable";
 import DashboardHeader from "../shared/DashboardHeader";
 
 const AdminHospitals = () => {
+  const navigate = useNavigate();
+
   const hospitalsQuery = useQuery({
     queryKey: ["hospitals"],
     queryFn: () => getAdminHospitals(),
   });
 
   const hospitals = hospitalsQuery.data?.data?.hospitals || [];
+
+  const handleAddHospital = () => {
+    navigate("add");
+  };
 
   const columns = [
     {
@@ -48,6 +56,12 @@ const AdminHospitals = () => {
         <div className="p-3 sm:p-5 xl:p-10">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-2xl font-bold">Hospitals List</h2>
+            <Button
+              onClick={handleAddHospital}
+              className="bg-blue hover:bg-blue/90"
+            >
+              Add Hospital
+            </Button>
           </div>
           <div className="">
             <DashDataTable
