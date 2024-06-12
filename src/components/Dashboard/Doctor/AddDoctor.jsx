@@ -31,7 +31,7 @@ const doctorSchema = z.object({
     .nonempty({ message: "Select at least one language" }),
   institute: z.string(),
   department: z.string(),
-  appointmentNo: z.any(),
+  workExperience: z.string(),
   chamberTime: z.string(),
   offDays: z.array(z.string()),
   floorNo: z.string(),
@@ -58,7 +58,7 @@ const AddDoctor = ({ doctor = {} }) => {
       languages: doctor?.languages || [],
       institute: doctor?.institute || "",
       department: doctor?.department || "",
-      appointmentNo: doctor?.appointmentNo || "",
+      workExperience: doctor?.workExperience || "",
       chamberTime: doctor?.chamberTime || "",
       offDays: doctor?.offDays || [],
       floorNo: doctor?.floorNo || "",
@@ -209,9 +209,9 @@ const AddDoctor = ({ doctor = {} }) => {
               formControl={form.control}
             />
             <DashFormField
-              label="Appointment Number"
-              name="appointmentNo"
-              placeholder="Enter appointment phone number"
+              label="Work Experience"
+              name="workExperience"
+              placeholder="Enter doctor work experience"
               formControl={form.control}
             />
             <DashFormField

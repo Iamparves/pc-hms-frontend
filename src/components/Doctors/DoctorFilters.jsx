@@ -64,9 +64,9 @@ const DoctorFilters = ({ selectable }) => {
   return (
     <>
       <div className="mb-5 flex justify-between">
-        <h2 className="text-xl font-semibold">Filters</h2>
+        <h2 className="text-lg font-semibold sm:text-xl">Find Your Doctors</h2>
         <button onClick={clearFilters} className="text-sm text-blue underline">
-          Clear Filters
+          Reset
         </button>
       </div>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-1">
@@ -118,7 +118,7 @@ const DoctorFilters = ({ selectable }) => {
               setCurrentPage(1);
             }}
           >
-            Apply Filters
+            Search
           </Button>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import Loader from "@/components/shared/Loader";
 import { getDoctorById } from "@/db/doctor";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -13,7 +14,12 @@ const UpdateDoctor = () => {
 
   const doctor = doctorsQuery.data?.data?.doctor;
 
-  if (doctorsQuery.isFetching) return <div>Loading...</div>;
+  if (doctorsQuery.isFetching)
+    return (
+      <div className="flex h-full min-h-[500px] items-center justify-center">
+        <Loader className="size-20" />
+      </div>
+    );
 
   return (
     <div>

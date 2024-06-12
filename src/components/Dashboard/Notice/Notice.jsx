@@ -13,6 +13,8 @@ import DashboardHeader from "../shared/DashboardHeader";
 
 const Notice = () => {
   const user = useStore((state) => state.user);
+  const isAdmin = user?.role === "admin" || false;
+
   const navigate = useNavigate();
 
   const noticeQuery = useQuery({
@@ -173,12 +175,14 @@ const Notice = () => {
         <div className="p-3 sm:p-5 xl:p-10">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-2xl font-bold">Notice List</h2>
-            <Button
-              onClick={() => navigate("add")}
-              className="bg-blue hover:bg-blue/90"
-            >
-              Add Notice
-            </Button>
+            {isAdmin && (
+              <Button
+                onClick={() => navigate("add")}
+                className="bg-blue hover:bg-blue/90"
+              >
+                Add Notice
+              </Button>
+            )}
           </div>
           <div>
             <DashDataTable

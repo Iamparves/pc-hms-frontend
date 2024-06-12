@@ -1,4 +1,3 @@
-import ContactSection from "@/components/Contact/ContactSection";
 import AboutUs from "@/components/Home/AboutUs";
 import CallToAction from "@/components/Home/CallToAction";
 import Hero from "@/components/Home/Hero";
@@ -15,7 +14,6 @@ const Home = () => {
       <HowItWorks />
       <CallToAction />
       <HomeBlogs />
-      <ContactSection />
     </main>
   );
 };

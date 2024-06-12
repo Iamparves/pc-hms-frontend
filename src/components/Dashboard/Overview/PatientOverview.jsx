@@ -24,7 +24,9 @@ const PatientOverview = () => {
       <div className="h-[calc(100dvh-80px)] w-full overflow-y-auto">
         <div className="p-3 sm:p-5 xl:p-10">
           <div className="rounded-md border bg-white">
-            <OverviewNotice role={user?.role} />
+            <div className="px-3 pt-5 md:px-5">
+              <OverviewNotice role={user?.role} />
+            </div>
             {!overviewQuery.isFetching && (
               <PatientOverviewCards overview={overview} />
             )}

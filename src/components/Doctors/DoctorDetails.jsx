@@ -23,7 +23,7 @@ const DoctorDetails = ({ doctor, isFetching }) => {
     languages,
     institute,
     department,
-    appointmentNo,
+    workExperience,
     chamberTime,
     offDays,
     floorNo,
@@ -35,6 +35,73 @@ const DoctorDetails = ({ doctor, isFetching }) => {
     feesToShowReport,
     hospital,
   } = doctor;
+
+  const dataRows = [
+    {
+      title: "Hospital",
+      value: hospital?.name,
+    },
+    {
+      title: "Address",
+      value: hospital?.address,
+    },
+    {
+      title: "Department",
+      value: department,
+    },
+    {
+      title: "Specialities",
+      value: specialities?.map((s) => s.name).join(", "),
+    },
+    {
+      title: "Work Experience",
+      value: workExperience,
+    },
+    {
+      title: "Chamber Time",
+      value: chamberTime,
+    },
+    {
+      title: "Off Days",
+      value: offDays?.join(", "),
+    },
+    {
+      title: "Floor No.",
+      value: floorNo,
+    },
+    {
+      title: "Room No.",
+      value: roomNumber,
+    },
+    {
+      title: "Consultation Fee",
+      value: consulatationFee,
+    },
+    {
+      title: "Fees to Show Report",
+      value: feesToShowReport,
+    },
+    {
+      title: "Contact",
+      value: phone,
+    },
+    {
+      title: "Institute",
+      value: institute,
+    },
+    {
+      title: "Other Branches",
+      value: branchNames?.join("<br/>"),
+    },
+    {
+      title: "Languages",
+      value: languages?.join(", "),
+    },
+    {
+      title: "BMDC No.",
+      value: bmdcNo,
+    },
+  ];
 
   return (
     <div className=" bg-white p-2.5 sm:p-6">
@@ -86,28 +153,9 @@ const DoctorDetails = ({ doctor, isFetching }) => {
           {!isFetching ? (
             <table className="w-full border border-[#ebebeb]">
               <tbody>
-                <DataRow title="Hospital" value={hospital?.name} />
-                <DataRow title="Address" value={hospital?.address} />
-                <DataRow title="Department" value={department} />
-                <DataRow
-                  title="Specialities"
-                  value={specialities?.map((s) => s.name).join(", ")}
-                />
-                <DataRow title="Chamber Time" value={chamberTime} />
-                <DataRow title="Off Days" value={offDays?.join(", ")} />
-                <DataRow title="Floor No." value={floorNo} />
-                <DataRow title="Room No." value={roomNumber} />
-                <DataRow title="Consultation Fee" value={consulatationFee} />
-                <DataRow title="Fees to Show Report" value={feesToShowReport} />
-                <DataRow title="Appointment" value={appointmentNo} />
-                <DataRow title="Contact" value={phone} />
-                <DataRow title="Institute" value={institute} />
-                <DataRow
-                  title="Other Branches"
-                  value={branchNames?.join("<br/>")}
-                />
-                <DataRow title="Languages" value={languages?.join(", ")} />
-                <DataRow title="BMDC No." value={bmdcNo} />
+                {dataRows.map((row, index) =>
+                  row.value ? <DataRow key={index} {...row} /> : null,
+                )}
               </tbody>
             </table>
           ) : (

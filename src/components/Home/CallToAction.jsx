@@ -13,7 +13,7 @@ const CallToAction = () => {
             Sign up today and take the first step towards better health
           </p>
           <Button
-            className="rounded-none border-2 border-blue bg-transparent px-7 py-[22px] text-blue hover:bg-blue hover:bg-blue/90 hover:text-white lg:px-10 lg:py-[25px] lg:text-base"
+            className="rounded-none border-2 border-blue bg-blue px-7 py-[22px] text-white hover:bg-transparent lg:px-10 lg:py-[25px] lg:text-base"
             asChild
           >
             <Link to="/signup">Sign Up</Link>

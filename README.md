@@ -40,7 +40,7 @@ pnpm install
 2. Add the following environment variables to `.env.local`:
 
 ```
-VITE_BASE_URL=backen_url/api/v1
+VITE_BASE_URL=backend_url/api/v1
 VITE_SMS_API_KEY=your_sms_api_key
 VITE_SMS_SENDER_ID=your_sms_sender_id
 VITE_IMGBB_API_KEY=imgbb_api_key
