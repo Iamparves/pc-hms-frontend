@@ -58,12 +58,12 @@ export const getDoctorsPaginated = async (params) => {
 
     const result = await response.json();
 
-    const totalPages = Math.ceil(result.data.totalDocs / params.limit) || 1;
+    const totalPages = Math.ceil(result.data?.totalDocs / params.limit) || 1;
 
     return {
       doctors: result.data?.doctors,
       totalPages,
-      totalDoctors: result.data.totalDocs,
+      totalDoctors: result.data?.totalDocs,
       result: result.results,
     };
   } catch (error) {

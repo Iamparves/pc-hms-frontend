@@ -31,7 +31,9 @@ const Doctors = () => {
     placeholderData: keepPreviousData,
   });
 
-  const { doctors, result, totalDoctors, totalPages } = doctorsQuery.data || {};
+  const { doctors, result, totalDoctors, totalPages } = doctorsQuery.data || {
+    doctors: [],
+  };
 
   const skip = (page - 1) * 10;
 
@@ -68,7 +70,7 @@ const Doctors = () => {
                 results
               </p>
             )}
-            {!doctorsQuery.isFetching && doctors.length > 0 && (
+            {!doctorsQuery.isFetching && doctors?.length > 0 && (
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 {doctors.map((doctor) => (
                   <DoctorCard key={doctor._id} doctor={doctor} />
@@ -76,7 +78,7 @@ const Doctors = () => {
               </div>
             )}
             {doctorsQuery.isFetching && <DoctorsSkeleton />}
-            {!doctorsQuery.isFetching && doctors.length === 0 && (
+            {!doctorsQuery.isFetching && doctors?.length === 0 && (
               <div className="rounded-lg bg-white px-5 py-14 text-center">
                 <p className="text-base font-medium text-gray-400">
                   No doctors found
