@@ -1,16 +1,13 @@
-/* Apply styles to paragraphs */
 .ProseMirror p,
 .blog-content p {
   @apply mb-4 text-[15px] text-gray-600 sm:text-base;
 }
 
-/* Apply styles to headings */
 .ProseMirror :is(h1, h2, h3, h4, h5, h6),
 .blog-content :is(h1, h2, h3, h4, h5, h6) {
   @apply mb-1.5 font-semibold text-gray-800;
 }
 
-/* Customize styles for specific heading levels */
 .ProseMirror h1,
 .blog-content h1 {
   @apply text-2xl md:text-3xl lg:text-4xl;
@@ -26,7 +23,6 @@
   @apply text-xl md:text-[22px] lg:text-2xl;
 }
 
-/* Apply styles to lists */
 .ProseMirror ul,
 .blog-content ul {
   @apply list-disc space-y-2.5 pl-5;
@@ -37,20 +33,54 @@
   @apply list-decimal space-y-2.5 pl-5;
 }
 
-/* Apply styles to list items */
 .ProseMirror li,
 .blog-content li {
   @apply text-[15px] text-gray-600 sm:text-base;
 }
 
-/* Apply styles to strong elements (bold text) */
 .ProseMirror strong,
 .blog-content strong {
   @apply font-semibold text-gray-700;
 }
 
-/* Apply styles to links */
 .ProseMirror a,
 .blog-content a {
+  @apply text-[15px] text-blue hover:underline sm:text-base;
+}
+
+/* Privacy Policy & Terms of Use Contents Design */
+.privacy-policy {
+  @apply flex flex-col gap-y-8 rounded-sm bg-white p-5 shadow-sm sm:p-10 lg:p-12;
+}
+
+.privacy-policy h3 {
+  @apply mb-3 text-xl font-semibold text-gray-800 sm:text-2xl;
+}
+
+.privacy-policy p {
+  @apply text-[15px] text-gray-600 sm:text-base;
+}
+
+.privacy-policy p:not(:last-child) {
+  @apply mb-4;
+}
+
+.privacy-policy ul {
+  @apply list-disc space-y-2.5 pl-5;
+}
+
+.privacy-policy ol {
+  @apply list-decimal space-y-2.5 pl-5;
+}
+
+.privacy-policy li {
+  @apply text-[15px] text-gray-600 sm:text-base;
+}
+
+.privacy-policy li span {
+  @apply font-semibold text-gray-700;
+}
+
+.privacy-policy a {
   @apply text-[15px] text-blue hover:underline sm:text-base;
 }
