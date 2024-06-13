@@ -16,7 +16,7 @@ const HomeBlogs = () => {
   const blogs = blogsQuery.data?.data?.blogs || [];
 
   return (
-    <section className="bg-white py-12 md:py-16 lg:py-20">
+    <section className="py-12 md:py-16 lg:py-20">
       <div className="container">
         <div className="mb-10">
           <h2 className="text-center text-2xl font-semibold text-gray-800 md:text-3xl lg:text-4xl">
@@ -41,7 +41,7 @@ const HomeBlogs = () => {
           <>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {blogs.map((blog) => (
-                <BlogCard key={blog._id} blog={blog} isHome />
+                <BlogCard key={blog._id} blog={blog} />
               ))}
             </div>
             <div className="mt-8 flex justify-center md:mt-10">

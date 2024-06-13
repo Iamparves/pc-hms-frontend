@@ -1,3 +1,4 @@
+import WhatWeOffer from "@/components/About/WhatWeOffer";
 import AboutUs from "@/components/Home/AboutUs";
 import ScrollToTop from "@/components/shared/ScrollToTop";
 
@@ -13,7 +14,7 @@ const About = () => {
         </div>
       </div>
       <AboutUs />
-      <div className="border-b border-gray-200/50"></div>
+      <WhatWeOffer />
     </main>
   );
 };

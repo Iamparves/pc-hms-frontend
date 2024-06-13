@@ -35,7 +35,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import PVPolicy from "./pages/PVPolicy";
 import Signup from "./pages/Signup";
+import TermsOfUse from "./pages/TermsOfUse";
 import VerifyAccount from "./pages/VerifyAccount";
 
 const App = () => {
@@ -57,6 +59,8 @@ const App = () => {
             <Route path="/blogs/:blogId" element={<BlogDetails />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/privacy-policy" element={<PVPolicy />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
           </Route>
 
           {/* PATIENT DASHBOARD ROUTES */}
