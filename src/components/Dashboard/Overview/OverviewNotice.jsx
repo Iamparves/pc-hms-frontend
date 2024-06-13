@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const OverviewNotice = ({ role = null, isDashboard = true }) => {
   const noticeQuery = useQuery({
     queryKey: ["notice", role],
-    queryFn: () => getAllNotice(`?limit=4&sort=-createdAt`),
+    queryFn: () => getAllNotice(`?limit=6&sort=-createdAt`),
     enabled: !!role || !isDashboard,
   });
 

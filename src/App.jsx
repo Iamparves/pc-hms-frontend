@@ -82,16 +82,6 @@ const App = () => {
             <Route path="overview" element={<PatientOverview />} />
             <Route path="appointments" element={<PatientAppointments />} />
             <Route path="profile" element={<PatientProfile />} />
-            <Route path="notice" element={<Notice />}>
-              <Route
-                path=":noticeId"
-                element={
-                  <FormModal title={"Notice"}>
-                    <NoticeDetails />
-                  </FormModal>
-                }
-              ></Route>
-            </Route>
           </Route>
 
           {/* ADMIN DASHBOARD ROUTES */}

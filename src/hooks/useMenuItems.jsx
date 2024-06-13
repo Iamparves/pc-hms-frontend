@@ -74,11 +74,6 @@ const menuItems = {
       path: "appointments",
       icon: <RiCalendarScheduleLine />,
     },
-    {
-      title: "Notice",
-      path: "notice",
-      icon: <HiOutlineBellAlert />,
-    },
   ],
 };
 
