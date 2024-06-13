@@ -1,7 +1,7 @@
 import SignupFormField from "@/components/Auth/SignupFormField";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { createAdmin } from "@/db/admin";
+import { createHospital } from "@/db/hospital";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -23,9 +23,12 @@ const formSchema = z.object({
   confirmPassword: z.string().min(8, {
     message: "Password must contain at least 8 characters",
   }),
+  district: z.string({
+    required_error: "District is required",
+  }),
 });
 
-const AddAdmin = () => {
+const AddHospital = () => {
   const navigate = useNavigate();
 
   const form = useForm({
@@ -41,25 +44,25 @@ const AddAdmin = () => {
   const queryClient = useQueryClient();
 
   const addMutation = useMutation({
-    mutationFn: createAdmin,
+    mutationFn: createHospital,
     onSuccess: (data) => {
       if (data.status === "success") {
-        toast.success("Admin added successful");
+        toast.success("Hospital added successful");
 
-        queryClient.invalidateQueries(["admins"]);
+        queryClient.invalidateQueries(["hospitals"]);
 
         return navigate("..");
       } else {
-        toast.error(data.message || "Failed to add admin");
+        toast.error(data.message || "Failed to add hospital");
       }
     },
     onError: (error) => {
       console.error(error);
-      toast.error(data.message || "Failed to add admin");
+      toast.error(data.message || "Failed to add hospital");
     },
   });
 
-  const handleAddAdmin = (values) => {
+  const handleAddHospital = (values) => {
     if (values.password !== values.confirmPassword) {
       return toast.error("Password doesn't match");
     }
@@ -72,12 +75,12 @@ const AddAdmin = () => {
       <Form {...form}>
         <form
           className="relative space-y-3"
-          onSubmit={form.handleSubmit(handleAddAdmin)}
+          onSubmit={form.handleSubmit(handleAddHospital)}
         >
           <SignupFormField
-            label="Full name"
+            label="Name"
             name="name"
-            placeholder="Enter admin name"
+            placeholder="Enter hospital name"
             formControl={form.control}
             disabled={addMutation.isPending}
           />
@@ -110,7 +113,7 @@ const AddAdmin = () => {
             type="submit"
             disabled={addMutation.isPending}
           >
-            Add Admin
+            Add Hospital
           </Button>
         </form>
       </Form>
@@ -118,4 +121,4 @@ const AddAdmin = () => {
   );
 };
 
-export default AddAdmin;
+export default AddHospital;

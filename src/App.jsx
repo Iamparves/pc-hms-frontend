@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import AddAdmin from "./components/Dashboard/Admin/AddAdmin";
+import AddHospital from "./components/Dashboard/Admin/AddHospital";
 import AdminHospitals from "./components/Dashboard/Admin/AdminHospitals";
 import AdminProfile from "./components/Dashboard/Admin/AdminProfile";
 import Admins from "./components/Dashboard/Admin/Admins";
@@ -91,10 +92,20 @@ const App = () => {
           >
             <Route path="" element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<AdminOverview />} />
-            <Route path="hospitals" element={<AdminHospitals />} />
+
             <Route path="blogs" element={<DashBlogs />} />
             <Route path="blogs/new" element={<NewBlog />} />
             <Route path="blogs/edit/:blogId" element={<UpdateBlog />} />
+            <Route path="hospitals" element={<AdminHospitals />}>
+              <Route
+                path="add"
+                element={
+                  <FormModal title={"Add new hospital"}>
+                    <AddHospital />
+                  </FormModal>
+                }
+              ></Route>
+            </Route>
             <Route path="admins" element={<Admins />}>
               <Route
                 path="add"

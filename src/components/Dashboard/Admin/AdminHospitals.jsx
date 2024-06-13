@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { getAdminHospitals } from "@/db/hospital";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import DashDataTable from "../shared/DashDataTable";
 import DashboardHeader from "../shared/DashboardHeader";
 
@@ -53,6 +53,7 @@ const AdminHospitals = () => {
     <>
       <DashboardHeader title="Hospitals" desc="Observe all hospitals" />
       <div className="h-[calc(100dvh-80px)] w-full overflow-y-auto">
+        <Outlet />
         <div className="p-3 sm:p-5 xl:p-10">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-2xl font-bold">Hospitals List</h2>
