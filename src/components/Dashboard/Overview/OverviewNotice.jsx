@@ -8,7 +8,7 @@ const OverviewNotice = ({ role = null, isDashboard = true }) => {
   const noticeQuery = useQuery({
     queryKey: ["notice", role],
     queryFn: () => getAllNotice(`?limit=4&sort=-createdAt`),
-    enabled: !!role,
+    enabled: !!role || !isDashboard,
   });
 
   const notices = noticeQuery.data?.data?.notices || [];
@@ -27,7 +27,11 @@ const OverviewNotice = ({ role = null, isDashboard = true }) => {
         <Marquee pauseOnHover={true}>
           {notices.map((notice, index) => (
             <Link
-              to={`/dashboard/${role}/notice/${notice._id}`}
+              to={
+                isDashboard
+                  ? `/dashboard/${role}/notice/${notice._id}`
+                  : `/doctors/notice/${notice._id}`
+              }
               key={notice._id}
               className="text-sm text-gray-600 hover:text-blue"
             >

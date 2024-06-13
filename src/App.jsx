@@ -53,7 +53,16 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/verify-otp" element={<VerifyAccount />} />
-            <Route path="/doctors" element={<Doctors />} />
+            <Route path="/doctors" element={<Doctors />}>
+              <Route
+                path="notice/:noticeId"
+                element={
+                  <FormModal title={"Notice"}>
+                    <NoticeDetails />
+                  </FormModal>
+                }
+              />
+            </Route>
             <Route path="/doctors/:doctorId" element={<DoctorProfile />} />
             <Route path="/about" element={<About />} />
             <Route path="/blogs" element={<Blog />} />

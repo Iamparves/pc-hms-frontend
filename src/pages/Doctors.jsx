@@ -7,7 +7,7 @@ import { getAllSpecialities, getDoctorsPaginated } from "@/db/doctor";
 import { useStore } from "@/store";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
 
 const Doctors = () => {
   const user = useStore((state) => state.user);
@@ -48,6 +48,7 @@ const Doctors = () => {
 
   return (
     <section className="mx-auto max-w-[420px] sm:max-w-none">
+      <Outlet />
       <div className="container px-5 py-10 md:py-16">
         <div className="mb-5">
           <OverviewNotice role={user?.role} isDashboard={false} />
