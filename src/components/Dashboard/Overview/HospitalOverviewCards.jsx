@@ -22,24 +22,28 @@ const HospitalOverviewCards = ({ overview }) => {
         desc="Total Doctors"
         icon={<FaUserDoctor className="text-[#F59115]" />}
         className="bg-[#FEF2E2]"
+        path="/dashboard/hospital/doctors"
       />
       <OverviewCard
         title={appointments}
         desc="Total Appointments"
         icon={<LuCalendarDays className="text-[#41C385]" />}
         className="bg-[#E6F5EF]"
+        path="/dashboard/hospital/appointments"
       />
       <OverviewCard
         title={upcomingAppointments}
         desc="Upcoming Appointments"
         icon={<LuCalendarClock className="text-[#1F77FA]" />}
         className="bg-[#E9F1FF]"
+        path="/dashboard/hospital/appointments"
       />
       <OverviewCard
         title={blogs}
         desc="Total Blogs"
         icon={<RiArticleLine className="text-[#b92eff]" />}
         className="bg-[#f7e8ff]"
+        path="/dashboard/hospital/blogs"
       />
       <OverviewCard
         title={comments}
@@ -52,6 +56,7 @@ const HospitalOverviewCards = ({ overview }) => {
         desc="Total Notices"
         icon={<HiOutlineBellAlert className="text-[#ff2e6d]" />}
         className="bg-[#ffe8ef]"
+        path="/dashboard/hospital/notice"
       />
     </div>
   );

@@ -17,6 +17,7 @@ const AdminOverviewCards = ({ overview }) => {
         desc="Total Hospitals"
         icon={<FaRegHospital className="text-[#1F77FA]" />}
         className="bg-[#E9F1FF]"
+        path="/dashboard/admin/hospitals"
       />
       <OverviewCard
         title={doctors}
@@ -42,6 +43,7 @@ const AdminOverviewCards = ({ overview }) => {
         desc="Total Blogs"
         icon={<RiArticleLine className="text-[#79ea4f]" />}
         className="bg-[#eeffe8]"
+        path="/dashboard/admin/blogs"
       />
 
       <OverviewCard
@@ -49,6 +51,7 @@ const AdminOverviewCards = ({ overview }) => {
         desc="Total Notices"
         icon={<HiOutlineBellAlert className="text-[#ff2e6d]" />}
         className="bg-[#ffe8ef]"
+        path="/dashboard/admin/notice"
       />
     </div>
   );
