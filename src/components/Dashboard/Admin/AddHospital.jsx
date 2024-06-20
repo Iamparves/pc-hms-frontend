@@ -23,9 +23,6 @@ const formSchema = z.object({
   confirmPassword: z.string().min(8, {
     message: "Password must contain at least 8 characters",
   }),
-  district: z.string({
-    required_error: "District is required",
-  }),
 });
 
 const AddHospital = () => {
