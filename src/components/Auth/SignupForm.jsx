@@ -38,13 +38,18 @@ const SignupForm = () => {
       if (data.status === "success") {
         toast("Signup successful", {
           type: "success",
-          description:
-            "Verification OTP sent to your mobile number. Please check and verify your account",
+          description: data.mobileNo
+            ? "Verification OTP sent to your mobile number. Please check and verify your account"
+            : "Please login to continue",
         });
 
         form.reset();
 
-        return navigate(`/verify-otp?phone=${data.mobileNo}`);
+        if (data.mobileNo) {
+          return navigate(`/verify-otp?phone=${data.mobileNo}`);
+        } else {
+          return navigate("/login");
+        }
       } else {
         toast("Signup failed", { type: "error", description: data.message });
       }

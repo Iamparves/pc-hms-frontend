@@ -42,7 +42,6 @@ const PatientAppointments = () => {
     },
     {
       accessorFn: (row) => {
-        console.log(row.appointmentDate, new Date());
         return new Date(row.appointmentDate) > new Date()
           ? "Upcoming"
           : "Completed";

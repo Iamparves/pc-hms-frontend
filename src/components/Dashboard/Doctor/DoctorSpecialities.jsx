@@ -22,9 +22,6 @@ const DoctorSpecialities = ({
   const specialitiesQuery = useQuery({
     queryKey: ["specialities"],
     queryFn: getAllSpecialities,
-    onSuccess: (data) => {
-      console.log(data);
-    },
   });
 
   const specialities = useMemo(() => {

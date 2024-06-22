@@ -113,10 +113,7 @@ const DoctorFilters = ({ selectable }) => {
         <div className="">
           <Button
             className="w-full bg-blue py-[22px] hover:bg-blue/90"
-            onClick={() => {
-              handleFilters();
-              setCurrentPage(1);
-            }}
+            onClick={handleFilters}
           >
             Search
           </Button>
