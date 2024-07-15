@@ -57,12 +57,6 @@ const NewBlogFormFields = ({
         </div>
         <div>
           <h3 className="mb-2 text-sm font-medium">Content</h3>
-          {/* <ReactQuill
-            theme="snow"
-            value={content}
-            onChange={setContent}
-            className="[&_.ql-editor]:h-[300px] md:[&_.ql-editor]:h-[400px] xl:[&_.ql-editor]:h-[460px]"
-          /> */}
           <TiptapEditor content={content} setContent={setContent} />
         </div>
       </div>

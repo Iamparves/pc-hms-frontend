@@ -9,12 +9,13 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import FilterSpecialityField from "./FilterSpecialityField";
 import DoctorDistrictFilter from "./Filters/DoctorDistrictFilter";
 import DoctorHospitalFilter from "./Filters/DoctorHospitalFilter";
 
-const DoctorFilters = ({ selectable }) => {
+const DoctorFilters = ({ selectable, isHome = false }) => {
+  const navigate = useNavigate();
   const [district, setDistrict] = useState("");
   const [hospital, setHospital] = useState("");
   const [date, setDate] = useState("");
@@ -32,16 +33,29 @@ const DoctorFilters = ({ selectable }) => {
     });
   };
 
-  const handleFilters = () => {
-    setSearchParams((prev) => {
-      prev.set("district", district);
-      prev.set("hospital", hospital);
-      prev.set("specialities", specialities.join(","));
-      prev.set("date", date);
-      prev.set("page", 1);
+  const buildQueryString = (params) => {
+    return new URLSearchParams(params).toString();
+  };
 
-      return prev;
-    });
+  const handleFilters = () => {
+    const params = {
+      district,
+      hospital,
+      specialities: specialities.join(","),
+      date,
+      page: 1,
+    };
+
+    if (isHome) {
+      navigate(`/doctors?${buildQueryString(params)}`);
+    } else {
+      setSearchParams(
+        new URLSearchParams({
+          ..._searchParams,
+          ...params,
+        }),
+      );
+    }
   };
 
   const clearFilters = () => {

@@ -9,7 +9,7 @@ import { toast } from "sonner";
 const ForgotPassword = () => {
   const { isLoading, user } = useAuth();
   const [mobileNo, setMobileNo] = useState("");
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
 
   if (isLoading) {
     return <FullpageLoader className="size-16" />;
