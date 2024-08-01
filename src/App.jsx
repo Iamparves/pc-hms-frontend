@@ -10,6 +10,7 @@ import NewBlog from "./components/Dashboard/Blog/NewBlog";
 import UpdateBlog from "./components/Dashboard/Blog/UpdateBlog";
 import AddDoctor from "./components/Dashboard/Doctor/AddDoctor";
 import UpdateDoctor from "./components/Dashboard/Doctor/UpdateDoctor";
+import HospitalAddAppointment from "./components/Dashboard/Hospital/HospitalAddAppointment";
 import HospitalAppointments from "./components/Dashboard/Hospital/HospitalAppointments";
 import HospitalDoctors from "./components/Dashboard/Hospital/HospitalDoctors";
 import HospitalProfile from "./components/Dashboard/Hospital/HospitalProfile";
@@ -170,6 +171,10 @@ const App = () => {
               ></Route>
             </Route>
             <Route path="appointments" element={<HospitalAppointments />} />
+            <Route
+              path="add-appointment"
+              element={<HospitalAddAppointment />}
+            />
             <Route path="blogs" element={<DashBlogs />} />
             <Route path="blogs/new" element={<NewBlog />} />
             <Route path="blogs/edit/:blogId" element={<UpdateBlog />} />

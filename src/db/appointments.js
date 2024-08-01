@@ -68,3 +68,23 @@ export const getAllAppointments = async (queryString = "") => {
     return { error: error.message };
   }
 };
+
+export const hospitalBookAppointment = async (appointmentdata) => {
+  try {
+    const response = await fetchWithAuth(`${BASE_URL}/appointments/hospital`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(appointmentdata),
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+
+    return { error: error.message };
+  }
+};

@@ -1,5 +1,5 @@
 import { FaRegHospital } from "react-icons/fa";
-import { FaUserDoctor } from "react-icons/fa6";
+import { FaCalendarPlus, FaUserDoctor } from "react-icons/fa6";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { MdDashboard } from "react-icons/md";
 import {
@@ -51,6 +51,11 @@ const menuItems = {
       title: "Appointments",
       path: "appointments",
       icon: <RiCalendarScheduleLine />,
+    },
+    {
+      title: "Add Appointment",
+      path: "add-appointment",
+      icon: <FaCalendarPlus />,
     },
     {
       title: "Blogs",

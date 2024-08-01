@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { deleteDoctor, getAllDoctors } from "@/db/doctor";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { BsCalendar2Plus } from "react-icons/bs";
 import { LuEye } from "react-icons/lu";
 import { MdDeleteOutline } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
@@ -111,6 +112,27 @@ const HospitalDoctorsTable = () => {
           >
             <Link target="_blank" to={`/doctors/${props.getValue()}`}>
               <LuEye className="text-lg" />
+            </Link>
+          </Button>
+        </div>
+      ),
+      enableHiding: false,
+    },
+    {
+      accessorFn: (row) => row._id,
+      header: "Appointment",
+      cell: (props) => (
+        <div className="flex max-w-[200px] items-center justify-center gap-x-2">
+          <Button
+            className="text-sky-600"
+            variant="outline"
+            size="icon"
+            asChild
+          >
+            <Link
+              to={`/dashboard/hospital/add-appointment?doctor=${props.getValue()}`}
+            >
+              <BsCalendar2Plus className="text-lg" />
             </Link>
           </Button>
         </div>
